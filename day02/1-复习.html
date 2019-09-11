@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    /*
+        下载安装完git之后
+        git config --global user.name 个人用户名
+        git config --global user.email 个人邮箱
+        // 初始化个人信息 一个电脑初始化一次即可
+
+        git config --list ：用来查看个人信息的  想退出，按q 键退出查看
+
+        git init ：把本地文件夹初始化成git仓库    尽量避免 仓库里再建一个仓库 
+
+        git 三个区：工作区 缓存区  历史区
+        平时写代码都是在工作区
+
+        git status ：查看本地仓库的状态
+                    红色代表工作区有修改，没有提交
+                    绿色 代表工作区的修改 提交到了缓存区 但是缓存区的内容没有被提交到历史区
+
+        git add .  把所有工作区的修改都提交到缓存区
+        git commit -m '备注' ：把缓存区的所有内容提交到历史区
+
+        //把本地历史区的代码提交到 远程仓库  gitHub gitLab 码云
+
+        //首先要有远程仓库地址
+        把本地仓库和远程仓库建立起链接   git remote add origin 远程仓库地址
+        git push 把本地代码提交到远程   首次push时需按照提示进行提交
+
+        提交代码的流程  git add . ---> git commit -m '备注' ---> git push
+
+        //在工作中，合作使用一个仓库的时候，因为别人会提交新版本，所以当自己想要提交的时候，先把远程的最新版本拉到本地 pull 然后再往上提交push
+        //这样就保证你修改的版本是最新版本的 git pull --->  git push
+    */
+</script>
+</body>
+</html>
