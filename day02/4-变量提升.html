@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    /*
+        变量提升 
+        在代码执行之前，JS会把代码中的带var 和带function的提前声明
+            带var的是只声明不定义
+            带function是声明又定义  但是函数里 return后面的东西不提升
+        变量提升只提升等号左边的部分
+        变量提升 对于条件来说 不管条件成不成立，都会进行变量提升
+                在条件句或者循环句中， function 声明  高版本的浏览器是  只声明不定义的 和var是一样的
+    */
+//    var a = 12;
+//    console.log(a);
+
+    console.log(a,b); // undefined undefined  变量提升造成的
+    var a = 12;　// 只声明不定义。默认值是
+    var b = 13;
+
+    console.log(f()); //该f 是变量提升阶段确定下来的函数  222
+    var f = function () {
+        console.log(111);
+    }
+    console.log(f()) ; //该f是重新赋值的函数  111
+    function f () {
+        console.log(222);
+    }
+    console.log(f());//由于变量提升阶段已经定义了f 所以上面的function f 就不执行了，  111
+
+    //变量提升对于条件来说，不管条件成立与否，都进行变量提升 
+    console.log(a);//undefined
+    console.log(g); //undefined  在条件句或者循环句中的函数声明，高版本浏览器 也会 只声明不定义
+    if (1 > 2) {
+        var d = 100;
+        function g () {
+            console.log(333);  
+        }
+    }
+    console.log(d); //undefined 因为条件不成立，没有赋值，所以还是undefined
+</script>
+</body>
+</html>

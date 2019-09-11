@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function fn () {
+//上下都能调用
+//函数体
+        }
+        var f = function qqq(){  //这里的qqq 不能用来函数调用
+// 函数体
+//这种声明方式只能在这个之后调用
+        }
+        console.dir(f);
+        //函数的存储过程：开辟一个16进制的堆内存 --->把函数体当作字符串 存储起来
+        //函数  形参  是定义的时候编写的
+        //函数  实参  是执行的时候传递的
+        //arguments  实参的集合  类数组 （两类类数组：一个是arguments  一个是元素集合,通过document.querySelelctorAll）
+        //return  决定函数的返回值  打断函数执行
+        //this  函数的执行主体；谁执行这个函数
+        //箭头函数 没有arguments 和 this
+        
+        function f2 (a,b,...c) {
+            console.log(a,b,c)
+
+        }
+        f2(1,2,3,4,5,6,7);
+        //剩余运算符   ...c 这里就是一个剩余运算符，如果前面没有 a,b这两个参数，..c就是一个扩展运算符，其实都是它自己，是es6新增的内容
+        //剩余运算符 就是为 箭头函数准备的 因为箭头函数里不能使用arguments
+    </script>
+</body>
+</html>
