@@ -34,12 +34,12 @@
         <li></li>
     </ul>
     <script>
-        var oLis = document.getElementsByTagName('li');
+        var oLis = document.getElementsByTagName('li'); //获取所有的li
         for (var i = 0; i < oLis.length; i++) {
-            var str = i%2 ? 'salmon' : 'seagreen';
-            oLis[i].myIndex = i;
-            oLis[i].style.background = str;
-            oLis[i].mybg = str
+            var str = i%2 ? 'salmon' : 'seagreen'; //给li 的颜色存一下 便于后来使用，也不会写太多相同的代码
+            oLis[i].myIndex = i; //给每个li一个自定义属性，因为用var声明的循环变量，所以下面函数中的i不是全部的而是最终的
+            oLis[i].style.background = str; // 这时，i不同，str的值不同，可以实现隔行变色
+            oLis[i].mybg = str //给li 自定义属性 也是因为var 的使用，便于下面的函数里i的调用
             oLis[i].onmouseenter = function () {
                 this.style.background = 'gold';
             }
