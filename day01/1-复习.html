@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    /*
+       任金辉
+       18233187958 手机、微信
+       1227760869 微信号
+    */
+    /*
+        1、
+           基本数据类型 (值类型) 
+            string number boolean null undefined 
+           引用数据类型
+            {} [] function 正则  Date ...  
+
+            基本数据类型操作值，引用数据类型操作地址
+        
+        2、typeof    Object.prototype.toString.call()  constructor  instanceof 
+            typeof --一般用于检测解基本数据类型
+            Object.prototype.toString.call() --
+        
+        3、 var let const 
+            var 可以重复声明
+            let const　都是不可以重复声明
+        
+        4、parseFloat  从左向右查看，只要碰到非数字即停，若首个字符就是非数字，结果就是NaN
+            NaN == NaN //  自己跟自己都不相等
+            isNaN   先用Number把xx强制转换为数字类型，然后再判断 
+        
+        5、for循环中的 
+            continue 结束本次循环，接着进行下一次循环
+            break  结束整个循环，有点类似于函数中的return;
+
+        6、向数组末尾添加数据
+            ary.push(100);
+                ary.splice(n,m,x,y,z...) //从索引n，删除m个，用x y z ... 替换删除的m项;
+                ary.splice(ary.length-1,0,100) //这么写是在最后一项的前面添加了100这个数
+            ary.splice(ary.length,0,100)  //所以要写length
+            ary[ary.length] = 100;
+
+        7、排序 sort sort返回值 是  改变后  的   原有   数组 ：因为它按unicode编码排序，所以不传参数时只能排10以内的数字
+           reverse 反转  返回值 是  改变后  的   原有   数组 
+            sort 排序
+            ary.sort((a,b) => a-b) //升序
+            ary.sort((a,b) => b-a) //降序
+
+        8、返回一个新的数组
+            第n项 索引 ： n-1
+           第m项  索引：m-1
+           ary.slice(n-1,m)
+           ary.slice() --> 复制一个新数组
+           ary.slice(0) -->复制一个新数组  ary.slice(n)//从索引n拷贝到最后一项，包含最后一项
+        
+        9、replace 的用法
+            let time = '2017-10-20';
+            time.replace(/-/g,'/') //正则
+            time.replace('-',/).replace('-',/)
+        
+        10、
+            Math.round(Math.random()*91+2)
+
+            //数组中的最大值  //1 先排序，再取值  2 假设法  3 扩展运算符
+            Math.max(...ary)
+        
+        11、不是字符串的和undefined相加都是NaN 
+            字符串和任何别的相加都是字符串
+            - * / % 先用Number把符号两边的内容转成数字，然后再进行运算
+            ! 
+        
+        12、三元运算符  条件?条件成立执行的代码:条件不成立执行的代码
+            三元运算符是有返回值的，返回值就是执行代码后的结果
+
+            0 NaN '' null undefined ：这五个转成布尔值是 false 其他全是true
+        
+        13、获取dom元素
+            document.getElementById('id名')
+            document.getElementsByClassName('box')[0]
+            document.querySelector('#box')
+            document.querySelectorAll('.box')[0]
+        
+        14、
+            document.body  获取body元素
+            var oDiv = document.createElement('div');
+            oDiv.className = 'box';
+            oDiv.innerHTML = '好好学习 天天向上';
+            document.body.appendChild(oDiv);
+        
+        15、 
+            b['n']  等价于 b.n
+            b[n]  这里的n是个变量，需要给变量赋值
+        
+        16、数据类型的比较
+            []  == []  //引用数据类型和引用数据类型的比较，永远是比较地址
+            ![]  == []  //  false == []  都转换成数字， -->  0 == 0  
+            '' == []  //true 字符串和引用数据类型比较的时候，我们把  引用数据类型   使用toString转成   字符串 ，然后再进行比较
+            1 == [1]  //true   数字和引用数据类型进行比较，我们把   引用数据类型  先用toString转成字符串  再用Number转成   数字   ，然后再进行比较
+        
+        17、定时器
+            var timer = setTimeout //只执行一次
+            setInterval //不停的执行
+            clearTimeout()
+            clearInterval()
+            怎么结合setTimeout和递归实现 setInterval
+        
+        19、复制数组
+            ary.slice()
+            ary.slice(0)
+            ary.concat([])
+            for 
+            forEach
+            ary.map(...ary)  ary.map(a => a)
+
+            //虽然forEach map 不改变原有数组，但是如果数组中的数据是引用数据类型，那么数组中的每一项都指向一个地址，当改变每一项时，就会改变地址中的东西，也就改变得了原有数组
+        
+        20、 ||  &&
+            a || b  前边成立给前边  前边不成立给后边
+            a && b  前边成立给后边  前边不成立给前边
+        
+    */
+
+    function getType (a) {
+        var str = Object.prototype.toString.call(a); //获取数据类型字符串
+        //再从字符串中，截取我们要的字符串
+        var str2 = str.slice(8,str.length - 1);//首字母都是大写，需要变成小写
+        return str2.toLowerCase();
+    }
+    getType ('');  //如果不传实参，形参默认是undefined,所以输出的就是undefined
+
+    function myIsNaN (n) {
+        var m = Number(n); //先用number强制转换为数字类型，
+        if (m + '' === 'NaN') {  //将m 转为字符串类型，与字符串包裹的NaN 全等比较
+            return true
+        }
+        return false;//return 有打断函数执行的特点，所以我们这里没写else
+    }
+
+    // function f() {
+    //     console.log(666);
+    //     setTimeout(() =>f(),1000);
+    // }
+    // f() //用setTimeout和递归实现setInterval 
+
+    var a = [1,2,3,4,5,6]
+    let c = a.map((item,index) => {return index = 3})
+    console.log(c); //  [3,3,3,3,3,3]  
+
+    /*
+        1、不定项求和
+
+    */
+    function sum () {
+        //arguments   实参集合
+        var total = 0;
+        for (var i = 0; i < arguments.length; i++) {
+            var temp = arguments[i];
+            // if (!isNaN(temp)) {
+            //     //转换为数字，不是NaN的项，才能够被累加
+            if (typeof temp === 'number' && !isNaN(temp)) {
+                //必须是个数字，而且还不能是NaN
+                total += temp;
+            }
+        }
+        return total
+    }
+    let total = sum (10,20,'30','珠峰','40');
+    console.log(total);
+
+    /*
+      获取url上的参数
+    */
+    function queryURLParameter (url) {
+        //先用?把字符串切成两部分，前一部分不要，后一部分要，索引是1
+        var atr = url.split('?')[1];
+        var ary = str.split('#');
+        var hash = ary[1];
+        var str2 = ary[0];
+        var ary2 = str2.split('&');
+        var obj = {};
+        ary2.forEach(item =>{
+            var a = item.split('=');
+            obj[a[0]] = a[1];
+        })
+        obj.HASH = hash;
+        return obj;
+    }
+
+    /*
+      验证码：考点  随机  元素的操作
+      //先有一个大的字符串，里面包含大小写字母 和数字   62个字符；
+      //随机数的范围是 0-61  把获取到的数字当作大字符串的索引用
+      //之后再字符串拼接 
+      //把拼接好的字符串显示到页面上
+    */
+    function getStr () {
+        var str = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789';
+        //Math.round(Math.random()*61)
+        var s = '';
+        while (s.length <4) {
+            // debugger;
+            var n = Math.round(Math.random()*61);
+            if (s.indexof(str[n] == -1)) {
+                s += str[n];
+            }
+        }
+        // for (var i = 0; i < 4) {
+        //     var n = Math.round(Math.random()*61);
+        //     if (s.indexof(str[n] == -1)) {
+        //         s += str[n];
+        //         i++
+        //     }
+        // }
+        return s
+    }
+    var oDiv = document.getElementById('box');
+    oDiv.onclick = function () {
+        oDiv.innerText = getStr();
+    }
+    console.log(getStr());
+
+    /*
+        隔行变色
+    */
+    
+
+
+
+</script>
+</body>
+</html>

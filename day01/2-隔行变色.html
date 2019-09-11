@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            list-style:none;
+        }
+        ul>li{
+            height:50px;
+            line-height:50px;
+        }
+        /* ul>li:nth-child(2n){
+            /* background:salmon; */
+        /* } */
+        /* ul>li:nth-child(2n-1){
+            /* background:seagreen; */
+        /* }  */
+    </style>
+</head>
+<body>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <script>
+        var oLis = document.getElementsByTagName('li');
+        for (var i = 0; i < oLis.length; i++) {
+            var str = i%2 ? 'salmon' : 'seagreen';
+            oLis[i].myIndex = i;
+            oLis[i].style.background = str;
+            oLis[i].mybg = str
+            oLis[i].onmouseenter = function () {
+                this.style.background = 'gold';
+            }
+            oLis[i].onmouseleave = function () {
+                this.style.background = this.mybg;
+            }
+            oLis[i].onclick = function () {
+                alert(`我是第${this.myIndex+1}个元素`)
+            }
+        }
+    </script>
+</body>
+</html>
