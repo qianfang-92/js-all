@@ -29,19 +29,26 @@
    console.log(obj.f());
    console.log(obj.a) // 还是100 因为obj里的a 在初次形成的时候，就给a赋值了100，后来没有变
 
-   var inhouse = function () {
+   var login = function () {
        var name = '珠峰';
        var age = 18;
        var f = function () {
            console.log(name)
        }
-       var n = function () {
+       var f2 = function () {
            console.log(age)
        }
        return {
-           
+           init:function () {
+               f();
+               f2();
+           },
+           f3() {
+
+           }
        }
    }
+   login().init();
 
 
 </script> 

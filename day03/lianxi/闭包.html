@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    /*
+        闭包：closer  就是一个变量的保护机制：
+            闭包首先是一个不销毁的作用域，用来保护变量，用来存储值；
+            利用闭包，我们可以实现模块化开发；
+        闭包也不能多用，用多了容易引起内存泄漏
+    */
+   var obj = (function () {
+       var a = 100;
+       var f = function () {
+           a++;
+           console.log(a);
+       }
+       return {
+           a,
+           f
+       }
+   })()
+   console.log(obj);
+</script>
+</body>
+</html>
