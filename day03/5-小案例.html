@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <button>100</button>
+    <button>200</button>
+    <button>300</button>
+    <button>400</button>
+    <button>500</button>
+</body>
+<script>
+    var btns = document.querySelectorAll('button');
+    for (let i = 0; i < btns.length; i++) {
+        btns[i].onclick = function () {
+            alert(`我是第${i+1}个`)
+        }
+    }
+    //为什么这个循环里let 好使，var 不好使 因为let 能识别块级作用域，
+
+    //因为就是为了拿到自己的i,而不是全局的i，所以我们可以用闭包存一下自己的i
+
+    for ( var i = 0; i < btns.length; i++) {
+        btns[i].onclick = (function (){
+            return function (){
+                alert(`我是第${i+1}个`)
+            }
+        })(i)
+    }
+
+    //我们还可以用forEach
+    [...btns].forEach ((item,index) => {
+        item.onclick = function () {
+            alert(`我是第${index+1}个`)
+        }
+    })
+    //首先用[...btns]把btns这个类数组转变为数组，forEach这个回调函数也有item的个数的个数，而且不会被销毁，因为被引用 就是有5个执行域
+</script>
+</html>
