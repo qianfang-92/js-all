@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+var n = 10; 
+function fn() {
+    var n = 20;
+
+    function f() {
+        debugger;
+        n++;
+        console.log(n);
+    }
+    f();
+    return f;
+}
+var x = fn();   //return f 这个函数
+x(); //21
+x();// 22 23
+console.log(n); //10
+</script>
+</body>
+</html>

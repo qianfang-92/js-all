@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    /*
+        var const let 的区别
+            var 可以重复声明  let 和 const 不可以
+            var 存在变量提升  let 和 const 不存在
+            var 声明的变量会在 window 下增加一个对应的属性； let 和 const 不会
+            var 不识别块级作用域，let 和 const 可以
+    */
+    console.log(a,b);
+    let a = 12;
+    const b = 13;
+    // let 和 const 不存在变量提升 
+    //想用let 和const 声明的变量 必须 在声明的下方使用  
+    //在上边用 会有  暂时性死区 的报错
+
+    function f () {
+        console.log(a); //undefined
+        var a  = 12;
+        console.log(a); //12 
+    }
+    f();
+
+</script>
+</body>
+</html>
