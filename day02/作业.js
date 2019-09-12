@@ -48,7 +48,7 @@ if (!("a" in window)) {
 }
 alert(a);  //if条件是false，所以里面的a不会被赋值，所以a还是undefined  所以还是会弹出 字符串的 'undefined'
 
-console.log(fn);    //这里 fn虽然之前没有声明，但是在if判断句里的函数也会变量提升，并且既声明又定义 所以 这里 会输出一个 fn函数
+console.log(fn);    //这里 fn虽然之前没有声明，但是在if判断句里的函数也会变量提升，声明但不定义 所以 这里 会输出一个undefined
 if (9 == 8) {
     function fn() {
         alert(2);  //这里 函数没有被调用，条件句又不成立，不弹出任何东西
@@ -87,6 +87,7 @@ function fn() {
 var f = fn(6); // 这时 f是fn函数里的return后面的函数
 f(7); // 这时 就是return后面函数的调用 7 + 6 = 13
 fn(8)(9); //这还是 return后面的函数的调用 但是window里的x已经变成 6了，传入实参9 ， y = 9; x = 6 ;  16
+//高阶函数
 f(10);  //这里就是返回return 后面的函数 y 是10    x 是window里的x，这时是 7 7+1 是8     18
 console.log(x);  //8
 

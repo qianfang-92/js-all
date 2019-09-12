@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <button>1</button>
+    <button>2</button>
+    <button>3</button>
+    <button>4</button>
+    <button>5</button>
+<script>
+    /*  
+        箭头函数中，没有this和arguments; 箭头函数里把this和arguments当作普通变量去对待的
+                    箭头函数中的this 是指向了上级作用域 的this
+
+        this 就是函数的执行主体
+
+        事件绑定中的this 就是当前绑定的元素
+
+        自执行函数 中的 this　是window
+
+        定时器中的this 也是window
+
+        this 的指向是谁，我们可以通过看点的方式 来确定：函数执行点 前 是谁 this就是谁，没 点 就是window
+    */
+    var btns = document.querySelectorAll('button');
+    [...btns].forEach(item => {
+        item.onclick = function (){
+            console.log(this)
+        }
+    });
+
+    (function(){
+        console.log(1,this)
+    })()
+    ~function(){
+        console.log(2,this)
+    }()  //这也是函数自执行
+    ~function(){
+        console.log(3,this)
+    }() //这也是函数自执行
+
+    var obj = {
+        age:100,
+        f(){
+            console.log(this)
+        },
+        f2:function (){
+
+        },
+        f3:() =>{
+            console.log(this)
+        }
+    };
+    //obj.f === fn === ary[3]
+    obj.f()  //这个this 是obj.age
+    var fn = obj.f;
+    fn();  //前面没点  window.age
+    var ary = [1,2,3,fn];
+    ary[3]();  // 前面没点，但是数组的下标这里只能用中括号，数组就是一个特殊的对象 这里中括号就是个.  所以这里的this是ary
+    obj.f3();//  这是箭头函数 this是普通变量，向上级查找this 后来是window
+
+    function fn2 () {
+        return ()=>{
+            console.log(arguments)
+        }
+    }
+    fn2(1,2,3,4,5)()  //这里 arguments被当作普通变量 因为这个箭头函数里没有arguments所以向上级作用域中找
+
+    setTimeout(function () {
+        console.log(this) //window
+    },2000)
+
+    var num = 1;
+    var obj = {
+        num:10,
+        fn:(function(){
+            this.num *= 3;
+            return function () {
+                num += 2;
+                this.num++;
+            }
+        })()
+    }
+    var f = obj.fn;  //  window的num 变成3
+    f();
+    obj.fn();
+    console.log(num,obj.num);
+
+    var name = '珠峰';
+    var age = 9;
+    age = (function (name,age) {
+
+    })()
+
+    var a = {
+        x:1
+    }
+    var b = a;
+    b.y = a = {
+        qqq:123
+    }
+    console.log(a.x,b.x);  // undefined  1  
+</script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    /*
+        闭包（closer）就是一个变量的保护机制；
+            闭包首先是一个不销毁的作用域，用来保护变量，和存储值
+            利用闭包 我们可以实现模块化开发；
+        闭包的缺点：用多了容易引起内存泄漏
+    */
+   var obj = (function () {
+       var a = 100;
+       var f = function () {
+           a++
+           console.log(a)
+       }
+       return {
+           a, //属性名和属性值一致的时候，我们可以只写一个字幕  a:a 这个对象生成的时候给了个a 是100 
+           f:f
+       }
+   })()
+   console.log(obj);
+   console.log(obj.f());
+   console.log(obj.f);
+   console.log(obj.f());
+   console.log(obj.a) // 还是100 因为obj里的a 在初次形成的时候，就给a赋值了100，后来没有变
+
+   var inhouse = function () {
+       var name = '珠峰';
+       var age = 18;
+       var f = function () {
+           console.log(name)
+       }
+       var n = function () {
+           console.log(age)
+       }
+       return {
+           
+       }
+   }
+
+
+</script> 
+</body>
+</html>
