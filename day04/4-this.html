@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+            this：普通函数内部的一个关键字，代表函数的执行主体；箭头函数没有this；箭头函数中的this是普通变量 会向上级查找
+            自执行函数中的this是window 
+            定时器中的this是window
+            事件绑定中的this 是绑定的当前元素
+            其他 看 点  点前面是谁，函数中的this就是谁，没点就是window
+
+            contenteditable :在 网页上的 代码 在body的前标签里添加，就可以在网页上进行编写
+        */
+        !function () {
+            console.log(1)
+        }
+        ~function () {
+            console.log(2)
+        }
+            (function () {
+                console.log(3)
+            })()
+
+        btn.onclick = function () {
+            ~function () {
+                console.log(2)
+            }
+            (()=>{
+                console.log(this)  //
+            })()
+        }
+
+    </script>
+</body>
+
+</html>

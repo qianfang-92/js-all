@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+            闭包：
+                不销毁的作用域；
+                变量的保护机制，保护变量不受外界污染，保存某些值；
+            简单的模块化开发；
+            闭包的缺点：容易造成内存泄漏
+    
+        */
+        //隔一秒输出一个数字
+        for (var i = 0; i < 10; i++) {
+            setTimeout(() => {
+                console.log(i)
+            }, 1000)
+        } //for循环是同步，定时器是异步，同步完了再异步 每次循环，循环都告诉定时器1秒之后再执行 等for循环结束后，1秒后就会一下子输出10个10
+
+
+        for (var i = 0; i < 10; i++) {
+            setTimeout(() => {
+                console.log(i)
+            }, 1000 * (i + 1))
+        } //这样 定时器的每次时间都不一样，所以会隔一秒输出一个10
+
+        for (var i = 0; i < 10; i++) {
+            (function (n) {
+                setTimeout(() => {
+                    console.log(n)
+                }, 1000 * (i + 1))
+            })(i)
+        } //这样就让每次循环形成一个闭包
+
+        function fn(m) {
+            for (var i = 0; i < m; i++) {
+                (function (n) {
+                    setTimeout(() => {
+                        console.log(n)
+                    }, 1000 * (n + 1))
+                })(i)
+            }
+        }
+    </script>
+</body>
+
+</html>
