@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    /*
+        原型模式：在构造函数的基础上加了一个原型(prototype) 的概念  优点是 公用 省空间
+    */
+   function Person (name='zf',age=10,sex=1){
+       this.name = name;
+       this.age = age;
+       this.sex = sex;
+   }
+   console.log(Person.prototype);//prototype是Person这个的原型 
+   //在原型上放的属性都是这个类公用的属性    
+   Person.prototype.eat = function(){
+       console.log('吃')
+   }
+   Person.prototype.play = function(){
+       console.log('玩')
+   }
+   var p1 = new Person();
+   var p2 = new Person();
+   console.log(p1,p2);//这时，p1和p2的eat和play可以调用，但是不占用它自己的堆内存  
+   //查找属性时，先在自己身上查，没有就去原型上查
+   p1.eat = function () {
+       console.log('吃')
+   };//这时就给p1自己加了一个eat属性
+
+   //es6的原型怎么写？
+   class FN {  //class声明的东西，类，只能通过new 方式执行；
+       constructor(name,age){
+        this.name = name;
+        this.age = age;
+       }//这里constructor其实就相当于上面的函数体
+       //下面的就相当于prototype 部分，而且格式必须是简写格式，如下，而且添加的原型属性必须是个函数，不能是别的类型
+       eat(){
+
+       }
+       play(){
+
+       }
+   }
+   var f = new FN;
+   console.log(f);
+
+</script>
+</body>
+</html>
