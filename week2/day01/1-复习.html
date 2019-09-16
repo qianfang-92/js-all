@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    // 'use strict'//严格模式
+    /*
+        变量提升：在代码执行之前；只提升等号左边的；return后面的也不提升
+        对于let const 有暂时性死区，在大括号里的function是只声明不定义
+
+        垃圾回收机制：堆栈内存的销毁
+        堆内存：定期清理 计数清理
+        栈内存：关闭页面来回收全局作用域占用的栈内存
+                私有作用域占用的 栈内存 ；返回值是引用数据类型  或者  由外部占用函数内部的某些内容 就不会被销毁
+        
+        在网页的控制台 写  window.open('https://baidu.com')  可以打开相应的网页 
+        全局作用域 --- 全局变量  ：在全局作用域声明的
+        私有作用域-----私有变量  ：形参  在私有作用域声明的 
+        块级作用域-----理解起来是一个不销毁的作用域，私有变量  只针对let和const声明的变量起作用
+        作用域链 变量的查找机制
+        上级作用域
+    */
+   function f () {
+    //    'use strict'
+       a = 123;
+   }
+   f();
+   console.log(a); //123  这里a去找它，它不是f函数里的私有变量，既没声明又不是形参，所以向上找，相当于在全局写了 a = 123 但是这个不是很正常，所以如果在script标签下面写上'use strict'变成严格模式，这种就会报错，工作中构建模块时会用，就是一个严谨的写法，这个严格模式既可以在整个script写，又可以在单独的作用域里写，使其作用不是全局，而是我们想要的那个私有的作用域，使这个私有作用域使用严谨的写法
+</script>
+</body>
+</html>
