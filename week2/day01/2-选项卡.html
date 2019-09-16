@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            list-style:none;
+        }
+        .box{
+            width:600px;
+            margin:30px auto;
+        }
+        .tab_box{
+            border:1px solid seagreen;
+            display:flex;
+        }
+        .tab{
+            flex:1;
+            height:40px;
+            line-height:40px;
+            text-align:center;
+            cursor:pointer;
+            user-select:none;
+
+        }
+        .tab:nth-child(2){
+            border:1px solid seagreen;
+            border-bottom:none;
+            border-top:none;
+        }
+        .tab.current{ 
+            /* 同时有tab  current这两个类名的 对应的样式 */
+            background:firebrick;
+            color:darkorange;
+        }
+        .body_box{
+            width:600px;
+            height:300px;
+            border:1px dashed forestgreen;
+            border-top:none;
+            overflow:hidden;
+            box-sizing:border-box;
+        }
+        .body{
+            width:600px;
+            height:300px;
+            text-align:center;
+            line-height:300px;
+            font-size:20px;
+            display:none;
+        }
+        .body.current{
+            display:block;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <ul class='tab_box'>
+            <li class="tab current">css</li>
+            <li class="tab">js</li>
+            <li class="tab">HTML</li>
+        </ul>
+        <ul class="body_box">
+            <li class="body current">css基础</li>
+            <li class="body">js基础</li>
+            <li class="body">HTML基础</li>
+        </ul>
+    </div>
+    <script>
+        /*
+            点击上面的tab 让下面的body 跟着显示或者隐藏
+        */
+       let btns = document.querySelectorAll('.tab'),
+            bodys = document.querySelectorAll('.body');
+        // for(let i = 0; i < btns.length; i++) {
+        //     btns[i].onclick = function () {
+        //         //给当前元素添加类名，兄弟元素移除类名
+        //         //先清除所有的current，再给当前元素添加
+        //         for(let j = 0; j < btns.length; j++) {
+        //             btns[j].classList.remove('current');
+        //             bodys[j].classList.remove('current');
+        //         }
+        //         this.classList.add('current');
+        //         bodys[i].classList.add('current');
+        //     }
+        // }     es6写法
+
+
+
+        // function clearClass () {
+        //     //清除类名用的
+        //     for(var i = 0; i < btns.length; i++) {
+        //         btns[i].className = 'tab';
+        //         bodys[i].className = 'body';
+        //     }
+        // }
+        // function cli (i) {
+        //     return function () {
+        //         clearClass();
+        //         this.className = 'current tab';
+        //         bodys[i].className = 'current body';
+        //     }
+        // }
+        // for(var i = 0; i < btns.length; i++) {
+        //     // btns[i].onclick = (function (i) {
+        //     //     return function () {
+        //     //         clearClass();
+        //     //         this.className = 'current tab';
+        //     //         bodys[i].className = 'current body';
+        //     //     }
+        //     // })(i)
+        //     btns[i].onclick = cli(i);
+        // }
+
+
+        function clearClass () {
+            [...btns].forEach((item,index)=>{
+                item.className = 'tab';
+                bodys[index].className = 'body';
+            })
+        }
+        
+        [...btns].forEach((item,index)=>{
+            item.onclick = function(){
+                clearClass();
+                this.className = 'current tab';
+                bodys[index].className = 'current body';
+            }
+        })
+
+    </script>
+</body>
+</html>

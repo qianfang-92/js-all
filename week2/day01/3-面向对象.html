@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    /*
+        面向对象：是一种编程思想；  先不做东西，分析东西怎么构成的，抽象成几个部分或者步骤 分由不同的人负责不同的部分，各自完成，然后组装  会考             虑复用的问题，把能用的东西留下来，便于下次用，像是把函数包装一下，在很多地方可以去调用
+            OOP：面向对象的英文
+            高内聚  低耦合 就是面向对象的一种方法；高内聚：把实现功能的东西能放在一起，低耦合就是各个模块之间的关联越少
+            java  c++  php python
+        面向过程：也是一种编程思想；  就是一点点一步步的做，没有分为几个部分 全程一个人去做，做完一个再做下一个 不考虑复用的问题
+            C
+
+            面向对象：类的继承  封装 多态
+    */
+   /*
+        类                 实例
+        人类                某个单独的人
+        动物                人
+
+        JS中的内置类 ：自带的类：Array(数组类)  String(字符串类)  Number(数字类)  Boolean(布尔类) Object(对象类) NodeList  Function(函数类)
+                                [1]             '12'             1                true           {}                      f(){}
+
+   */
+    var ary = [1];//字面量的方式创建的数组类的实例
+    var ary2 = new Array('1','1');//构造函数的方式创建的数组类的实例；   这两种创建方式没有区别
+    var ary3 = new Array(10);//如果参数只有一个，并且是数字的时候，这个数字代表这个数组的长度
+    console.log(ary,ary2,ary3);
+
+    //new 创造出来的东西都是引用数据类型
+    var str = '';
+    var str2 = new String();
+    console.log(str == str2);//true
+    console.log(str === str2);//false  这里的str2的数据类型变成了object
+</script>
+</body>
+</html>

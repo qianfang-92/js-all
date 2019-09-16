@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    /*
+        工厂模式：就是一个函数；然后返回一个单例；批量产生单例。与高级单例模式的区别是高级单例模式一般没有传参数
+    */
+    var per1 = {
+        name : '123',
+        age : 12,
+    }
+
+    //把上面的单例模式的对象可以变成下面的函数，这样，只用输出参数，可以批量产生单例
+    function factory (name,age,sex) {
+        var obj = {
+            name,sex,age,
+            eat(){},
+            play(){},
+        }
+        return obj
+    }
+    var per1 = factory('xiaoming',12,1)
+</script>
+</body>
+</html>

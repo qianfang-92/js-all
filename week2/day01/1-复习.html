@@ -24,6 +24,7 @@
         块级作用域-----理解起来是一个不销毁的作用域，私有变量  只针对let和const声明的变量起作用
         作用域链 变量的查找机制
         上级作用域
+        confirm 
     */
    function f () {
     //    'use strict'
@@ -31,6 +32,21 @@
    }
    f();
    console.log(a); //123  这里a去找它，它不是f函数里的私有变量，既没声明又不是形参，所以向上找，相当于在全局写了 a = 123 但是这个不是很正常，所以如果在script标签下面写上'use strict'变成严格模式，这种就会报错，工作中构建模块时会用，就是一个严谨的写法，这个严格模式既可以在整个script写，又可以在单独的作用域里写，使其作用不是全局，而是我们想要的那个私有的作用域，使这个私有作用域使用严谨的写法
+
+   [...btns].forEach((item,index)=>{
+       item.onclick = function (){
+           alert(index);
+       }
+   }) //回调函数 我们只是写了函数，forEach去调用的，每次都形成一个不销毁的作用域 index被保存下来
+
+   for(var i = 0; i < btns.length; i ++) {
+       btns[i].onclick = (function (i) {
+           return function () {
+               alert(i);
+           }
+       })(i)
+   }
+
 </script>
 </body>
 </html>

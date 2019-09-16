@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    /*
+        构造函数模式：一般用来造一些插件
+    */
+    function factory (name,age=12,sex = 1,cb) {//这种es6最新的默认赋值方式，只有在传入的实参是undefined的时候才走默认值
+        name = name || '1'//这是es5的时候给默认值的方式
+        cb && cb();//cb回调函数， 如果没有传回调函数就不执行，传了才执行  es5的时候
+        var obj = {
+            name,sex,age,
+            eat(){},
+            play(){},
+        }
+        return obj
+    }
+    // var per1 = factory('xiaoming',12,1)
+    // var per2 = factory(null,null,null) //
+
+    function Person (name,age,sex) {
+        this.name = name;
+        this.age = age;
+        this.eat = function(){};
+        this.play = function(){};
+        return {
+            1:1,
+            name
+        }
+    }
+    var per2 = Person('zf',12,1);
+    var per22 = new Person('zf',12,1); //这里Person是一个类，per22是Person的一个实例
+    console.log(per22);//是Person的一个实例 
+    //new执行函数的时候，函数内部的this都是指向了一个堆内存，函数执行完成之后，又把this返出去，默认返回值是this
+    //若写了返回值，但是是个值类型，那么默认返回仍然是this
+    //若返回值是个引用数据类型，那么返回值就默认是这个引用数据类型
+</script>
+</body>
+</html>
