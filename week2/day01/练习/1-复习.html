@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    /*
+        变量提升：在代码执行之前  var function 提前声明
+
+        虽然let const没有变量提升，但是它们有暂时性死区，在声明前的调用都会报错，这么看来，系统应该也是先看了一下let const的变量，知道它们的存在的
+
+        垃圾回收机制：就是堆栈内存的销毁机制
+            堆内存：谷歌  定期清除；火狐  计数
+            栈内存：关闭页面可以回收全局作用域占用的栈内存
+                    私有作用域占用的 栈内存 ；返回值是引用数据类型 或者 由外部占用函数内部的某些内容 这种栈内存是不会被回收的
+
+        全局作用域 ---> 全局变量 ：在全局作用域声明的
+        私有作用域 ---> 私有变量：形参  在私有作用域声明
+        块级作用域 ----> 私有变量  只针对 let const 声明的变量起作用
+
+        作用域链：变量的查找机制
+
+        use strict :JS的严格模式
+
+    */
+    function f() {
+        a = 123;
+    }
+    console.log(a);//这里的a不是私有变量，所以不在严格模式下时，这个a就是相当于在全局里写了 a = 123;
+    //当然在全局中或者在这个函数中写上 use strict 变成严格模式，就会报错的
+</script>
+</body>
+</html>

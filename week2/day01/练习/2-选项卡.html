@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            list-style:none;
+        }
+        .box{
+            width:600px;
+            margin:30px auto;
+        }
+        .tab_box{
+            width:600px;
+            display:flex;
+            border:1px solid teal;
+        }
+        .tab{
+            flex:1;
+            text-align:center;
+            height:40px;
+            line-height:40px;
+            cursor:pointer;
+            user-select: none;
+        }
+        .tab:nth-child(2){
+            border:1px solid teal;
+            border-bottom:none;
+            border-top:none;
+        }
+        .tab.current{
+            background:peru;
+            color:darkolivegreen;
+            font-size:26px;
+        }
+        .body_box{
+            width:600px;
+            height:300px;
+            overflow:hidden;
+            border:1px solid firebrick;
+            /* box-sizing:border-box; */
+        }
+        .body{
+            width:600px;
+            height:300px;
+            line-height:300px;
+            text-align:center;
+            display:none;
+        }
+        .body.current{
+            display:block;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <ul class="tab_box">
+            <li class="tab current">css</li>
+            <li class="tab">JS</li>
+            <li class="tab">HTML</li>
+        </ul>
+        <ul class="body_box">
+            <li class="body current">css基础</li>
+            <li class="body">JS基础</li>
+            <li class="body">HTML基础</li>
+        </ul>
+    </div>
+    <script>
+        var btns = document.querySelectorAll('.tab'),
+            bodys = document.querySelectorAll('.body');
+        
+        function clearClass () {
+            for(var i = 0; i < btns.length; i++) {
+                btns[i].classList.remove('current');
+                bodys[i].classList.remove('current');
+            }
+        }
+        function cli (i) {
+            return function () {
+                clearClass();
+                this.classList.add('current');
+                bodys[i].classList.add('current');
+            }
+        }
+
+        for(var i = 0; i < btns.length; i++) {
+            btns[i].onclick = cli(i)
+        }
+        
+
+    </script>
+</body>
+</html>
