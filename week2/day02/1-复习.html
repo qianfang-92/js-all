@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    /*
+        面向对象：把有公用特征的抽象成一个类，便于复用
+        类      实例   类是实例特点的抽象总和
+        JS的内置类： Array String Number Function RegExp Date Object
+
+        创建实例的方法：字面量方式   构造函数方式(构造函数产生的都是对象)
+        //万物皆对象：
+        JS中还可以自定义类  function A () {}  
+        自定义类的实例，只能通过new的方式去创造
+
+        JS中的常见设计模式：
+            单例模式，高级单例模式 
+            工厂模式
+            构造函数模式
+            原型模式
+    */
+    /*
+        单例模式   命名空间  就是一个对象  工作时用来封装一些工具库 工具函数
+    */
+    //高级单例模式 就是一个闭包  比普通单例多了隐私空间 
+    var obj2 = (function () {
+        var name = '123';
+        var age = 12;
+        function f (){
+            console.log(name, age)
+        }
+        function changeAge (n) {
+            age = n;
+        }
+        return {
+            name,
+            age,
+            f,
+            changeAge
+        }
+    })()
+    obj2.name = 666; 
+    obj2.changeAge(100);
+    obj2.f();//'123' 12
+    console.log(obj2.name, obj2.age);//666 12
+
+    //工厂模式  批量产生单例模式
+
+    //构造函数模式：       eslint:代码书写的规范
+
+    function F (name, age) {
+        this.name = name;
+        this.age = age;
+        this.eat = function () {  //这里的this都是当前创造的那个实例
+
+        }
+    }
+    var p1 = new F('xiaoming', 12);// p1 是 F 类的一个实例
+    //new 执行时，函数中的this就是当前创造的那个实例   默认返回的就是this
+
+    class Man {
+        constructor (name, age) {
+            this.name = name;
+            this.age = age;
+        }
+    }
+    var obj3 = new Man(12,23);//class创造的类只能用new去创造实例
+
+    //原型模式：在构造函数的基础上增加一个 原型   ；原型其实就是一个堆内存  原型模式就是为了省空间，把公用的提取出来，放在原型这个堆内存里公用
+
+    // 实例会通过 _proto_ 去访问所属类的原型
+
+    //作用域链  是变量的查找机制；
+    //原型链  是属性的查找机制；先在自己的堆内存查找，没有的话再去 所属类的 原型的堆内存里查找_proto_, 
+     //       如果原型上还没有，就通过_proto_ 去原型所属类的原型上查找，一级级，直到找到 Object类(基类)的原型上 没有的话 就是undefined
+
+    class Girl {
+        constructor (name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        eat () {
+            console.log('chi')
+        }
+        play () {
+            console.log('wan')
+        }
+    }
+    var g1 = new Girl('lily', 12)
+    // class 创造的类 添加原型  只能是函数 而且格式必须是简写的格式
+
+</script>
+</body>
+</html>

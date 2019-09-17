@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    /*
+
+    */
+//    var ary = [];
+//    console.log(ary instanceof Array);//  true ;instanceof 判断数据类型
+
+    var ary = [];
+    var n = 10;
+    var m = new Number(10);
+    console.log(ary instanceof Array);//true
+    console.log(ary instanceof Object) //true
+    console.log(ary instanceof Number) //false
+    console.log(n instanceof Number) //false
+    console.log(m instanceof Number) //true
+
+    //xxx instanceof YYY   ：查看xxx到 基类的原型链上是否存在 YYY的身影 
+    //存在 ，结果就是 true  ；不存在，结果就是false
+    //基本数据类型  instanceof 谁  ；都会是 false 
+</script>
+</body>
+</html>

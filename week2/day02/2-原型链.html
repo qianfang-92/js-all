@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    /*
+        原型链 ---> 原型图
+
+        对于原型图 有三句话
+        每一个函数(每个类)都有一个 默认的 prototype 属性 指向自己的原型对象
+        每一个实例(对象) 都有一个 _proto_ 的属性 指向所属类的原型对象
+        每一个 默认的 原型对象  上 都有一个 constructor 属性 指向 对应的 构造函数本身
+        如果默认的原型对象 被改变了地址，又没有加这个constructor属性，那么更改的原型对象是没有constructor这个属性的
+
+        每个类都是函数
+    */
+    var f = () =>{ console.log(1) };
+    console.dir(f);//本身箭头函数 没法用构造函数方式去创造实例，所以箭头函数里没有默认的 prototype
+
+    function Person (name, age) {
+        this.name = name;
+        this.age = age;
+    }
+    Person.prototype.eat = function () {
+        console.log(1)
+    }
+
+    var p1 = new Person('xiaoming', 12);
+    var p2 = Person('xiaohong', 13);
+    //普通函数执行的过程：开辟一个作用域，形参赋值，变量提升 代码从上到下执行
+    //new 执行时，开辟一个作用域，形参赋值，变量提升  开辟一个堆内存 把this指向改成这个堆内存 然后代码从上到下执行
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    //为什么用constructor能查询数据类型？因为数据所属类的原型里有constructor这个属性，指向的是类，所以这个的机制是基于原型图的
+    var n = 22;
+    n.constructor;// 就是去看它的所属类
+
+    //原型重构
+    function Person (name, age) {
+        this.name = name;
+        this.age = age;
+    }
+    var obj = {
+        constructor:Person,
+        eat () {},
+    }
+    Person.prototype = obj//原型重构 就是直接把原型改了，要注意的就是把constructor补全，因为默认的prototype 是有constructor的
+</script>
+</body>
+</html>
