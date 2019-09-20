@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    //  in  :查看某个属性是否属于某个对象   ；只要某个对象能调用到这个属性，就是true
+    //
+    var obj = {
+        a : undefined,
+        b : 12
+    }
+    // console.log(a in obj);//虽然obj.a 是undefined 但是这还是true
+    obj.hasOwnProperty('toString');// false
+    ''.hasOwnProperty('length');//true
+
+    Object.prototype.hasPubProperty = function (temp) {
+        return (temp in this && !this.hasOwnProperty(temp)) 
+    }
+    obj.hasPubProperty('length');
+
+    //for in 循环  会把所有能够调用到的 并且是自己自定义的属性，全部都循环到
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    &lt;div&gt;&lt;/div&gt;
+    <!-- 使html页面显示这个东西，这是用特殊字符代替<> -->
+<script>
+    //  xxxx instanceof yyyy   : xxxx到基类的原型链上 有没有 yyyy 的原型
+    //所有的引用数据类型 instanceof Object 都是true
+    //所有的值类型 instanceof 其他  都是false
+    function myInstanceof (temp,classN) {
+        var str = typeof temp;
+        // 不是引用数据类型的时候是false
+        if (str !== 'function' && str !== 'object') return false;
+        var o = classN.prototype;
+        var l = temp.__proto__;
+
+
+        // while (true) {
+        //     if (l === null) return false;//已经找到基类上了，所以就是说没有找到，就是false
+        //     if (l === o) return true;
+        //     l = l.__proto__;
+        // }
+
+
+        while (l) {
+            if (l === o) return true;
+            l = l.__proto__;
+        }
+        return false;
+    }
+    myInstanceof([], String);
+
+</script>
+</body>
+</html>

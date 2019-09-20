@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    //实现一个判断数据类型的方法 getType()
+    Object.prototype.getType = function () {
+        var str = this.constructor.toString();
+        return str.slice(9,str.indexOf('(')).toLowerCase();
+    }
+
+    //myPop   myPush   返回值是改变后的原有数组
+    var ary = [1,5,2,4,2,5,3,7,4,84,94]
+    Array.prototype.myPop = function () {
+        this.length--;
+        return this;
+    }
+    Array.prototype.myPush = function (...arg) {
+        for (var i = 0; i < arg.length; i++) {
+            this[this.length] = arg[i]
+        }
+        return this;
+    }
+    ary.myPop().myPush(6,6,6).myPop().myPush(3,65,8);
+    console.log(ary);
+    // ary.myPush(2,3);
+
+
+    //myReverse  实现  效果等同于reverse
+    Array.prototype.myReverse = function () {
+        for (var i = 0; i < this.length/2; i++) { //length除以2的原因是 如果不这样，它先交换，后来又交换回来了，所以只循环前一半就可以
+            var font = this[i];
+            this[i] = this[this.length - i - 1];
+            this[this.length - i - 1] = font;
+        }
+        return this;
+    }
+    // ary.myReverse();
+
+
+    //数组去重
+
+    Array.prototype.myUnique = function () {
+        // var _this = this;
+        // this.length--;
+        // var ary = {};
+        // _this.forEach(item => {
+        //     ary.item = item;
+        // })
+        // ary.forEach(item => this.push(item))
+    
+
+        //indexOf  lastIndexOf    获取的值一样，  这就是不重复的 
+        for (let i = 0; i < this.length; i++) {
+            while (this.indexOf(this[i]) !== this.lastIndexOf(this[i])) {
+                this.splice(i, 1);
+                i--
+            }
+        }
+        return this;
+    }
+
+    ary.myUnique();
+    console.log(ary);
+
+</script>
+</body>
+</html>

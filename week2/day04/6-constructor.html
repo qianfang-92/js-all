@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    function getType (context) {
+        var str = context.constructor.toString();
+        return str.slice(9, str.indexOf('(')).toLowerCase();
+    }
+    getType('');
+    //原型重构只针对 自定义类
+    function Person(name,age) {
+        this.name = name;
+        this.age = age;
+    }
+    Person.prototype.eat = function(){
+        console.log('吃火锅')
+    }
+    var p = new Person('小红',100);
+    Person.prototype = {
+        constructor:Person,
+        eat(){
+            console.log('吃水果')
+        },
+        play(){
+            console.log('玩游戏')
+        }
+    }
+    var p1 =new Person('小明',20);
+    p1.eat();//'吃水果'
+    p.eat();//'吃火锅'
+
+
+    var obj = {
+    name: " 小明",
+    skill: ["css3", "html5", "es6", "react", "angular"],
+    say: function () {
+        var _this = this;
+        for (let i = 0; i < this.skill.length; i++) {
+            setTimeout((function(){
+                console.log(_this.name + '会' + _this.skill[i] )
+            }),1000*(i+1))
+        }
+    }
+    }
+    obj.say(); 
+
+
+
+    function PersonH (name, skill) {
+        // name和skill 属于私有属性，因为每个人的name 和skill不一样
+        this.name = name;
+        this.skill = skill;
+    }
+    PersonH.prototype.say = function () {
+        for(let i = 0; i < this.skill.length; i++) {
+            setTimeout(()=>{
+                console.log(this.name + '会' + this.skill[i]);
+            },1000*(i + 2))
+        }
+    }
+    var p3 = new PersonH('岳岳',['相声', '魔术', 'CSS', 'JS']);
+    p3.say();
+
+</script>
+</body>
+</html>

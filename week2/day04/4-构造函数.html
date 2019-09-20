@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    function Person (name, age) {  //自定义类
+        this.name = name;
+        this.age =age;
+        return 123;
+    }
+    var p = new Person('zhufeng', 12);
+
+    function myNew (classN,...arg) {
+        var obj = {};
+        obj.__proto__ = classN.prototype;
+        var res = classN.call(obj,...arg);
+        return typeof res === 'object' ? res : obj;
+    }
+    var p2 = myNew(Person, 'zf', 12);
+</script>
+</body>
+</html>

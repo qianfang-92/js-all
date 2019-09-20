@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    // 原型模式 就是在 构造函数的基础上补了个原型
+    function Person (name, age) {  //自定义类
+        this.name = name;
+        this.age =age;
+        return 123;
+    }
+    Person.prototype.eat = function () {
+
+    };
+
+    var p = new Person('zhufeng', 12);
+
+    //原型链  属性查找机制；  实例通过 __proto__ 向上级原型查找；
+    //作用域链  变量的查找机制
+
+    /*
+        每一个函数（类） 都有一个默认的prototype 属性，指向自己的原型
+        每一个对象（实例）都有一个默认的__proto__属性，指向所属类的原型
+        每一个默认的原型对象，都有一个constructor属性，指向对应的构造函数本身
+    */
+</script>
+</body>
+</html>

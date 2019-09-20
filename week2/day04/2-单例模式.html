@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="login">
+        <input type="text" placeholder = '请输入用户名'>
+        <input type="password" palceholder = '请输入密码'>
+        <button id = 'log_btn'>登陆</button>
+    </div>
+    <div id="reg" style="display:none">
+            <input type="text" placeholder = '请输入用户名'>
+            <input type="password" palceholder = '请输入密码'>
+            <button id = 'reg_btn'>注册</button>
+    </div>
+
+    <a href="#" id = 'log_a'>登陆</a>  
+    
+    <a href="#" id = 'reg_a'>注册</a>
+
+<script>
+    //  单例模式  就是一个普通对象  把要用到的方法或者属性 都放到一个对象里；这个对象我们称为命名空间
+    // 工作里 一般使用单例来进行工具库的封装   工具库里放的是常用的方法  common.js     utils.js   tools.js
+    //  高级单例模式   其实就是一个闭包   一般用于普通的模块化开发
+    var obj = (function() {
+        var name = 'zhuf';
+        var age = 12;
+        var init = function () {
+            console.log(name, age)
+        }
+        return {
+            init
+        }
+    })()
+
+    log_a.onclick = function () {
+        login.style.display = 'block';
+        reg.style.display = 'none';
+    }
+    reg_a.onclick = function () {
+        login.style.display = 'none';
+        reg.style.display = 'block';
+    }
+
+    var logModel = (function () {
+        var box = document.getElementById('login');
+        var name = box.getElementsByTagName('input')[0];
+        var psw = box.getElementsByTagName('input')[1];
+        var log_btn = document.getElementById('log_btn');//md5    id的方法只能是document才有，因为一个文档里只有一个id名的
+        var bind = function () {
+            log_btn.onclick = function () {
+            console.log(`登陆信息是：${name.value}-----${psw.value}`)
+            }
+        }
+        
+        return {
+            init(){
+                bind();
+                regModel.init();
+                return name.value;
+            }
+        }
+    })()
+
+    var regModel = (function () {
+        var box = document.getElementById('reg');
+        var name = box.getElementsByTagName('input')[0];
+        var psw = box.getElementsByTagName('input')[1];
+        var reg_btn = document.getElementById('reg_btn');
+        var bind = function () {
+            reg_btn.onclick = function () {
+                console.log(`注册信息是：${name.value}------${psw.value}`)
+            }
+        }
+        return {
+            init(){
+                bind();
+                return name.value;
+            }
+        }
+    })()
+
+    logModel.init();
+
+</script>
+</body>
+</html>
