@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    /*
+        面向对象  类 实例   Object 基类   
+        创造自定义类：function P(){}    还有  class F {} 
+        new 比 普通函数执行 多了 一个 开辟 堆内存；把this指向堆内存的动作，默认返回this
+
+        使用构造函数  类 的方式 创造 实例 的好处：进行了归纳总结，把所有有相同特征的归纳为类，可以反复去使用
+
+        属性的查找机制  原型链  当我们调用一个属性的时候，先在自己身上查找，没有的话会通过__proto__ 往所属类的原型上查找，没有的话，再通过原型的所属类的原型查找，直到找到基类
+
+        每一个函数都有一个默认的prototype 属性 指向自己的原型对象堆内存 所有的类都是函数
+        每一个实例都有一个默认的__proto__ 属性 指向所属类的原型对象   所有的实例都是对象
+        每一个默认的原型对象上都有constructor 属性 指向 对应的构造函数本身
+
+        hasOwnProperty 在基类的原型上  除了null undefined 之外 其他所有数据类型都能调用到
+
+        constructor 判断数据类型的原理；原型重构 ：把默认的原型地址改为自己写的一个地址，注意要写一下constructor属性 指向类 因为写的麻烦所以才会有原型重构
+
+        instanceof 判断数据类型  ：看它是不是某某数据类型，看前面的数据到基类的原型链上有没有后面的数据类型；不适合基本数据类型 都是false 所有的引用数据类型 instanceof Object 都是true
+        
+    */
+
+</script>
+</body>
+</html>

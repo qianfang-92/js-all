@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+            call 用来改变函数内部的this指向的；
+    
+        */
+        function fn() {
+            console.log(arguments);  //严格模式下不能用delete 删除 对象的属性
+            console.log(this);
+            console.log('---------------------------------------')
+        }
+        var obj = {
+            a: 12,
+            b: 13,
+            f: fn
+        }
+        fn(1, 2, 3);  //this是window
+        obj.f(2, 5, 7);//this 是 obj
+        fn.call(obj, 3, 4, 4);
+        // call可以让函数执行 ，并且 可以改变 函数执行时内部的this指向，this指向 了 call的 第一个实参
+        //      call 后面的所有参数，都被传给了函数，当作了函数的实参
+        // Object.prototype.toString.call('');//为了调用 基类上的方法toString
+        // ({}).toString.call('');
+        // obj.toString();// toString里的this是obj  然后 call 后 把this变成了后面的括号里的东西  这就是call判断数据类型的原理
+
+        // [].slice.call(arguments);//可以用call把类数组转换成数组
+
+        //类数组转为数组： [...arguments]
+        //              Array.from(arguments)   这个from的方法是Array自己的方法，  虽然所有实例可以拿到所属类的原型上的方法，但是拿不到所属类的自己的方法
+
+        // fn.call().call(obj)
+
+        // call 方法 是在Function类 的原型上
+
+        //自己实现 call 的方法，myCall  
+
+        Function.prototype.myCall = function (context, ...arg) {
+            //让 fn执行  fn中的this 指向a 并且把...b 传给fn
+            // this(...arg)
+            // class Obj {
+            //     constructor () {
+            //         this(...arg)
+            //         return context
+            //     }
+            // }
+            // context.qqq = this; //  让 context.qqq  ----> this(fn)
+            // context.qqq(...arg);//让fn 执行   又因为this指向.前面的，所以是context
+            // delete context.qqq;//删除增加的属性
+            context = context || window;
+            let a = Symbol();//产生一个唯一的不会重复的值
+            context[a] = this;
+            let res = context[a](...arg);
+            delete context[a];
+            return res;
+        }
+
+        fn.myCall(obj, 3, 4, 5);
+
+        //手写 instanceof 方法
+        function instance_of(L, R) {
+            //L 表示左表达式，R 表示右表达式
+            var O = R.prototype; // 取 R 的显示原型
+            L = L.__proto__; // 取 L 的隐式原型
+            while (true) {
+                if (L === null) return false;
+                if (O === L)
+                    // 这里重点：当 O 严格等于 L 时，返回 true
+                    return true;
+                L = L.__proto__;
+            }
+        }
+
+
+
+    </script>
+</body>
+
+</html>

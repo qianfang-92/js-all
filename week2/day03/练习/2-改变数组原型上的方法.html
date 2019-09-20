@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    /*
+        内置类的原型上的方法 可以被修改 但是不能被重构；
+
+    */
+   //实现数组去重 在数组类的原型上添加方法
+    Array.prototype.unique = function () {
+        // this ----> ary
+        //方法一：
+        /* var obj = {};
+        this.forEach(item=>{
+            obj[item] = item;
+        });
+        this.length = 0;
+        for (var k in obj) {
+            this.push(obj[k])
+        } */
+
+        //方法二：
+       /* let arr = [...new Set(this)];
+        this.length = 0;
+        arr.forEach(item=>this.push(item)); */
+
+        //方法三：
+        var obj = {};
+        for(var i = 0; i < this.length; i++) {
+            if (obj.hasOwnProperty(this[i])) {
+                this.splice(i,1);
+                i--;
+            } else {
+                obj[this[i]] = this[i]
+            }
+        }
+
+    }
+
+    //实现 数组pop方法
+    Array.prototype.myPop = function () {
+        let temp = this[this.length - 1];
+        this.length--;
+        return temp
+        
+    }
+
+    var ary = [1,2,3,4,12,5,2,3,2,3,4,5,2,3,5];
+    ary.myPop();
+    console.log(ary);
+    ary.unique();
+    console.log(ary);
+
+</script>
+</body>
+</html>

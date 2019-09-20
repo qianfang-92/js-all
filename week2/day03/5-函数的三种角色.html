@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    /*
+        函数的三种角色：
+            普通函数
+                形参 实参 this return 作用域 变量
+            类
+                new  类 实例 this  原型 原型链  __proto__  基类
+            对象
+                属性名 属性值
+    */
+    function f() {
+        console.log(4);  //纯函数  对外界没有任何影响 只和形参有关
+    }
+
+    function Person (name = 'zuf', age = 12) {
+        this.name = name;
+        this.age = age;
+    }
+    Person();//作为普通函数
+    var p = new Person; //作为类
+    Person.qqq = 123;  //作为类    ；每个函数都有一个name属性的，而且只能读，不能写    
+</script>
+</body>
+</html>

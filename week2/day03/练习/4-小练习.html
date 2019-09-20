@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    /*
+
+    */
+   Number.prototype.plus = function (a) {
+       return this + a;
+   }
+   Number.prototype.minus = function (a) {
+        return this - a;
+   }
+   let n = 10;
+   let m = n.plus(10).minus(5);//链式调用
+   console.log(m);
+
+   //链式调用，要保证 前边的函数的返回结果 可以调用到 后边的函数
+   //在每个调用的函数后面 加上return this 理论上就不会报错了
+
+
+   //练习一
+   function C1 (name) {
+       if (name) {
+           this.name = name;
+       }
+   }
+   function C2 (name) {
+        this.name = name;
+   }
+   function C3 (name) {
+       this.name = name || 'join';
+   }
+   C1.prototype.name = 'Tom';
+   C2.prototype.name = 'Tom';
+   C3.prototype.name = 'Tom';
+   alert((new C1().name) + (new C2().name) + (new C3().name));
+   //  第一个this指向的堆内存里没有name，所以去所属类的原型上找，是Tom  第二个this 的堆内存里有name 因为是没有传实参的形参，所以是undefined，第三个this里有name 并且是join，所以他们三个相加，是字符串的拼接
+
+   //练习二
+   function Fn (num) {
+       this.x = this.y = num;
+   }
+   Fn.prototype = {
+       x : 20,
+       sum : function () {
+           console.log(this.x + this.y);
+       }
+   };
+   let f = new Fn(10);
+   console.log(f.sum === Fn.prototype.sum);
+   f.sum();
+   Fn.prototype.sum();
+   console.log(f.constructor);
+</script>
+</body>
+</html>

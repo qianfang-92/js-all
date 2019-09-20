@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    //apply 功能类似于 call
+    function fn () {
+        console.log([...arguments]);
+        console.log(this);
+        console.log('-------------------------------------')
+    }
+    var obj = {
+        a:12,
+        b:13
+    }
+    fn.apply(obj,[2,3,5,1]);//第一项还是this指向，第二个参数是一个数组或者类数组，是一个集合形式存在的;但是 fn接收时还是散乱的接收的
+
+    //实现apply
+
+    Function.prototype.myApply = function (context,arg) {
+        context = context || window;
+        let a = Symbol();
+        context[a] = this;
+        arg = arg || []
+        let res = context[a](...arg);
+        delete context[a];
+        return res;
+    }
+
+    function Person (name, age) {
+        this.name = name;
+        this.age = age;
+    }
+    //实现new 
+    function myNew(...arg) {
+        //Person name age
+        var obj = {};
+        var Constructor = arg.shift();//拿到了Person这个函数，并且删除了参数里的Person
+        obj.__proto__ = Constructor.prototype;
+        var  res = Constructor.call(obj,...arg); 
+        return typeof res == 'object'? res:obj;
+    }
+
+    var f= myNew(Person,'zhufeng',13);
+    console.log(f)
+
+</script>
+</body>
+</html>

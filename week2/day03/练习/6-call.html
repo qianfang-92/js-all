@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    /*
+        call 是用来改变函数内部的this指向的；
+    */
+    function fn () {
+        console.log([...arguments]);
+        console.log(this);
+        console.log('-------------------');
+        return 123;
+    }
+    var obj = {
+        a : 12,
+        b : 13,
+        qqq : 123,
+        f : fn
+    }
+    fn(1,2,3);
+    obj.f(6,6,6);
+    fn.call(obj,5,5,5);
+    // call 可以让函数执行，并且改变函数执行时内部的this指向
+    // this 指向了call的第一个参数，call后边的所有参数，都作为实参传给了前边的函数；
+    ({}).toString.call('');
+    //call 的方法是在Function 类的原型上
+
+    //自己实现一个myCall方法 用法等同于 call;
+    Function.prototype.myCall = function (context, ...arg) {
+        //实现  改变this指向  执行函数  传入参数
+        // this(...arg);
+        context = context || window;
+        var a = Symbol();
+        context[a] = this;
+        let res = context[a](...arg);
+        delete context[a];
+        return res;
+    }
+    fn.myCall(obj,1,3,4);
+    //让fn执行，fn中的this 指向了obj  把参数1,3,4传给了fn
+
+    //实现instanceof 功能
+    function instance_of (l, r) {
+        var o = r.prototype;
+        var l = l.__proto__;
+        while (true) {
+            if (l === null) return fasle;
+            if (l === o) return true;
+            l = l.__proto__;
+        }
+    }
+</script>
+</body>
+</html>

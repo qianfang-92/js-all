@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .box {
+            width: 600px;
+            margin: 30px auto;
+        }
+
+        .tab_box {
+            border: 1px solid seagreen;
+            display: flex;
+        }
+
+        .tab {
+            flex: 1;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            cursor: pointer;
+            user-select: none;
+
+        }
+
+        .tab:nth-child(2) {
+            border: 1px solid seagreen;
+            border-bottom: none;
+            border-top: none;
+        }
+
+        .tab.current {
+            /* 同时有tab  current这两个类名的 对应的样式 */
+            background: firebrick;
+            color: darkorange;
+        }
+
+        .body_box {
+            width: 600px;
+            height: 300px;
+            border: 1px dashed forestgreen;
+            border-top: none;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        .body {
+            width: 600px;
+            height: 300px;
+            text-align: center;
+            line-height: 300px;
+            font-size: 20px;
+            display: none;
+        }
+
+        .body.current {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box" id='box'>
+        <ul class='tab_box'>
+            <li class="tab current">css</li>
+            <li class="tab">js</li>
+            <li class="tab">HTML</li>
+        </ul>
+        <ul class="body_box">
+            <li class="body current">css基础</li>
+            <li class="body">js基础</li>
+            <li class="body">HTML基础</li>
+        </ul>
+    </div>
+    <div class="box" id='box2'>
+        <ul class='tab_box'>
+            <li class="tab current">css</li>
+            <li class="tab">js</li>
+            <li class="tab">HTML</li>
+        </ul>
+        <ul class="body_box">
+            <li class="body current">css基础</li>
+            <li class="body">js基础</li>
+            <li class="body">HTML基础</li>
+        </ul>
+    </div>
+    <div class="box" id='box3'>
+        <ul class='tab_box'>
+            <li class="tab current">css</li>
+            <li class="tab">js</li>
+            <li class="tab">HTML</li>
+        </ul>
+        <ul class="body_box">
+            <li class="body current">css基础</li>
+            <li class="body">js基础</li>
+            <li class="body">HTML基础</li>
+        </ul>
+    </div>
+
+    <script>
+        /*
+            获取操作的元素：tab  body
+            清除类名
+            循环绑定点击事件
+        */
+        // function Tab (idSelector) {
+        //     this.box = document.querySelector(idSelector);//获取最外层的盒子
+        //     this.tabs = this.box.getElementsByClassName('tab');
+        //     this.bodys = this.box.getElementsByClassName('body');
+        //     this.mapBind();
+        // }
+        // Tab.prototype.mapBind = function () {
+        //     //this都是Tab的实例
+        //     //this.tabs 是我们要去绑定的元素
+        //     for (let i = 0; i < this.tabs.length; i++) {
+        //         this.tabs[i].onclick = ()=> { //把这个改成箭头函数，这样里面的this就不会是Onclick事件的执行者了
+        //             //给每一个tab绑定点击事件
+        //             this.clearClass();  
+        //             this.tabs[i].className = 'tab current';
+        //             this.bodys[i].className = 'body current';
+
+        //         }
+        //     }
+
+        // }
+        // Tab.prototype.clearClass = function () {
+        // //清除类名    this.tabs  this.bodys 的类名  current清除
+        //     for (let i = 0; i < this.tabs.length; i++) {
+        //         this.tabs[i].classList.remove('current');
+        //         this.bodys[i].className = 'body';
+        //     }
+        // }
+
+        class Tab {
+            constructor(idSelector) {
+                this.box = document.querySelector(idSelector);
+                this.tabs = this.box.getElementsByClassName('tab');
+                this.bodys = this.box.getElementsByClassName('body');
+                this.mapBind();
+            }
+            mapBind() {
+                for (let i = 0; i < this.tabs.length; i++) {
+                    this.tabs[i].onclick = ()=>{
+                        this.clearClass();
+                        this.tabs[i].className = 'tab current';
+                        this.bodys[i].className = 'body current';
+                    }
+                }
+            }
+            clearClass() {
+                for (var i = 0; i < this.tabs.length; i++) {
+                    this.tabs[i].className = 'tab';
+                    this.bodys[i].className = 'body';
+                }
+            }
+
+        }
+
+        var tab = new Tab('#box');
+        var tab = new Tab('#box2');
+        var tab = new Tab('#box3');
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+            bind  用法和 call 一样  但是call，apply都是让函数立即执行的
+            fn.bind(obj,1,2,3,5)
+            但是bind的返回值是一个新的函数，新函数执行时，fn才会执行，fn的this这时才会改变成obj
+
+            call apply 都是让函数立即执行， 
+        */
+        function fn() {
+            console.log(arguments);  //严格模式下不能用delete 删除 对象的属性
+            console.log(this);
+            console.log('---------------------------------------');
+            return 123;
+        }
+        var obj = {
+            a: 12,
+            b: 13,
+            f: fn
+        }
+        fn.call(obj,1,2,3,4,5);
+        var f = fn.bind(obj,4,8,6,84);
+        f();//f执行时，会让fn执行，并把参数传给fn 并让fn的this指向改为obj
+        f(33,4,5,6);//会增加传入函数的实参，可以把bind括号里的除了第一项的参数当作默认参数，再给f传递参数的时候，会把这些参数补在默认参数的后面
+        console.log(f);
+        fn()
+
+        var ary = [f];
+        ary[0]();//按理这里的this是ary  但是 bind处理过后，f中的this不会再发生任何改变了
+        f.call([]);//这里的this还是之前的f的this，没有改变了
+
+        //箭头函数没有this，所以不能使用 bind  call  apply
+
+        //实现一个myBind 用法等于bind
+
+        Function.prototype.myBind = function (context, ...arg) {
+            var _this = this;
+            return function (...ary) {
+               return _this.apply(context,arg.concat(ary))                
+            }
+        }
+
+        var f2 = fn.myBind(obj,2,8,5,9);
+        f2(1,3,6);
+
+        
+    </script>
+</body>
+
+</html>

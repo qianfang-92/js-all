@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    /*
+        内置类的原型上的方法 可以被修改  但是不能被重构；
+    */
+    // Array.prototype.pop = function () {
+    //     console.log(222)
+    // }
+    Array.prototype = {
+
+    };//原型重构对于内置类没有作用   只可以改里面的方法  ，不能重构
+    // var ary = [1,2,3,4];
+    // console.log(ary.pop());
+    // console.log(ary);
+    var ary2 = [1,2,3,4,6,2,3,4,1,4,5,36]
+
+    Array.prototype.unique = function () {
+        for (let i = 0; i < this.length; i++) {
+            for (let j = 1 + 1; j < this.length; j++) {
+                while ( this[i] == this[j]) {
+                    this.splice(this[j], 1)
+                    j--
+                }
+            }
+        }
+    }
+
+    Array.prototype.unique2 = function () {
+        // this ---> ary
+        // var obj = {};
+        // this.forEach (item => {
+        //     obj[item] = item;
+        // })
+        // this.length = 0;
+        // for (var k in obj) {
+        //     this.push(obj[k])
+        // }
+
+
+        // let arr = [...new Set(this)];
+        // this.length = 0;
+        // arr.forEach(item => {
+        //     this.push(item)
+        // })
+
+        var obj = {};
+        for (var i = 0; i < this.length; i++) {
+            while (!obj.hasOwnProperty(this[i])) {
+                obj[this[i]] = this[i]
+            }
+        }
+    }
+    //添加的 去重方法
+    ary2.unique();
+    console.log(ary2);
+
+</script>
+</body>
+</html>
