@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    // in 某个属性是否属于某个对象； 看对象是否能调用到这个属性
+    var obj = {
+        a : undefined,
+        b : 123
+    }
+
+    //包装 hasOwnProperty 
+    // Object.prototype.myHasOwnProperty = function (temp) {
+    //     var left = this.__proto__;
+    //     if (left === null) {
+    //         if (temp in this) {
+    //             return true;
+    //         } else {return false}
+    //     }
+    //     while (left) {
+    //         if (temp in left) return false;
+    //         left = left.__proto__
+    //     }
+    //     if (temp in this) return true;
+    // }  失败
+
+    //包装 hasPubProperty 方法
+    Object.prototype.hasPubProperty = function (temp) {
+        return (temp in this && !this.hasOwnProperty(temp))
+    }
+    var ary = [1,2,3,4,5];
+    ary.qqq = 9;
+    Array.prototype.a = 100;
+    Object.prototype.b = 200;
+    for (var k in ary) {
+        console.log(ary[k])
+    }//in 会把所有能调用到的 自定义的属性全部获取到
+
+</script>
+</body>
+</html>

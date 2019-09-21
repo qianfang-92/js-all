@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    function Person(name,age) {
+        this.name = name;
+        this.age = age;
+        this.eat = function () {
+            
+        }
+        this.play = function () {
+            
+        }
+        return 123;
+    }
+    var p = new Person('珠峰',10);
+
+    //封装myNew 方法 
+    function myNew (classN,...arg) {
+        var obj = {};
+        obj.__proto__ = classN.prototype;
+        var res = classN.call(obj,...arg);
+        return typeof res === 'object' ? res : obj;
+    }
+    var p2 = myNew(Person,'234', 12);
+
+    // function myNew (classN, ...arg) {
+    //     var obj = {};
+    //     obj.__proto__ = classN.prototype;
+    //     var res = classN.call(obj,...arg);
+    //     return typeof res === 'object' ? res : obj;
+    // }
+</script>
+</body>
+</html>
