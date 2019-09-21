@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    /*
+        类      实例
+        Object  {}  基类
+
+        原型链  属性的查找机制  自己没有 默认通过__proto__ 向所属类的原型上查找，没有的话 可以一直查找到的基类的原型
+        作用域链    变量的查找机制
+
+        自定义类    
+    
+    */
+    class Man {
+        constructor (name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        eat () {
+            //保证这里的this都是当前类的实例  es6 class声明的类中，原型上的公用属性只能是函数；
+        }
+    }
+    var p = new Man(); //p 就是 Man的一个实例
+    var ary = [1,2,3,5,7,5,8]
+
+    //修改pop方法  可以删除几项，返回删除的几项
+    Array.prototype.pop = function (n = 1) {
+        var ary = [];
+        //考虑n和数组的长度
+        // if(n >= this.length) {
+        //     ary.push(...this);
+        //     this.length = 0 ;
+        //     // throw new Error('长度过分')
+        // } else {
+        //     //n = 2则 需要我们把length -1 和length -2 这两项删除
+        //     ary = this.slice(this.length - n);
+        //     this.length -= n
+        // }
+        // return ary
+
+        //方法2
+        n = n > this.length ? this.length : n;
+        ary = this.slice(this.length - n);
+        this.length -= n;
+        return ary;
+    }
+    //自定义类的原型重构时，需要注意constructor的指向
+
+    //封装 max average  方法  数组的  一个是最大值，一个是平均数
+    Array.prototype.myMax = function () {
+        var max = this[0];
+        for (let i = 0; i < this.length; i++) {
+            while (max < this[i]){
+                max = this[i]
+            }
+        }
+        return max;
+
+        //方法2-4
+        return this.sort((a, b) => b - a)[0];
+        return Math.max(...this);
+        return Math.max.apply(Math,this);
+    }
+
+    Array.prototype.myAverage = function () {
+        var n = 0;
+        var l = 0;
+        for (let i = 0; i < this.length; i++) {
+            if (typeof this[i] === 'number' && this[i].toString() !== 'NaN') {
+                n += this[i]
+                l++
+            }
+        }
+        return n/l
+
+        //方法2
+        // return eval(this.join('+'))/this.length;
+    }
+
+</script>
+</body>
+</html>

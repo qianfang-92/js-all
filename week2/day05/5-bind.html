@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn1">按钮一</button>
+    <button id="btn2">按钮二</button>
+<script>
+    // bind 和call的用法一样  但是不会立即执行 
+    // var p2 = fn.bind(obj,1,2,3)  p2是一个新的函数
+    //p2 执行时，里面的this是obj,默认参数是 1,2,3  返回结果是 fn的结果
+
+    function fn () {
+        console.log(arguments);
+        console.log(this);
+        console.log('---------------------------')
+    }
+    var obj = {a:12};
+    var res2 = fn.bind(obj,1,23,3)
+    btn.onclick = fn;//这里的this是btn
+    btn2.onclick = res2;//这里的this是obj  用bind改写的this，不能再更改了
+
+    Function.prototype.myBind= function (context = window,...arg) {
+        var _this = this;
+        return function (...arr) {
+            return _this.apply(context,arg.concat[arr]);
+            //或者
+            // return _this.apply(context,[...arg,...arr]);
+        }
+    }
+
+    /*
+        this:
+            箭头函数中的this是上级作用域中的this，是把this 和arguments当作了普通变量
+            new 执行时，函数中的this 是 当前创造的那个实例
+            自执行函数、定时器中的this 是 window
+            事件绑定 是 绑定的元素
+            调用方法时，看  .  前面是什么，没点 是window
+    */
+    // 严格模式  delete不能用  未声明的变量不能用  fn.call(null) :this变成 null 非严格模式下是window   形参和实参的集合不一一映射
+</script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+
+
+    //类的继承（一个类使用另一个类的东西）   封装（高内聚 低耦合）  多态（函数的多种形态，多个参数，auguments）  
+
+
+    //下面的所有继承方式 统称为 组合式继承
+    function Person (name, age) {
+        this.name = name;
+        this.age = age;
+        //call继承  这种继承方式只能继承私有属性
+        Animal.call(this,10000);//把Animal的this转成了Person实例，并传入参数，
+    }
+    // Person.prototype = new Animal;
+    Person.prototype = Animal.prototype;//让Person的原型指向了Animal的原型    这样，就可以用Person的实例调用Animal的方法
+    //但是这样，Animal的实例也能调用到了Person的方法
+    Person.prototype = new Animal();//这样 让Person的原型指向了Animal的某个实例，这样，Person也能调用Animal的方法，但是不能反过来
+    //这样也有缺点，如果在Animal的本身加属性，Person实例也能调用
+
+    Person.prototype = Object.create(Animal.prototype);//create 创造了一个空对象，空对象的__proto__ 指向了 Animal.prototype
+
+    Person.prototype.eat = function () {
+        console.log('chi')
+    }
+    function Animal (iq) {
+        this.iq = iq
+    }
+    Animal.prototype.move = function () {
+        console.log('dong')
+    }
+    Animal.prototype.sleep = function () {
+        console.log('shui')
+    }
+    var p1 = new Person('xiaoming', 100);
+
+    //实现 create
+    Object.prototype.myCreate = function () {
+        var obj = {};
+        obj.__proto__ = this;
+        return obj;
+    }
+
+
+
+    //class的继承方法：
+    class Parent {
+        constructor () {
+            this.name = 'Parent';
+            this.age = 100;
+        }
+        say () {
+            console.log('hello parent')
+        }
+        static qqq = 234;//静态属性
+    }
+    class Child extends Parent {
+        constructor () {
+            super();//写了extends 和 constructor  则必须写  super() ；其实super就是Parent的constructor;而且必须写在第一行
+            this.money = 100000000000;
+        }
+        play () {
+            console.log('wan')
+        }
+    }
+    var ming = new Child();
+    console.log(ming);
+</script>
+</body>
+</html>

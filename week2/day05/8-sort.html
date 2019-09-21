@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            list-style:none;
+        }
+    </style>
+</head>
+<body>
+    <button id = 'name_btn'>姓名</button>
+    <button id="age_btn">年龄</button>
+    <ul id= 'box'>
+        <li>
+            <strong>姓名：小明</strong>
+            <strong>年龄：10岁</strong>
+        </li>
+    </ul>
+<script>
+    var ary = [
+        {name : '小明', age : 10},
+        {name:'小话',age:12},
+        {name:'小李',age:15},
+        {name:'小王',age:11},
+        {name:'小红',age:17},
+
+    ];
+
+    
+    function render () {
+        var str = '';
+
+        ary.forEach((item) =>{
+        let {name, age} = item;//对象的解构赋值
+        str += `<li>
+                <strong>姓名：${name}</strong>
+                <strong>年龄：${age}岁</strong>
+                </li>`
+        })
+        box.innerHTML = str;
+    }
+    render();
+    /*对象的解构赋值：
+        var obj = {name:123,age:12};
+        var {age} = obj;
+        var {name,age} = obj;
+        age 就是一个变量，对应的值就是对象中 age 对应的属性值,对象里没有这个属性就是undefined;
+     */
+     //方法一
+    //  var i = 1;
+    //  name_btn.onclick = function () { 
+    //      if(i == 1) {
+    //         ary.sort((a,b)=>{
+    //          return a.name.localeCompare(b.name)
+    //      })
+    //       i = 0;
+    //      } else {
+    //         ary.sort((a,b) =>{
+    //              return b.name.localeCompare(a.name)
+    //          })
+    //          i = 1;
+    //      }
+    //     render();
+    //  }
+
+     //方法二
+     var i = 1;
+     name_btn.i = age_btn.i = 1;//解决共用i的问题
+     name_btn.onclick = function () { 
+         this.i *= -1;
+         ary.sort((a,b) =>{
+                 return b.name.localeCompare(a.name)*this.i
+                 })
+        render();
+     }
+     age_btn.onclick = function () {
+         this.i *= -1;
+         ary.sort((a,b)=>{
+             return (a.age - b.age)*this.i
+         })
+         render();
+     }
+
+</script>
+</body>
+</html>

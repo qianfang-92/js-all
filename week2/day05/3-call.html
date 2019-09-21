@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    // call 改变this关键字指向的 
+    function fn () {
+        console.log(arguments);
+        console.log(this);
+        console.log('---------------------------')
+    }
+    var ary = [fn];
+    fn.call(ary);// call 三个作用：改变fn this 指向   传参数   执行函数
+
+    Function.prototype.myCall = function (context,...arg) {
+        // context = context || window;
+        if (typeof context !== 'object' && typeof context !== 'function' && context !== null) {
+            arg.unshift(context);//当context是值类型的时候，先把arg加上context这个数字，然后把context 等于 window
+            context = window;
+        }
+        var a = Symbol();
+        context[a] = this;
+        var res = context[a](...arg);
+        delete context[a];
+        return res;
+    }
+
+    function myNew (classN,...arg) {
+        var obj = {};
+        obj.__proto__ = classN.prototype;
+        var res = classN.call(obj,...arg);
+        return typeof res === 'object' ? res : obj;
+    }
+
+    function myInstanceof (temp, classN) {
+        if (typeof temp !== 'object' && typeof temp !== 'function') return false;
+        var left = temp.__proto__;
+        var right = classN.prototype;
+        while (left) {
+            if (left === right) return true;
+            left = left.__proto__;
+        }
+        return false
+    }
+</script>
+</body>
+</html>
