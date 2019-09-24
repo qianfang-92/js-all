@@ -1,0 +1,84 @@
+*{
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+.md{
+    width:1226px;
+    margin:20px auto;
+}
+img{
+    height:100%;
+}
+.md>header{
+    border:1px solid #ccc;
+    height:50px;
+    line-height:50px;
+}
+.md>header>span{
+    padding:0 20px;
+    cursor:pointer;
+    /* user-select:none; */
+}
+.md>header>span:first-child{
+    cursor:default;
+}
+#box{
+    overflow:hidden;
+    margin-top:20px;
+}
+#box>li{
+    float:left;
+    width:226px;
+    height:360px;
+    margin-right:24px;
+    margin-bottom:20px;
+    border:1px solid #ccc;
+    box-sizing:border-box;
+    position:relative;
+}
+#box>li:nth-child(5){
+    margin-right:0;
+}
+#box>li:hover{
+    border:darkred 1.5px solid;
+}
+#box>li>.img_box{
+    height:180px;
+    width:180px;
+    margin: 30px auto 30px;
+}
+#box>li>.til{
+    color:rgb(117, 111, 111);
+    text-align:center;
+    font-size:14px;
+
+
+}
+#box>li>.desc{
+    text-align:center;
+    font-size:15px;
+    margin:5px 0;
+}
+#box>li>.price{
+    text-align:center;
+    font-size:15px;
+    color:darkred;
+}
+#box>li>.bot_box{
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+    display:flex;
+}
+#box>li>.bot_box>div{
+    flex:1;
+    border-top:1px solid #ccc;
+    height:35px;
+    line-height:35px;
+    text-align:center;
+}
+#box>li>.bot_box>div:first-child{
+    border-right:1px solid #ccc;
+}

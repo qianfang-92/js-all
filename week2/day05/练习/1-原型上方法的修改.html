@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    /*
+        类      实例
+        Object  {}  基类
+
+        原型链      属性的查找机制：自己没有 默认__proto__向所属类的原型上查找，若没有的话 可以一直查找到基类的原型上
+        作用域链    变量的查找机制
+
+        每一个函数(类)  都有一个默认的属性  prototype   指向自己的原型对象
+        每一个对象(实例)    都有一个默认的__proto__属性 只想所属类的原型对象
+        每一个默认的原型对象上 都有一个默认的属性constructor    指向 对应的构造函数本身
+
+        自定义类
+    */
+    Array.prototype.pop = function (n = 1) {
+        var temp = [];
+        n = n > this.length ? this.length : n;
+        temp = this.slice(this.length - n);
+        this.length -= n;
+        return temp;
+    }
+    Array.prototype.max = function () {
+        return Math.max(...this);
+        return this.sort((a, b)=>b-a)[0];
+        return Math.max.apply(Math, this);
+    }
+    Array.prototype.average = function () {
+        return eval(this.join('+'))/this.length;
+    }
+</script>
+</body>
+</html>

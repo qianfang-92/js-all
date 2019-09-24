@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button id="name_btn">姓名</button>
+    <button id="age_btn">年龄</button>
+    <ul id="box">
+        <li>
+            <strong>姓名：</strong>
+            <strong>年龄：</strong>
+        </li>
+    </ul>
+</body>
+</html>
+<script>
+    var ary = [
+        {name:'小明',age:10},
+        {name:'小话',age:12},
+        {name:'小李',age:15},
+        {name:'小王',age:11},
+        {name:'小红',age:17},
+    ];
+
+    function render () {
+        var str = '';
+        ary.forEach (item =>{
+            var {name, age}= item;
+            str += `<li>
+                        <strong>姓名：${name}</strong>
+                        <strong>年龄：${age}</strong>
+                    </li>`
+        })
+        box.innerHTML = str;
+    }
+    render();
+
+    name_btn.flag = age_btn.flag = 1;
+    name_btn.onclick = function () {
+        this.flag *= -1;
+    }
+</script>

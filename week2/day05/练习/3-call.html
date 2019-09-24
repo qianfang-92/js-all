@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    // call 改变this关键字的指向的
+    function fn () {
+        console.log(arguments);
+        console.log(this);
+        console.log('----------------');
+    }
+    fn();
+    var ary = [fn];
+    ary[o]();
+
+    //new 执行  开辟作用域  形参赋值    变量提升   开辟一个堆内存   把this指向改成这个堆内存    代码执行    默认返回this
+
+    var res = fn.call(ary,1,23,4);
+    /*
+        call的第一个参数：是让fn中的this指向这个参数
+        call的第二个及以后的参数，都是传给fn的实参
+        call执行结果  就是 fn执行的结果
+    */
+    function myNew (classN, ...arg) {
+        var obj = new Object();
+        obj.__proto__ = classN.prototype;
+        var res = classN.call(obj,...arg);
+        return typeof res === 'object' ? res : obj;
+    }
+
+    function myInstanceof (temp, classN) {
+        if (typeof temp !== 'object' && typeof temp !== 'function') return false;
+        var left = temp.__proto__;
+        var righe = classN.prototype;
+        while (left) {
+            if (left === right) return true;
+            left = left.__proto__;
+        }
+        return false;
+    }
+
+    function myCall (context,...arg) {
+        if (typeof context !== 'object' && typeof temp !== 'function' && typeof temp !== 'null') {
+            arg.push(context);
+            context = window;
+        }
+        var a = Symbol();
+        context[a] = this;
+        var res = context[a](...arg);
+        delete context[a];
+        return res;        
+    }
+</script>
+</body>
+</html>

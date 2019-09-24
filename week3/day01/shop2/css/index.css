@@ -1,0 +1,89 @@
+*{
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+.md{
+    width:1226px;
+    margin:20px auto;
+}
+img{
+    height:100%;
+}
+.md>header{
+    height:50px;
+    line-height:50px;
+    border:1px solid #ccc;
+}
+.md>header>span{
+    padding:0 20px;
+    color:rgb(102, 98, 98);
+    cursor:pointer;
+    user-select:none;
+}
+.md>header>span:first-child{
+    cursor: default;
+}
+.md>.box{
+    margin-top:20px;
+}
+.md>.box>#box{
+    overflow: hidden;
+    width:100%;
+}
+.md #box>li{
+    float:left;
+    width:227px;
+    height:360px;
+    border:1px solid #ccc;
+    margin-right:22px;
+    box-sizing:border-box;
+    position:relative;
+}
+.md #box>li:nth-child(5){
+    margin-right:0;
+}
+.md #box>li:hover{
+    border:1.5px solid darkred;
+}
+.md .box .img{
+    width:180px;
+    height:180px;
+    line-height:180px;
+    margin:20px auto;
+}
+.md .box .til{
+    width:100%;
+    text-align:center;
+    font-size:14px;
+    color:rgb(49, 47, 47);
+}
+.md .box .desc{
+    width:100%;
+    text-align:center;
+    font-size:15px;
+    margin:5px 0;
+}
+.md .box .price{
+    width:100%;
+    text-align:center;
+    font-size:15px;
+    color:darkred;
+}
+.md .box .bot_box{
+    display:flex;
+    width:100%;
+    position:absolute;
+    left:0;
+    bottom:0;
+    border-top:1px solid #ccc;
+}
+.md .box .bot_box>div{
+    flex:1;
+    height:40px;
+    line-height:40px;
+    text-align:center;
+}
+.md .box .bot_box>div:first-child{
+    border-right:1px solid #ccc;
+}
