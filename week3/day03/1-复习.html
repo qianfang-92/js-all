@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    /*
+        正则    匹配    捕获
+        var reg = /^\d$/;
+        var reg = /\d/;
+        () 在匹配中提升优先级  在捕获中是分组的意思
+
+        test   匹配
+        exec   捕获    这两个方法都在正则类的原型上
+
+        这三个修饰符是正则类的私有属性，只读
+        global
+        ignoreCase
+        mutiline
+
+        捕获的懒惰性  加g解决
+        捕获的贪婪性  在量词元字符后边加?
+    */
+    var reg = /\d+/;
+    var str = '珠峰2019珠峰2020';
+    //每个正则都会有一个lastIndex属性  若没有  g 则每次捕获的lastIndex都是0；有了g之后，下一次的lastIndex是上一次捕获结尾
+    //若正则不匹配字符串，则获取到的就是  null
+    reg.exec(str);//[2019]
+
+    //exec的返回值 是个数组  数组中的第一项 是大正则捕获的内容  第二项是第一个小分组捕获的内容  第三项是第二个小分组捕获到的内容，以此类推
+
+
+    //封装函数，解决懒惰性，并且捕获一次就可以
+    RegExp.prototype.execAll = function (str) {
+        let _this = this;
+        if (!_this.global) {
+            _this = eval(_this + 'g');
+        };
+        let ary = [];
+        let res = _this.exec(str);
+        while (res) {
+            ary.push(res);
+            res = _this.exec(str);
+        }
+        return ary;
+    }
+    var reg = /(\d)+/;
+    var str = '珠峰2019zf2020';
+    console.log(reg.execAll(str));// 2019, 9 这个小分组的是9 最后一个数字顶了前边的
+</script>
+</body>
+</html>

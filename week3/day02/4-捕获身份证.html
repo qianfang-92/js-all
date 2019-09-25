@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" placeholder='身份证' id='inp'>
+    <button id='btn'>解析</button>
+    <h2 id='box'>这个人的出生年月日是：年 月 日 性别是男</h2>
+</body>
+</html>
+<script>
+    var reg = /^\d{6}(\d{4})(\d{2})(\d{2})\d{2}(\d)(\d|X)$/;
+    btn.onclick = function () {
+        let str = inp.value;
+        let res = reg.exec(str);
+        if (res) {
+            let str2 = '';
+            str2 += `这个人的出生年月日是：${res[1]}年${res[2]}月${res[3]}日 性别是${res[4]%2 ? '男':'女'}`
+            box.innerText = str2;
+        } else {
+            alert('身份证不合法')
+        };
+    }
+
+    //test  exec后的括号里可以不写字符串，因为它默认先用toString 转一下 
+
+
+    Object.prototype.getType = function () {
+        var str = ({}).toString.call(this);
+        var reg = /[a-z]+/ig;//修饰符 可以 重复写，一起写也可以 i :忽略大小写
+        reg.test(str);
+        var ary = reg.exec(str);
+        return ary[0].toLowerCase();
+    }
+
+    // var reg = / (\w+)/
+    console.log(''.getType());
+</script>

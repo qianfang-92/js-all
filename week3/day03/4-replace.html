@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id='inp'>
+<script>
+    /*
+        replace 替换
+    */
+   var str = '2019-9-25';
+   var res = str.replace(/-/g, '/');
+   console.log(res);
+
+   var str = 'dahd4gksdhj2132hjhkjs3dh3232jhkjdshfk23jhkjh32hkj546kh';
+   var res = str.replace(/\d+/g,'-');
+   console.log(res);
+
+   var str = '    dah   adshd fsfd fdf   fdf h fdfd  ';
+   //使用正则去除字符串的首尾空格
+   //以1到多个空格开头或者结尾的 都替换成空格
+   var res = str.replace(/^ +| +$/g,'');
+   console.log(res);
+
+
+   inp.oninput = function () {
+       console.log(this);
+       var str = this.value;
+        this.value = str.replace(/^ +|[^\d ]+/g,'');//里面只能有数字或空格
+   }
+
+   var str = 'adahWDEKJdshjksdDd    djkfsdDSDdjskDSDLJhljv-----------';//反转其中的大小写
+   var str2 = '';
+
+   //旧方法：
+   for (let i = 0; i < str.length; i++) {
+       let a = str[i];
+       if (a === a.toLowerCase()) {
+            str2 += a.toUpperCase();
+       } else {
+           str2 += a.toLowerCase();
+       }
+   }
+   console.log(str, str2);
+   var num = 0;
+   var str2 = '';
+   //方法一：
+//     var res = str.replace(/[a-zA-Z]/g,function ($1) {
+//         num++
+//         if ($1.toLowerCase() === $1) {
+//             return $1.toUpperCase();
+//         }
+//         return $1.toLowerCase();
+//    })
+//    console.log(res);
+//    console.log(num)
+
+
+    //方法二
+    var res = str.replace(/([a-z]*)([A-Z]*)/g, function ($0,$1,$2) {
+        return $1.toUpperCase() + $2.toLowerCase();
+    })
+    console.log(res);
+
+
+
+
+   var str = 'zf2019zg2892';
+   var num = 0;
+   var res = str.replace(/([a-z]+)(\d+)/g, function () {
+       //replace 的回调函数的实参结果  跟match   exec  获取的；类似
+       //返回的字符串  是由匹配到的内容被return值替换后 的新字符串
+       //回调函数的执行次数跟正则匹配到的次数一样
+       console.log(arguments);
+       num++
+   })
+   console.log(num);
+
+   var str = 'we23hu2hj32hu3hjehj3ehkuhwe34hui65h5';
+   var res = str.replace(/([a-z]+)(\d+)/g,'$2===$1');   //所以在replace，有正则的时候，里面的$1代表第一个小分组，$2代表第二个小分组  $数字封顶到99
+   console.log(res)
+
+   var str = 'http://www.zhufengpeixun.cn/?lx=1&from=wx&b=12&c=13#2323'
+   function getParam (url) {
+        var reg = /([^?=&#]+)=([^?=&#]+)/g;
+        let obj = {};
+        url.replace(reg, function ($0,$1,$2) {
+            obj[$1] = $2
+        });
+        let v = url.match(/#(.+)/) ? url.match(/#(.+)/)[1]: null;
+        obj.hash = v;
+        return obj;
+   }
+  console.log(getParam(str));
+</script>
+</body>
+</html>

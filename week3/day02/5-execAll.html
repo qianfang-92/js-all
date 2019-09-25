@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    var str = '珠峰2019培训2020ruru32323';
+    var reg = /\d+/;
+
+    RegExp.prototype.execAll = function (str) {
+
+        //怎么处理没有 g 的情况:根据this.global属性判断，有就是true,没有就是false,这个属性的值是只读的，不能改
+        let _this = this
+        if(!_this.global) {
+            //没有g的情况
+            // _this = eval(_this + 'g');
+            //方法2：用new方法来加第二个参数
+            let s = /^\/(.+)\/$/.exec(_this + '')[1];
+            _this = new RegExp(s,'g')
+        }
+        var ary = [];
+        var res = _this.exec(str);
+        while (res) {
+            ary.push(res);
+            res = _this.exec(str);
+        }
+        return ary;
+    }
+    var res = reg.execAll(str);
+
+    //
+    var reg2 = new RegExp('\\d','g')//第二个参数是修饰符
+</script>

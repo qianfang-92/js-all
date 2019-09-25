@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    //写split的时候，可以结合正则使用。正则加不加g无所谓
+    var str = '1+2+3+4';
+    console.log(str.split(/\d/));
+
+    var str = 'a-3_34+rgdfv=gegd?terdgdf';
+    console.log(str.split(/[^\da-z]+/i));
+    console.log(str.split(/[-_+=?]/))
+</script>
+</body>
+</html>

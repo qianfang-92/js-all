@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    /*
+        匹配 test
+        捕获 exec   从字符串中获取满足正则的部分 字符
+    */
+   //exec 捕获的结果    第一项是大正则捕获到的内容，第二项及以后 是小分组捕获到的内容
+   //第二项就是第一个小分组  第三项就是第二个小分组  以此类推
+   //若字符串中没有任何符合正则的字符，则获取到的结果就是一个  null;
+    var reg = /([a-z]+)(\d+)/;//()在匹配时只有提升优先级的作用，在捕获时是分组的作用
+    var str = 'hello珠峰2019zf，2020';
+    var res = reg.exec(str);
+    console.log(res);//是个数组，里面的index是满足条件的第一个的索引
+
+
+    // 正则捕获的贪婪性   把全部符合的都获取到，从满足的那个开始，直到不满足为止，其中所有满足正则的字符都获取到
+    //解决这个贪婪性的问题    ? 
+    var reg = /\d+?/;
+    var str = 'hello珠峰2019zf，2020';
+    console.log(reg.exec(str));
+
+    //捕获的懒惰性：只捕获一次，不再捕获其他符合正则的字符
+    //解决懒惰性  ：补一个全局修饰符g
+    //加了g,之后，每次捕获时都会更新reg的lastIndex属性，
+    //lastIndex这个属性是控制的下一次开始匹配的起始索引；
+    //test 和 exec 都会更新reg的lastIndex 
+    var reg = /\d+/g;
+    var str = 'hello珠峰2019zf，2020';
+    console.log(reg.exec(str));//2019
+    console.log(reg.exec(str));//2020
+    // console.log(reg.exec(str));//null
+    // console.log(reg.exec(str));//2019
+    console.log(reg.test(str));//false，因为这时lastIndex索引是17  
+
+
+    //多行匹配后面加m,就是多行匹配 每行都匹配一下
+    var reg = /^a/m;
+    var str = `hjd\nah`;
+    console.log(reg.test(str));//false  加了m后是true
+
+</script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" placeholder='身份证号' id='inp'>
+    <button id='btn'>确认</button>
+    <h2 id='h2'>这个人的出生日期是：年 月 日 ；性别是男</h2>
+<script>
+    /*
+        match 是 字符串的方法，在不加g的情况下和exec一样
+
+        match与exec的区别：不加全局修饰符g的时候，两者功能是一样的
+        加上g之后，match可以把所有大正则匹配的内容都捕获到，在一个数组中，但是会丢掉小分组捕获的内容
+    */
+   var reg = /([a-z]+)(\d+)/;
+   var str = 'zf2019zf2020';
+   console.log(reg.exec(str));
+   console.log(str.match(reg));
+
+   var reg = /([a-z]+)(\d+)/g;
+   var str = 'zf2019zf2020';
+   console.log(reg.exec(str));
+   console.log(str.match(reg));
+
+   var str = '55043219980818243X';
+   
+    btn.onclick = function () {
+        var str = inp.value;
+        var reg = /^\d{6}(\d{4})(\d{2})(\d{2})\d{2}(\d)[\dX]/;
+        var res = str.match(reg);
+        console.log(res);
+        h2.innerHTML = `这个人的出生日期是：${res[1]}年${res[2]}月${res[3]}日 ；性别是${res[4]%2 ? '男' : '女'}`;
+    }
+
+    var str = 'http://www.zhufengpeixun.cn/?lx=1&from=wx&b=12&c=13#545';
+
+    function getParam(url) {
+        var reg = /([^?=&#]+)=([^?=&#]+)/g;
+        let obj = {};
+        url.match(reg).forEach(item=>{
+            let a = item.split('=');
+            obj[a[0]] = a[1];
+        });
+        let v = url.match(/#(.+)/) ? url.match(/#(.+)/)[1] : null;
+        obj.hash = v;
+        return obj;
+    }
+    console.log(getParam(str));
+</script>
+</body>
+</html>

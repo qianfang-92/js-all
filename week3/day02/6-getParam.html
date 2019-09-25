@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        RegExp.prototype.execAll = function (str) {
+            let _this = this
+            if (!_this.global) {
+                let s = /^\/(.+)\/$/.exec(_this + '')[1];
+                _this = new RegExp(s, 'g')
+            }
+            var ary = [];
+            var res = _this.exec(str);
+            while (res) {
+                ary.push(res);
+                res = _this.exec(str);
+            }
+            return ary;
+        }
+        var str = 'http://www.zhufengpeixun.cn/?lx=1&from=wx&b=12&c=13';
+
+        function getParam (url) {
+            let reg = /([^?=&#]+)=([^?=&#]+)/g;
+            let obj = {};
+            reg.execAll(url).forEach(item=>{
+                obj[item[1]] = item[2];
+            })
+            return obj;
+        }
+        getParam(str);
+
+        // var xhr = new XMLHttpRequest();
+        // xhr.open('get','./data.json',true);
+        // xhr.onreadystatechange = function () {
+        //     if (xhr.readyState == 4 && xhr.status == 200) {
+        //         data = JSON.parse(xhr.response);
+        //     }
+        // }
+        // xhr.send();
+        
+    </script>
+</body>
+
+</html>
