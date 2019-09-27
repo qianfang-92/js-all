@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id='inp'>
+</body>
+</html>
+<script>
+    // replace  替换；
+    var res = '2019-09-25'.replace(/-/g,'/');
+    console.log(res);
+
+    var str = 'dfgsd123bdfgf1231zdfvzddf';
+    var res = str.replace(/\d+/g,'-');
+    console.log(res);
+
+    var str = '   da 3 d s d 2de ds  3d  f   ';
+    //使用正则去除字符串的首位空格
+    //以1到多个空格开头或结尾的 都替换成空
+    var res = str.replace(/^ +| +$/g,'');
+    console.log(res);
+
+
+    inp.oninput = function () {
+        let str = this.value;
+        // let res = str.replace(/^ +/,'');
+
+        let res = str.replace(/^ +|[^\d ]+/,'')
+
+        this.value = res;
+    }
+
+    //把字母的大小写反转
+    var str = 'dsjkhHKJDkjlKJJLJjkkkhkHJKHLLuohuoGJBHBlkjlvfjGJYGUygBJ';
+    //方法一：
+    var res = str.replace(/([a-z]*)([A-Z]*)/g, function (a, b, c) {
+        return b.toUpperCase() + c.toLowerCase();
+    })
+    console.log(str);
+    console.log(res);
+
+    //方法二：
+    var res = str.replace(/[a-zA-Z]/g, function (a) {
+        if (a.toLowerCase() === a) {
+            return a.toUpperCase();
+        }
+        return a.toLowerCase();
+    })
+    console.log(str);
+    console.log(res);
+
+    /*
+        replace  的回调函数：
+            实参结果  跟match和exec获取的类似
+            返回的字符串 是由匹配到的内容被return值替换后的新字符串
+            回调函数的执行次数  跟  正则匹配到的次数一样
+
+        replace 后一个参数 用字符串写，里面的$1  $2  $3 ... 分别代表第一个小分组 第二个小分组。。。
+    */
+
+    var str = 'wer2312gsgsd345sdfgs345qwe324';
+    var res = str.replace(/([a-z]+)(\d+)/g,'$1===$2');
+    console.log(res);
+
+    var str = 'http://www.zhufengpeixun.cn/?lx=1&from=wx&b=12&c=13#qqqq';
+    function getParam (url) {
+        var obj = {};
+        var res = url.replace(/([^?=&#]+)=([^?=&#]+)/g, function (a, b, c) {
+            obj[b] = c;
+        })
+        let v = url.match(/#(.+)/) ? url.match(/#(.+)/)[1] : null;
+        obj.hash = v;
+        return obj;
+    }
+    getParam(str);
+
+</script>

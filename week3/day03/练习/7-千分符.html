@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    var str = '215763286324';
+    function moneyFormate (url) {
+        url = url.split('').reverse().join('');
+        let s = '';
+        for (let i = 0; i< url.length; i++) {
+            i%3 == 2 ? s += url[i] + ',' : s += url[i]
+        }
+        s = s.split('').reverse().join('').replace(/^,/,'');
+        // s = s.match(/^,/) ? s.slice(1) : s;
+
+        return s;
+    }
+    moneyFormate(str);
+
+    var str = '132872832'
+    // (?=)  非捕获型匹配 不属于正则捕获后获取的东西范围，大正则捕获的就是这个(?=)之前的东西
+    function moneyFormate2 (url) {
+        // var str = url.replace(/\d{1,3}(?=(\d{3})+$)/g, function (a) {
+        //     return a+','
+        // })
+
+        var str = url.replace(/(\d{1,3})(?=(\d{3})+$)/g, '$1,')
+        return str;
+    }
+    moneyFormate2(str);
+</script>

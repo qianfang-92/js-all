@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    /*
+        获取字符串中出现次数最多的字符；
+    */
+   var str = 'sfgsdfgsertdgfsdfgsertwegdsfgertewgsdfgsdg';
+   function getMax (url) {
+        var str = url.split('').sort().join('');
+//         var ary = str.match(/(\w)\1*/g);
+//         ary.sort((a,b)=>{
+//             return b.length - a.length;
+//         })
+//         console.log(ary);
+//         return {
+//             key : ary[0][0],
+//             num : ary[0].length
+//         }
+
+        let key = '', num = 0;
+        str.replace(/(\w)\1*/g, function (a,b) {
+            if (a.length > num) {
+                num = a.length;
+                key = b;
+            }
+        })
+        return {
+            key,num
+        }
+   }
+   getMax(str);
+</script>

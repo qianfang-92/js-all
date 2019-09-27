@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    /*
+        正则    匹配    捕获
+        () 小分组
+
+        方法都在正则类的原型上
+        匹配    test
+        捕获    exec
+
+        修饰符 在正则类的本身上，是私有属性，如果有，就是true，没有就是false 可以来判断是否有修饰符
+        global
+        ignoreCase
+        mutiline
+
+        捕获的懒惰性    解决办法是加全局修饰符g
+        捕获的贪婪性    解决办法是在量词元字符后边加?
+    */
+    var reg = /\d+/;
+    var str = '珠峰2019珠峰2020';
+    //每个正则都会有一个lastIndex属性  没有 g 修饰符的时候，每次的lastIndex都是0；有了g之后，下一次的lastIndex是上一次捕获结束的位置
+    //若正则不匹配字符串  则获取到的就是个 null
+
+    //exec 的返回值是个数组，数组中的第一项是大正则捕获的内容，第二项及以后 分别对应 各个小分组对应的内容
+
+    var reg = /([a-z]+)(\d+)/;
+    var str = 'zf2019zf2020';
+
+    RegExp.prototype.execAll = function (str) {
+        let _this = this;
+        if (!this.global) {
+            _this = eval(_this + 'g');
+        }
+        let res = _this.exec(str);
+        let ary = [];
+        while (res) {
+            ary.push(res);
+            res = _this.exec(str);
+        }
+        return ary;
+    }
+    reg.execAll(str);
+</script>
