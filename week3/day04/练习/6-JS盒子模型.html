@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    /*
+        client  offset  scroll  width   height  left    top
+
+        clientWidth     内容宽度 + 左右padding值
+
+        offsetWidth     clientWidth + 左右border
+
+        offsetTop       当前盒子的外边框到上级参照物的内边框的偏移量
+
+        offsetParent    上级参照物；有定位的上级（包含 父级 祖父级）元素，所有上级元素都没有定位，则参照物是body
+
+        scroll  内容不溢出  等同于  client
+            内容溢出时 没有设置overflow  值是内容宽高 + 上或左padding
+            内容溢出   设置了overflow  值是内容宽高 + 上下或左右的padding
+            scrollTop   卷去内容的高度
+        13个属性  只有 scrollTop 和scrollLeft可以设置值，其他的都是只读属性
+
+
+    */
+
+    function offset (ele) {
+        var l = ele.offsetLeft,
+            t = ele.offsetTop,
+            par = ele.offsetParent;
+        while(par) {
+            l += par.clientLeft + par.offsetLeft;
+            t += par.clientTop + par.offsetTop;
+            par = par.offsetParent;
+        }
+        return {
+            l,t
+        }
+    }
+</script>

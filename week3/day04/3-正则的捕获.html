@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container" class="main"></div>
+</body>
+</html>
+<script>
+    // exec
+    //返回结果 若有就是个数组，没有就是null  数组的第一项永远是大正则捕获的内容 第二项及以后都是对应的小分组捕获的内容
+    var reg = /\d+?/g;   //在量词元字符后加?解决它的贪婪性  加上全局修饰符g解决它的懒惰性
+    var str = 'zh3829zhd982hzhi23jziu2';
+    console.log(reg.exec(str));
+
+    //给正则添加上g之后，每一次的匹配或者捕获都会影响该正则的lastIndex属性 这个属性是下一次正则开始匹配的起始索引
+
+    RegExp.prototype.execAll = function (str) {
+        let _this = this;   //this在函数中是个默认的值，不能被赋值，所以用变量_this来存this的值
+        if (!this.global) {
+            // _this = eval(_this + 'g')
+            let a = /^\/(.+)\/$/.exec(_this + '')[1];
+            _this = new RegExp(a,'g');
+        }
+        let ary = [];
+        let res = _this.exec(str);
+        while(res) {
+            ary.push(res);
+            res = _this.exec(str);
+        }
+        return ary;
+    }
+
+    // cookie 是用来存储内容的地方 ，里面是键值对 JS拿cookie只能用document.cookie
+
+    function getCookie () {
+        var reg = /([^ ;=]+)=([^ ;=]+)/g;
+        var res = reg.execAll(document.cookie);
+        var obj = {};
+        res.forEach(item=>{
+            obj[item[1]] = item[2];
+        })
+        return obj;
+    }
+    getCookie();
+
+    //捕获身份证的出生年月日
+
+    function getId1 (str) {
+        var reg = /^\d{6}(19[7-9]\d|20[01]\d)(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])\d{2}\d[\dX]$/;
+        var str2 = '';
+        var res = reg.exec(str);
+        str2 += `此人的出生日期是${res[1]}年，${res[2]}月${res[3]}日`
+    }
+
+    var str = '<div id="container" class="main"></div>';
+    var reg = /id\=['"](.*?)["']/;
+    reg.exec(str)[1];
+    var reg = /> ([^><])</;
+    var reg2 = /<.+>/g;
+
+   
+</script>

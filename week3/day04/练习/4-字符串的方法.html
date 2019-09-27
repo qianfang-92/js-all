@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    //match
+    var reg = /\d+/g;
+    var str = 'zf2019zf2020';
+    str.match(reg);
+
+    function getParam (url) {
+        var obj = {};
+        url.match(/([^?=&#]+)=([^?=&#]+)/g).forEach(item=>{
+            var a = item.split('=');
+            obj[a[0]] = a[1];
+        })
+        if (url.match(/#(.+)/)){ 
+            obj.hash = url.match(/#(.+)/)[1]
+        } 
+        return obj;
+    }
+
+    //split(正则)
+
+    //replace
+    function getParam (url) {
+        var obj = {};
+        url.replace(/([^?=&#]+)=([^?=&#]+)/g, function (a,b,c) {
+            obj[b] = c;
+        })
+        url.replace(/#(.+)/,function (a,b) {
+            obj.hash = b;
+        })
+        return obj;
+    }
+</script>

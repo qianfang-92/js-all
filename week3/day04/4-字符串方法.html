@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    /*
+        match 字符串的方法 捕获方法
+            正则有g 捕获所有大正则
+            没有g 和exec结果一样
+    */
+    var str = 'zf2020zf2019';
+    var reg = /\d+/g;
+
+    function getParam (url) {
+        var reg = /([^=?&#]+)=([^=?&#]+)/g;
+        var res = url.match(reg);
+        var obj = {};
+        res.forEach(item=>{
+            var a = item.split('=')
+            obj[a[0]] = a[1];
+        })
+        var res2 = url.match(/#(.+)/);
+
+        return obj;
+    }
+
+    //split
+    var str = 'as3k2kjh3k_j4kj23=h23hkjh675k7?gjhg78hg6765hjhk_=?';
+    str.split(/\D+/);
+
+    //  replace
+    //  replace('a','b')
+    //  replace(/a/g,'b')
+    //  replace(/a/g,function(){})
+    //  replace(/a/g,'$1--$2')
+    function getParam (url) {
+        url.replace(/([^?=&#]+)=([^?=&#]+)/g, function (a,b,c) {
+            var obj = {};
+            obj[b] = c;
+        })
+        url.replace(/#(.+)/, function (a,b){
+            if(a){
+                obj.hash = b;
+            }
+        })
+        return obj;
+    }
+
+    str.replace(/^ +| +$/g,'');  //去除字符串首尾空格
+</script>

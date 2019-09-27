@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    //一个字符串中出现次数最多的字符：
+    var str = 'sdhahkhdhjshshnsgfshbfmnsbfmhjnfsjhnfsdasfd';
+
+    function getMax (url) {
+        let obj = {};
+        for (let i = 0; i< url.length; i++) {
+            if (obj.hasOwnProperty(url[i])) {
+                obj[url[i]] += 1;
+            } else {
+                obj[url[i]] = 1;
+            }
+        }
+        let key = '', num = 0;
+        for (var k in obj) {
+            if (obj[k] > num) {
+                num = obj[k];
+                key = k;
+            }
+        }
+        return {
+            key,num
+        }
+    }
+
+    function getMax2 (url) {
+        var ary = url.split('').sort().join('').match(/(\w)\1*/g).sort((a,b)=>{
+            return b.length - a.length
+        });
+        return {
+            key : ary[0][0],
+            num : ary[0].length
+        }
+    }
+
+    function getMax3 (url) {
+        var key = '', num = 0;
+         url.split('').sort().join('').replace(/(\w)\1*/g, function (a,b) {
+            if (a.length > num) {
+                num = a.length;
+                key = b;
+            }
+        })
+        return {
+            key,num
+        }
+    }
+
+    //大小写反转
+
+    function turn (url) {
+        return url.replace(/([a-z]*)([A-Z]*)/g, function (a,b,c) {
+            return b.toUpperCase() + c.toLowerCase();
+        })
+    }
+
+    function turn2 (url) {
+        return url.replace(/\w/g, function (a) {
+            return a.toLowerCase() === a ? a.toUpperCase() : a.toLowerCase();
+        })
+    }
+
+    //小写数字 转大写
+    var str = '今年是2017年'; //
+    var ary = ['零', '壹', '贰', '叁', '肆', '伍', '陆','柒', '捌', '玖', '拾'];
+    str.replace(/\d/g,function (a) {
+        return ary[a]
+    })
+
+    //模板引擎
+
+    function formate (temp, data) {
+        temp.replace(/\{\{(\w+)\}\}/g, function (a,b) {
+            return data[b]
+        })
+    }
+
+    //千分符的实现
+    function formateMoney (url) {
+        url = url.split('').reverse().join('');
+        let s = '';
+        for (let i = 0; i < url.length; i++) {
+            i%3 == 2 ? s += url[i] + ',' : s += url[i];
+        }
+        return s.split('').reverse().join('').replace(/^,/,'')
+    }
+
+    var str = '123456243242'
+    function formateMoney2 (url) {
+        return url.replace(/(\d{1,3})(?=(\d{3})+$)/g,'$1,')
+
+    }
+</script>

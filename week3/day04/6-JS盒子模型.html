@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    // client  offset  scroll     width height  left  top
+    /*
+        clientWidth     里面的盒子高度加padding
+
+        offsetWidth     clientWidth + 左右的border值
+
+        offsetTop       当前盒子的外边框到上级参照物的内边框的偏移量 （上边框）
+
+        offsetParent    上级参照物：有定位的上级元素，若所有上级元素都没有定位，那么就是body
+
+        scrollWidth     内容不溢出时，和clientWidth  ;内容溢出时，没有设置overflow属性 值是内容宽度加上 左padding    有设置overflow属性 值                  是内容宽度加左右padding
+        scrollTop       是卷曲内容的高度
+
+        13个属性  只有scrollTop和scrollLeft是可以设置值的，其他都是只读属性
+    */
+
+    // 封装一个offset方法 ： 可以求出当前元素到body的偏移量
+
+    function offset (a) {
+        var t1 = a.offsetTop;
+        var l = a.offsetLeft;
+        var par = a.offsetParent;  //body 的offsetTop是null
+        while(par) {
+           t1 += par.clientTop + par.offsetTop;
+           l += par.clientLeft + par.offsetLeft;
+            par = par.offsetParent;
+        }
+        return {
+            l,t1
+        }
+    }
+</script>

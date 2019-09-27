@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    /*
+        exec
+        返回结果若有就是个数组，没有就是null；数组中的第一项永远都是大正则捕获的内容，第二项及以后都是小分组捕获的内容
+
+        正则捕获的贪婪性  在量词元字符后面添加?解决
+        懒惰性 添加全局修饰符g
+        给正则添加上g之后，每一次的匹配或者捕获都会影响 该正则的lastIndex属性
+        这个属性是下一次正则开始匹配的起始索引；
+    */
+    RegExp.prototype.execAll = function (str) {
+        let _this = this;
+        if (!this.global) {
+            _this = eval(_this + 'g');
+        };
+        let ary = [];
+        let res = _this.exec(str);
+        while (res) {
+            ary.push(res);
+            res = _this.exec(str);
+        }
+        return ary;
+    }
+    
+
+    //cookie
+    function getCookie () {
+        var reg = /([^ ;=]+)=([^ ;=]+)/g;
+        var res = reg.execAll(document.cookie);
+        var obj = {};
+        res.forEach(a=>{
+            obj[a[1]] = a[2];
+        })
+        return obj;
+    }
+    getCookie();
+
+    //捕获id
+    var str = '<div id="container" class="main"> hello world</div>';
+    var reg = /id=['"](\w+)['"]/;
+    var reg = />([^><]+)</
+</script>
