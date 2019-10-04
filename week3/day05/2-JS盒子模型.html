@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+            *{
+                margin: 0;
+                padding: 0;
+                list-style: none;
+            }
+            #box{
+                width: 200px;
+                height: 200px;
+                padding: 20px;
+                background: #ccc;
+                border:10px solid red;
+                margin: 30px auto;
+                /* overflow: hidden */
+                overflow:scroll;
+            }
+            main{
+                position: relative;
+                padding: 50px;
+                background: blue;
+                margin: 20px;
+                border: 30px dashed salmon;
+            }
+            body{
+                background: #eee;
+            }
+        </style>
+</head>
+<body>
+    <main>
+        <div id="box">
+            担负起把党中央决策部署和对人民政协工作要求落实下去、把海内外中华儿女智慧和力量凝聚起来的政治责任，为决胜全面建成小康社会、进而全面建设社会主义现代化强国作出贡献”。在中央政协工作会议暨庆祝中国人民政治协商会议成立70周年大会上，习近平总书记从实现中华民族伟大复兴的高度，对人民政协担负的政治责任提出明确要求，对于我们把党中央决策部署落实下去、把各方面智慧和力量凝聚起来具有重要指导意义，必将激励全党全国各族人民为实现中华民族伟大复兴中国梦而不懈奋斗
+        </div>
+    </main>
+</body>
+</html>
+<script>
+    /*
+        JS盒子模型
+            client  offset scroll
+            height  width   left    top
+
+    */
+
+    var box = document.getElementById('box');
+    console.log(box.clientWidth);  //盒子内容加上左右paddig值
+    console.log(box.clientHeight);
+    console.log(box.clientLeft);//盒子的左边框的宽度border左的宽度
+    console.log(box.clientTop);
+
+    console.log(box.offsetHeight);//比clientHeight多了上下的border值
+    console.log(box.offsetWidth);
+    console.log(box.offsetLeft);//盒子的外边框到上级参照物内边框的偏移量 左边
+    console.log(box.offParent);//上级参照物
+
+    console.log(box.scrollWidth);//如果内容没有溢出，和clientwidth值一样  如果内容溢出并且没有设置overflow值 是内容宽度加上左padding值  设置了overflow 是内容宽度加上左右padding值
+    console.log(box.scrollLeft);//没有出现左右滚动条时是0, 有就是内容被滚动条卷去的左边宽度
+    console.log(box.scrolltop);//没有出现滚动条时是0  有就是内容被滚动条卷去的上部分高度
+
+    //这13个属性，只有scrollLeft scrollTop能设置值，而且它们有最大和最小值0，看内容能卷曲多少决定，写的值超过这个范围默认是最大或最小值
+
+    function offset (ele) {
+        var l = ele.offsetLeft,
+            t = ele.offsetTop,
+            temp = ele.offsetParent;
+        while (temp) { //body的上级参照物是null
+            l += temp.clientLeft + temp.offsetLeft;
+            t += temp.clientTop + temp.offsetTop;
+            temp = temp.offsetParent;
+        }
+        return {
+            '左偏移' : l,
+            '上偏移' : t
+        }
+    }
+</script>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    /*
+        正则：匹配test  捕获exec
+                字面量 var reg = /g/
+                构造函数模式    var reg = new RegExp('','g');
+            特殊元字符
+            \d  \D  \w  \W  \   .   \n  ^   $   []  [^] [.] |   [-] [a-z]   ()  (?:)    (?=)    (?!)    
+            量词元字符
+            ?   +   *   {n} {n,m}   {n,}
+            普通元字符
+
+            修饰符
+            ignoreCase  mutiline    global  可以同时使用
+        捕获：把字符串中符合正则的部分获取到exec
+
+        字符串中的方法：match split replace
+            match 有g之后一次性把所有的大正则捕获的内容都获取到一个数组中，但是获取不到小分组的内容
+    */
+
+    var reg = /^\d{6}(19[7-9]\d|20[01]\d)(0[1-9]|1[0-2])(0[1-9]|2\d|3[01])\d{2}\d[\dX]$/;//匹配身份证号
+    var reg = /^1[3-9]\d{9}$/;//匹配手机号
+    var reg = /^([01]\d|2[0-3])[:：][0-5]\d$/;//匹配24计时格式  00：00-23：59
+
+    /\d+/.exec('zf2019zf2020');//结果是一个数组， 由于贪婪性和懒惰性 是['2019']
+    /\d+?/g.exec('zf2019zf2020');//解决贪婪性  ['2']  ?    解决懒惰性 g 会影响lastIndex属性，是下一次正则匹配开始的起始索引
+    
+    ('zf2019zf2020').match(/(\d+)/)
+
+    function getParam (url) {
+        let obj = {};
+        url.match(/([^?=&#]+)=([^?=&#]+)/g).forEach(item=>{
+            let a = item.split('=');
+            obj[a[0]] = a[1];
+        })
+        if (url.match(/#(.+)/)) {
+            obj.hash = url.match(/#(.+)/)[1];
+        }
+        return obj;
+    }
+
+    ('378enkydjy3y32y9jdsjd98wejd7j873ju83u8miudo3j9jij90m').split(/\d+/)
+
+    function getParam (url) {
+        let obj = {};
+        url.replace (/([^?=&#]+)=([^?=&#]+)/g, function (a,b,c) {
+            obj[b] = c;
+        })
+        url.replace(/#(.+)/, function (a,b) {
+            obj.hash = b;
+        })
+        return obj;
+    }
+
+</script>

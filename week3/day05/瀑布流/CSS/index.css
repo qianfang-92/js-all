@@ -1,0 +1,80 @@
+*{
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+body{
+    background:#eee;
+}
+#box{
+    margin:auto;
+    width:1244px;
+}
+.head{
+    width:100%;
+    height:142px;
+    overflow:hidden;
+}
+.head>li{
+    float:left;
+    width:236px;
+    height:126px;
+    overflow:hidden;
+    margin:0 16px 16px 0;
+}
+.head>li:last-child{
+    margin-right:0;
+}
+.head>li>img{
+    width:100%;
+}
+.body{
+    width:100%;
+    overflow:visible;
+}
+.body>li{
+    float:left;
+    width:236px;
+    overflow:hidden;
+    margin:0 16px 16px 0;
+    /* background:#fff; */
+
+}
+.body>li:last-child{
+    margin-right:0;
+}
+.img_box:hover{
+    box-shadow:0px 3px 10px 3px #ccc;
+    transform:translateY(-5px);
+}
+.img_box{
+    width:100%;
+    margin-bottom:20px;
+    background:#fff;
+    transition: 0.2s;
+    border-radius:5px;
+    overflow:hidden;
+}
+.img_box img{
+    width:100%;
+
+}
+.img_box .desc{
+    padding:0 5px;
+    font-size:12px;
+    color:#ccc;
+    height:30px;
+    line-height:30px;
+    text-indent:12px;
+    border-bottom:1px solid #f2f2f2;
+    text-overflow:ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    /* 这三行是超出一行内容自动剪切，以省略号代替 */
+}
+.img_box .author{
+    height:30px;
+    line-height:30px;
+    text-align:center;
+    font-size:12px;
+}

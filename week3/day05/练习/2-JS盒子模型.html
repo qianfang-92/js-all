@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    /*
+        JS盒子模型
+            client  offset  scroll
+        
+        clientWidth 盒子内容+左右padding
+        clientLeft  左边框的宽度
+
+        offsetWidth 是clientWidth + 左右边框宽度
+
+        offsetParent 是上级参照物
+
+        offsetLeft  box的外边框到 上级参照物内边框的距离
+
+        scrollWidth 
+            内容没有溢出    等同于 clientWidth
+            内容有溢出 没有设置overflow属性 左padding值 + 内容宽度
+            内容有溢出 设置了overflow属性 左右padding值 + 内容宽度
+        
+        scrollTop 卷曲的高度 有最大值和最小值
+
+        13个属性中，只有scrollTop和scrollLeft是可以设置的，其他的属性都是只读属性
+
+    */
+
+    function offset (ele) {
+        //求出 ele 到 body的偏移量
+        let l = ele.offsetLeft,
+            t = ele.offsetTop,
+            temp = ele.offsetParent;
+        while (temp) {
+            l += temp.clientLeft + temp.offsetLeft;
+            t += temp.clientTop + temp.offsetTop;
+            temp = temp.offsetParent;
+        }
+        return {
+            l, t
+        }
+    }
+
+    
+</script>

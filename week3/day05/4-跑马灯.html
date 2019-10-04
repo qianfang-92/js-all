@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            list-style:none;
+        }
+        #box{
+            width:600px;
+            height:150px;
+            margin: 50px auto;
+            border:2px solid firebrick;
+            overflow:hidden;
+        }
+        ul{
+            width:600px;
+            height:150px;
+            overflow:hidden;
+
+        }
+        li{
+            float:left;
+            width: 150px;
+            height:150px;
+            overflow:hidden;
+        }
+        img{
+            width:100%;
+            height:100%
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <ul>
+            <li><img src="./img/1.jpg" alt=""></li>
+            <li><img src="./img/2.jpg" alt=""></li>
+            <li><img src="./img/3.jpg" alt=""></li>
+            <li><img src="./img/4.jpg" alt=""></li>
+        </ul>
+    </div>
+</body>
+</html>
+<script>
+    var box = document.getElementById('box');
+    var ul = box.getElementsByTagName('ul')[0];
+    ul.innerHTML += ul.innerHTML ;// 把同样的代码再放置一份到后边
+    ul.style.width = '1200px';
+    setInterval(()=>{
+        if (box.scrollLeft >= 600) {
+            box.scrollLeft = 0;//让元素直接闪到最左边
+        }
+        box.scrollLeft ++;
+        
+    },10)
+
+    //获取当前所有计算过的样式CSS样式  getComputedStyle     getComputedStyle(ele) :获取当前元素所有样式
+    //getComputedStyle(box).width
+    //ele.currentStyle  是ie 低版本用的查样式的方法
+
+    //封装一个方法 获取元素的某个属性值
+    function getCSS (ele, attr) {
+        var str = getComputedStyle(ele)[attr];
+        if (!str.match(/([^ ] [^ ])/g)) {
+            return parseFloat(str);
+        } else {
+            return str;
+        }
+    }
+
+    function setCSS (ele , attr, val) {
+        if (!/[^ ] [^ ]/.test(attr)) {
+            ele.style[attr] = parseFloat(val) + 'px';
+        } else {
+            ele.style[attr] = val;
+        }
+    }
+
+    function winH () {
+        //获取当前屏幕的高度
+        var h = doument.body.clientHeight || document.documentElement.clientHeight;
+        //获取当前屏幕的宽度
+        var w = document.body.clientWidth || document.documentElement.clientWidth;
+        return {
+            h,w
+        }
+    }
+</script>
