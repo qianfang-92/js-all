@@ -1,13 +1,16 @@
 //先获取数据
 let data = null;
+let flag = true;
 function getData() {
     let xhr = new XMLHttpRequest();
     xhr.open('get', './data.json', true);
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && /200|304/.test(xhr.status)) {
+            flag = false;
             data = JSON.parse(xhr.response);
             // console.log(data);
             render(data);
+            loadAll();
         }
     }
     xhr.send();
@@ -24,7 +27,7 @@ function render(data) {
     data.forEach(item => {
         let { pic, author, desc, height } = item;
         str = `<div class="img_box">
-                    <img src="${pic}" realSrc='${pic}' alt="" style='height:${height}px'>
+                    <img src="./img/1.jpg" realSrc='${pic}' alt="" style='height:${height}px'>
                     <p class="desc">${desc}</p>
                     <p class="author">${author}</p>
                 </div>`
@@ -46,8 +49,56 @@ function getMinLi () {
 }
 
 function loadMore () {
-
+    if (flag) return;
+    let temp = getMinLi(),
+        scT = document.documentElement.scrollTop,
+        wH = utils.winH().h,
+        h = utils.offset(temp).t + temp.clientHeight;
+    if (scT + wH > h) {
+        getData()
+        console.log(666)
+    }
 }
 
+function loadAll () {
+    let imgs = document.querySelectorAll('.body img');
+    [...imgs].forEach(item=>loadImg(item))
+}
+
+function loadImg (ele) {
+    if (ele.flag) return;
+    let scT = document.documentElement.scrollTop;
+    let wH = utils.winH().h;
+    let h = utils.offset(ele).t;
+    if (scT + wH > h) {
+        let realSrc = ele.getAttribute('realSrc');
+        let temp = new Image();
+        temp.src = realSrc;
+        temp.onload = function () {
+            ele.src = realSrc;
+            temp = null;
+            ele.flag = true;
+            fadeIn(ele);
+        }
+    }
+}
+
+function fadeIn (ele) {
+    ele.style.opacity = 0;
+    let num = 0;
+    ele.timer = setInterval(()=>{
+        num += 0.2;
+        if (num >= 1) {
+            num = 1;
+            clearInterval(ele.timer)
+        }
+        ele.style.opacity = num
+    },10)
+}
+
+window.onscroll = function () {
+    this.loadMore();
+    this.loadAll();
+}
 
 

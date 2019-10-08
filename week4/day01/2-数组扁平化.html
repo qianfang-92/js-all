@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+        
+</body>
+</html>
+<script>
+    var arr = [ [1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14] ] ] ], 10];
+
+    // arr.flat(Infinity)
+
+    // let str = JSON.stringify(arr);
+    // var res = str.replace(/\[|\]/g, '').split(',').map(Number)
+
+    // arr.toString().split(',').map(Number)
+
+    // arr.toLocaleString()
+
+    function flat (arr) {
+        let temp = [];
+        function fn (ary) {
+            ary.forEach(item=>{
+                if (typeof item == 'object') {
+                    fn(item)
+                } else {
+                    temp.push(item)
+                }
+            })
+        }
+        fn(arr)
+        return temp;
+    }
+
+    var arr = [ [1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14] ] ] ], 10];
+    while (arr.some(item=>{return Array.isArray(item)})) {
+        arr = [].concat(...arr); //利用concat只能合并一层数组
+    }
+</script>

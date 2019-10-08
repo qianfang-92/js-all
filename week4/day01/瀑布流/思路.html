@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        div{
+            position:relative;
+            padding:30px;
+        }
+        td{
+            padding:10px;
+            border:1px solid #ccc;
+        }
+        span{
+            border:1px solid firebrick;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <table >
+            <tr>
+                <!-- 这个td它的offsetParent不是div,是table,这是一个bug  -->
+                <td id="td">
+                    <span id="span">222</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
+<script>
+    /*
+        JS部分
+            1、首先获取数据 封装成一个函数，去实现获取数据的操作
+            2、渲染数据 从后台获取到的数据展示到页面上，按照列来展示的
+                循环后台给的数组，把每一条数据拼接好，添加到最短的那列li
+                1）获取最短的li，封装了一个函数，获取到最短的列 把元素集合转成数组，然后按照clientHeight来排序，由此找到最低的那个li
+                2）
+            3、实现滚动加载更多 封装一个函数 loadMore 在window.onscroll的时候执行
+                长度最小的那个li底部露出来时，我们就去加载新的数据；
+                为了防止一次性请求多次，我们做了一个flag判断，只有当flag为false的时候，才去加载新的数据；当请求开始的时候，我们把flag设置为true,渲染成功后再把flag设置为false
+            4、实现图片预加载的操作 loadImg
+                图片懒加载：当图片还没出现在可视区域的时候，不去加载图片，只有当图片露出来的时候才去加载真实图片
+                预加载：当图片没展示出真实图片时，先用默认图展示；然后再利用JS创建一个新的临时图片，让这张临时图片去远程请求真实图片，当请求成功时候，再把这个真实图片的地址付给页面中的标签
+            5、给每个图都实现图片懒加载 loadAll
+            6、给图片加载实现一个渐变效果fadeIn  利用定时器，对img进行 opacity的累加操作
+            7、加上fadeIn后，会体现出一个闪屏的bug,因为在渲染数据时，给li每次都重新赋值的关系，改变就可以了
+
+    */
+
+    function offset (ele) {
+        let l = ele.offsetLeft,
+            t = ele.offsetTop,
+            temp = ele.offsetParent;
+        while (temp) {
+            l += temp.clientLeft + temp.offsetLeft;
+            t += temp.clientTop + temp.offsetTop;
+            temp = temp.offsetParent;
+        }
+        return {
+            l, t
+        }
+    }
+</script>

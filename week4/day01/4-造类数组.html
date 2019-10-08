@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    var obj = {
+        '2': 3,
+        '3': 4,
+        'length': 2,
+        'splice': Array.prototype.splice,
+        'push': Array.prototype.push
+    }
+    obj.push(1)
+    obj.push(2)
+    console.log(obj); //最后是一个类数组，前两位是empty，索引2的是1，索引3的是2
+
+    // a.x = a = {n: 2}; //这是先给a增加一个x的属性，然后给x赋值，从右到左赋值
+
+    //如下：{1:222, 2:123, 5:888}，请把数据处理为如下结构：[222, 123, null, null, 888, null, null, null, null, null, null, null]。
+
+    var obj = {1:222, 2:123, 5:888};
+    // var ary = [];
+    // ary.length = 12;
+    // for (var k in obj) {
+    //     ary[k-1] = obj[k];
+    // }
+    obj.length = 13;
+    Array.from(obj).slice(1,).map(item=>{return item == undefined ? null : item})
+
+</script>

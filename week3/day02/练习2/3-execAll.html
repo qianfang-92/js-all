@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    RegExp.prototype.execAll = function (str) {
+        var _this = this;
+        if (!this.global) {
+            _this = eval(_this + 'g')
+        }
+        var res = _this.exec(str);
+        var ary = [];
+        while (res) {
+            ary.push(res);
+            res = _this.exec(str);
+        }
+        return ary;
+    }
+
+    var str = 'http://www.zhufengpeixun.cn/?lx=1&from=wx&b=12&c=13#787';
+
+    function getParam (url) {
+        var reg = /([^?=&#]+)=([^?=&#]+)/g;
+        var obj = {};
+        reg.execAll(url).forEach(item=>{
+            obj[item[1]] = item[2];
+        })
+        if (/#(.+)/.exec(str)) {
+            obj.hash = /#(.+)/.exec(str)[1]
+        }
+        return obj;
+    }
+    getParam(str);
+
+    
+</script>

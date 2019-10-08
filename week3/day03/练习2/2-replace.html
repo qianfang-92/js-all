@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    /*
+        replace 替换
+    */
+
+    //反转大小写
+    function turn (str) {
+        return str.replace(/([a-z]*)([A-Z]*)/g, function (a, b, c) {
+            return b.toUpperCase() + c.toLowerCase();
+        })
+    }
+    
+    function getParam (url) {
+        var obj = {};
+        url.replace(/([^?=&#]+)=([^?=&#]+)/g, function (a, b , c) {
+            obj[b] = c;
+        })
+        return obj;
+    }
+</script>

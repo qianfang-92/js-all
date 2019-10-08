@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    /*
+        exec 捕获的结果     第一项是大正则捕获到的内容，第二项及以后是小分组捕获到的内容
+        若字符串中没有符合正则的字符，则获取到的结果就是一个null
+    */
+
+    /*
+        正则捕获 的贪婪性   把全部符合的都获取到，解决这个贪婪性的办法是在量词元字符后面加?
+
+        正则捕获 的懒惰性   只捕获一次，不再捕获其他符合正则的字符，解决的办法是加全局修饰符g
+        加了全局修饰符g之后，每次捕获时都会更新reg的lastIndex属性，这个属性是控制下一次开始匹配的起始索引
+        test和exec都会更新reg的lastIndex
+    */
+</script>

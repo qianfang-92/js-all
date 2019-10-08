@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    /*
+        match 是 字符串的方法，在不加g的情况下和exec一样
+
+        match 与exec的区别：加全局修饰符g之后，match可以把所有大正则捕获到的内容都获取到，在一个数组中，但是会丢掉小分组捕获 到的内容
+    */
+
+    function getParam (url) {
+        var obj = {};
+        url.match(/([^?=&#]+)=([^?=&#]+)/g).forEach(item=>{
+            var ary = item.split('=');
+            obj[ary[0]] = ary[1];
+        })
+        if(url.match(/#(.+)/)){
+            obj.hash = url.match(/#(.+)/)[1] 
+        }
+        return obj;
+    }
+
+    var str = 'http://www.zhufengpeixun.cn/?lx=1&from=wx&b=12&c=13#545';
+    console.log(getParam(str));
+</script>

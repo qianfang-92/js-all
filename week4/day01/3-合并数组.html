@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    //请把两个数组 ['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'D1', 'D2'] 和 ['A', 'B', 'C', 'D']，合并为 ['A1', 'A2', 'A', 'B1', 'B2', 'B', 'C1', 'C2', 'C', 'D1', 'D2', 'D']
+
+    var ary1 =  ['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'D1', 'D2'] ;
+    var ary2 = ['A', 'B', 'C', 'D'];
+
+    function fn(arr1, arr2) {
+        let temp = arr2.map(item=>item + '3');
+        return (arr1.concat(temp).sort().map(item=>item.replace('3','')))
+    }
+    fn(ary1,ary2)
+
+
+    var arr1 = ["A1", "A2", "B1", "B2", "C1", "C2", "D1", "D2"]
+    var arr2 = ["A", "B", "C", "D"]
+    var arr3 = arr1.concat(arr2);
+    arr3.sort().sort(function(a,b){
+        //b.charAt(0) 就是 b[0]
+        if (a[0] == b.charAt(0) && a.length > b.length){
+            return -1   //  return -1  就是颠倒顺序的意思
+        }
+        // console.log(a,b) //a b 不是原来的顺序，a 是 b的后一项
+    })
+
+    //var a = ?;   如果a是个引用数据类型，那么 a == 1 比较的时候，会默认调用a.toString()  把结果用Number处理
+    var a = [1];
+    a.toString = function () { //给a自己加上一个toString方法，每次比完都会加1
+        return a[0]++
+    }
+    if(a == 1 && a == 2 && a == 3){
+        console.log(1);
+    }
+</script>
