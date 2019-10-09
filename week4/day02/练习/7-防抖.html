@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box{
+            height:2000px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+</body>
+</html>
+<script>
+    //防抖：在连续触发某个函数的时候，我们直到最后的时候，才让对应的函数执行；
+    // var timer = null;
+    // window.onscroll = function () {
+    //     clearTimeout(timer);
+    //     timer = setTimeout(()=>{
+    //         console.log(3);  // 当滚动条连续高频滚动的时候，会一直清空定时器，只有当停止的时候，才会在清空定时器后，执行它后面的代码，就是剩下的那个最后的定时器
+    //     },1000)
+    // }
+
+    function debounce (fn, wait) {
+        wait = wait || 1000;
+        var timer = null;
+        return function () {
+            clearTimeout(timer);
+            timer = setTimeout(()=>{
+                fn.apply(this, arguments);
+            },wait)
+        }
+    }
+    var f = debounce(function () {console.log(this)});
+    window.onscroll = f;
+</script>

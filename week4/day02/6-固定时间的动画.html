@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        #box {
+            width: 200px;
+            height: 200px;
+            border: 1px solid firebrick;
+            text-align: center;
+            line-height: 200px;
+            user-select: none;
+            position: relative;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        珠峰培训
+    </div>
+    <button id="btn">点击</button>
+</body>
+
+</html>
+<script src="jq.js">
+</script>
+<script>
+    //让盒子一秒钟从左移动到右边
+
+    // 固定了时间，就要计算出速度了
+    var box = document.getElementById('box');
+    var n = 1;
+    var w = document.documentElement.clientWidth || document.body.clientWidth;  //一屏的宽度
+    var bw = box.offsetWidth; //盒子的宽度
+    var maxL = w - bw; //可移动最大值
+    var duration = 1000;
+    var speed = maxL/duration;
+    var timer = setInterval(()=>{
+        n += speed*2;  //每一次的定时器执行 都要去移动 1*speed的距离，这个1是定时器执行的间隔时间
+        if (n >= maxL) {
+            n = maxL;
+            clearInterval(timer);
+        }
+        box.style.left = n + 'px'
+    },2)
+</script>

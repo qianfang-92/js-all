@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    /*
+        1、
+            基本数据类型(值类型)
+            string  number boolean null undefined
+            引用数据类型
+            {} [] function 正则 Date ...
+
+            基本数据类型操作值，引用数据类型操作地址
+        
+        2、typeof   Object.prototype.toString.call()
+            constructor instanceof
+            typeof ---- 一般用于检测基本数据类型
+            Object.prototype.toString.call() --
+
+        3、var let const 
+            var 可以重复声明 有变量提升机制
+            let const 没有变量提升机制，但是能识别作用域 有暂时性死区，变量在声明之前不能被调用，不可以重复声明
+
+        4、parseFloat   从左向右查看，只要碰到非数字即停，若首个字符就是非数字，结果就是NaN
+            NaN == NaN ----false  自己和自己都不相等
+            isNaN  先用Number把xx强制转为数字类型，然后再判断
+
+        5、for 循环中的
+            continue 结束本次循环，接着进行下一次循环
+            break   结束整个循环，有点类似于函数中的return
+
+        6、向数组末尾添加数据
+            ary.push(100);
+                ary.splice(n,m,x,y,z...)  从索引n，删除m个，用x,y,z...替换删除的m项；
+                ary.splice(ary.length-1,0,100) 在最后一项的前面添加了100这个数
+            ary.splice(ary.length,0,100)    所以要写length
+            ary[ary.length] = 100 ;
+
+        7、排序  sort sort的返回值 是 改变后的原有数组，它是按unicode编码顺序排列的，不传参数时，如果排序的是数字只能排10以内的数字，但是可以把字母进行排序
+
+            reverse 反转 返回值是改变后的原有数组
+
+        8、返回一个新的数组：
+            ary.slice() --->  复制一个新数组
+            ary.slice(0) ---->  复制一个新的数组 
+
+        9、replace 
+
+        10、
+            Math.round(Math.random()*91 + 2)
+
+            数组中的最大值  1：先排序再取值 2：假设法 3：扩展运算符
+
+        11、不是字符串的和undefined相加都是NaN
+            字符串和任何别的相加都是字符串
+            - * / % 先用Number把符号两边的内容转成数字，然后再进行运算
+
+        12、三元运算符 它是有返回值的，返回值就是执行代码后的结果
+
+            0 NaN '' null undefined 这五个转成布尔值是false 其他都是true
+
+        13、数据类型的比较
+            [] == []  引用数据类型和引用数据类型的比较，永远都是比较地址
+            ![] == []  --->  false == [] 这样比的时候，先都用Number转成数字， --->  0 == 0 
+            '' == []  字符串和引用数据类型比较的时候，把引用数据类型用toString转成字符串，再比较
+            1 == [1]  数字和引用数据类型进行比较时，先把引用数据类型用toString转成字符串，再用Number转成数字，然后再比较
+
+        14、定时器
+        15、复制数组
+            ary.map(...ary)  ary.map(a=>a)
+
+            虽然forEach map 不改变原有数组，但是如果数组中的数据是引用数据类型，那么数组中的每一项都指向一个地址，当改变每一项时，就会改变地址中的东西，也就改变得了原有数组
+
+        
+    */
+
+    var a = [1,2,3,4,5,6,7];
+    var c = a.map((item,index)=>index=3);
+    
+</script>

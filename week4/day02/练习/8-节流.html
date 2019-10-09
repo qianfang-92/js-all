@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box{
+            height:2000px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+</body>
+</html>
+<script>
+    // 节流：在连续触发某个函数的时候，我们每隔一段时间就触发一次该函数；
+    // var flag = true;
+    // var box = document.getElementById('box');
+    // window.onscroll = function () {
+    //     if (!flag) return;
+    //     flag = false;
+    //     setTimeout(()=>{
+    //         console.log(7);
+    //         flag = true;
+    //     },3000)
+    // }
+
+    function throttle (fn, wait) {
+        wait = wait || 2000;
+        var flag = true;
+        return function () {
+            if (!flag) return;
+            flag = false;
+            setTimeout(()=>{
+                fn.call(this,...arguments);
+                flag = true;
+            },wait)
+        }
+    }
+
+    function f () {
+        console.log(9);
+    }
+    window.onscroll = throttle(f,3000)
+</script>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            list-style:none;
+        }
+        #box{
+            width:200px;
+            height:200px;
+            background:lightblue;
+            position:relative;
+            left:0;
+            /* animation: move 2s linear infinite; */
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+</body>
+</html>
+<script src="animate.js"></script>
+<script src=''>
+    let box = document.getElementById('box');
+
+    //单方向的定时运动
+    function linear (begin, end, duration, tim) {
+        return (end - begin) / duration * tim + begin; //当前所在的位置
+    }
+    function move (ele, attr, duration, target) {
+        let start = parseFloat(getComputedStyle(ele)[attr]);
+        let time = 0;
+        let l = 0;
+        let timer = setInterval(()=>{
+            time += 20;
+            l = linear(start, target, duration, time) ;
+            if (time >= duration) {
+                l = target;
+                clearInterval(timer);
+            }
+
+            ele.style[attr] = l + (attr === 'opacity' ? '' :'px')
+        }, 20)
+    }
+    // move(box,'left', 1000, 600);
+    // move(box,'opacity',2000, 0);
+    // move(box,'top',1000,600);
+
+
+
+    var moveType = {  //各种不同的运动轨迹
+        linear:function linear(time,changeL,duration,beginL) {
+            return changeL/duration*time + beginL;
+        },
+        easeIn: function (t,c,d,b) {  
+            return -c * (Math.sqrt(1 - (t /= d) * t) - 1) + b;
+        },
+        easeOut: function (t,c,d,b) {
+            return c * Math.sqrt(1 - (t = t / d - 1) * t) + b;
+        },
+        easeInOut: function (t,c,d,b) {
+            if ((t /= d / 2) < 1) {
+                return -c / 2 * (Math.sqrt(1 - t * t) - 1) + b;
+            }
+            return c / 2 * (Math.sqrt(1 - (t -= 2) * t) + 1) + b;
+        }
+    };
+
+
+    //多方向的定时运动
+    function move2 (ele, duration, obj,type = 'linear') {
+        let binObj = {};
+        for (var k in obj) {
+            binObj[k] = parseFloat(getComputedStyle(ele)[k]);  //获取集合里各个属性的初始值
+        }
+        let time = 0; //记录的是运动过的时间
+        let l = {};
+        let timer = setInterval(()=>{
+            time += 20;
+            for (let k in binObj) {
+                l[k] = moveType[type](time,obj[k] - binObj[k], duration, binObj[k])
+            }
+            if (time >= duration) {
+                l = obj; //当前位置等于目标位置
+                clearInterval(timer);
+            }
+            for (let k in obj) {
+                ele.style[k] = l[k] + (k === 'opacity' ? '' : 'px')
+            }
+        },20)
+
+    }
+    move2(box,1000,{opacity:'0', left:500, top:500})
+
+
+</script>
+<script>
+    animate(box,{left:300,top:300, opacity:0},function () {
+    console.log('动画执行完成之后执行')})
+</script>

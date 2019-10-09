@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            list-style:none;
+        }
+        #box{
+            width:200px;
+            height:200px;
+            line-height:200px;
+            text-align:center;
+            font-size:20px;
+            border:1px solid forestgreen;
+            user-select: none;
+            position:relative;
+            left:0;
+            /* transition:all 1s; */
+            /* transition:left 4s 0s cubic-bezier(0.85, -0.08, 0, 1.06); */
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        珠峰培训
+    </div>
+    <button id="btn">点击</button>
+</body>
+</html>
+<script>
+    // getComputedStyle(元素)
+    //IE低版本使用 元素.currentStyle
+    //监听窗口大小的改变，我们使用 window.onresize = function () {}
+
+    var box = document.getElementById('box');
+    var n = 0;
+    var w = document.documentElement.clientWidth || document.body.clientWidth; // 一屏的宽度
+    var bw = box.offsetWidth; //盒子的宽度
+    var maxL = w - bw; // 可移动的最大值
+
+    //用setInterval实现
+    /*function Inter () {
+        w = document.documentElement.clientWidth || document.body.clientWidth; // 一屏的宽度;
+        maxL = w - bw;
+        var timer = setInterval(()=>{
+            n++;
+            if (n >= maxL) {
+                n = maxL;
+                clearInterval(timer);
+            }
+            box.style.left = n + 'px';
+        },10)
+    }
+
+    Inter();
+    window.onresize = function () {  //屏幕宽度改变的时候重启定时器，让盒子重新移动
+        Inter();
+    }*/
+
+    //用setTimeout实现setInterval;
+    /*function valt () {
+        n++;
+        if (n > maxL) {
+            n = maxL;
+        } else {
+            setTimeout(()=>{
+                valt();
+            },10)
+        }
+        box.style.left = n + 'px';
+    }
+    valt();
+    window.onresize = function () {
+        w = document.documentElement.clientWidth || document.body.clientWidth;
+        maxL = w - bw;
+        valt();
+    }*/
+
+    //使用requestAnimationFrame 实现 ，相当于一个setTimeout
+    /*function valt2 () {
+        n+=2;
+        if (n >= maxL) {
+            n = maxL;
+        } else {
+            requestAnimationFrame(valt2)
+        }
+        box.style.left = n + 'px';
+    }
+    valt2();
+    window.onresize = function () {
+        w = document.documentElement.clientWidth || document.body.clientWidth;
+        maxL = w - bw;
+        valt2();
+    }*/
+
+    //用c3实现动画
+    btn.onclick = function () {
+        box.style.left = maxL + 'px';
+    }
+</script>

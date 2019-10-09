@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div class="box box1 box2 box_3 box22">
+        hello world
+    </div>
+</body>
+</html>
+<script>
+    //自己封装一个方法 可以实现  hasClass(判断有没有这个类名)  addClass  removeClass
+
+    var box = document.getElementsByClassName('box')[0];
+
+    // 判断类名
+    HTMLElement.prototype.hasClass = function hasClass (attr='') {
+        //方法一：
+        // var ary = ele.className.split(/ +/)  //转成数组的原因是 如果是字符串，indexOf attr 之后 有一点字符就匹配了
+        // if (ary.indexOf(attr) != -1) return true;
+        // return false;
+
+        //方法二：把类名做成一个正则，正则需要左右边界  没有边界的话，还是一样的问题，只有一个字符符合就会当作true了
+        var str = this.className;
+        // var reg = new RegExp(`\\b${attr}\\b`);
+
+        // var reg = new RegExp(`(^| +)${attr}( +|$)`) ;//这也可以满足捕获条件
+        // return reg.test(str);
+
+        //如果attr 是空格 或者是多个类名 就需要加上下面的
+
+        var res = attr.replace(/^( +)|( +)$/g,'');
+        var flag = true
+        let ary = res.split(/ +/);
+        // ary.forEach (item=>{
+        //     let reg = new RegExp(`\\b${item}\\b`)
+        //     if (!reg.test(str)) {
+        //         return false;  // 这里的return 不关 外面的函数的事，是结束了forEach的回调函数，所以不能写forEach，如果想要循环中断的话
+        //     } 
+        // })
+
+        for (let i = 0; i < ary.length; i++) {
+            let reg = new RegExp(`\\b${ary[i]}\\b`);
+            if (!reg.test(str)) {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    }
+
+    // 添加类名
+    HTMLElement.prototype.addClass = function addClass (attr = '') {
+        //单个类名添加  ：先查看有没有对应的类名 有的话不添加 没有再添加
+        // if (this.hasClass(attr)) return ;
+        // this.className += ' ' + attr; //加空格是为了防止attr和元素类名的最后一个单词拼成一个单词
+
+        //多个类名添加
+        if (this.hasClass(attr)) return;
+        var ary = attr.replace(/^ +| +$/g,'').split(/ +/);
+        for (let i = 0; i < ary.length; i++) {
+            if (!this.hasClass(ary[i])) {
+                this.className += ' ' + ary[i];
+            }
+        }
+    }
+
+    box.hasClass('  qqq  '); // false  判断元素 是否有对应的类名
+
+    HTMLElement.prototype.removeClass = function removeClass (attr = '') {
+        if (!this.hasClass(attr)) return;
+        let str = this.className;
+         res = attr.replace(/^ +| +$/g,'').split(/ +/);
+        for (let i = 0;i < res.length; i++) {
+            let reg = new RegExp('\\b'+res[i]+'\\b','g');
+            str = str.replace(reg,'');
+        }
+        str = str.replace(/ +/g,' ');
+        this.className = str;
+    }
+    box.removeClass('box1');
+
+    HTMLElement.prototype.toggleClass = function toggleClass (attr) {
+        attr = atrr || '';
+        if (this.hasClass(attr)) {
+            this.removeClass(attr);
+        } else {
+            this.addClass(attr);
+        }
+    }
+</script>

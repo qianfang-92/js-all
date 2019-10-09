@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box{
+            background:darkred;
+            user-select: none;
+        }
+        .qqq{
+            font-size:36px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box" class="qqq">珠峰培训</div>
+</body>
+</html>
+<script src="../jq.js"></script>
+<script>
+    /*
+        JQ 先引入 再使用；
+        JQ获取元素 $('css选择器')
+        JQ获取的元素统一是一个集合，我们把这个集合叫做JQ对象，只有JQ对象才能调用JQ方法
+    */
+
+    var box = document.getElementById('box'); // 原生对象，不能调用JQ方法
+    var $box = $('#box'); //JQ获取的元素，后面不加索引时是一个集合，加了索引是原生对象，只有JQ对象可以调用JQ方法，原生对象不行
+
+    //要把原生元素变成JQ对象，可以这么写：$('#box').eq(0) ;这样就是一个JQ对象了
+
+    console.log(box, $box);
+    $box.addClass('wwwww');
+    $box.on('click', function () {
+        // console.log(this); // 这里的this 是原生对象box，而不是$box
+        //把原生对象转成JQ对象 可以用 $(原生对象)
+        var $this = $(this);
+        $this.toggleClass('qqq');
+        $this.css('color', '#eee');
+        $this.css({color:'darkred', background:'#ccc'})
+    })
+</script>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div class="box box1 box3 box2 box_3 box22"></div>
+</body>
+</html>
+<script>
+    // 自己封装 方法 可以实现 hasClass  addClass removeClass toggleClass
+
+    var box = document.getElementsByClassName('box')[0];
+
+    HTMLElement.prototype.hasClass = function (attr) {
+        attr = attr || '';
+        //方法一：
+        var ary = this.className.split(/ +/);
+        if (ary.indexOf(attr) != -1) return true;
+        return false;
+
+        //方法二：
+        var str = this.className;
+        var reg = new RegExp('\\b'+attr+'\\b');
+        return reg.test(str);
+
+        //方法三：
+        var res = attr.replace(/^ +| +$/g,'').split(/ +/);
+        var flag = true;
+        for (var i = 0; i < res.length; i++) {
+            let reg = new RegExp('\\b'+res[i]+'\\b');
+            if (!reg.test(str)) {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    }
+
+    HTMLElement.prototype.addClass = function (attr) {
+        attr = attr || '';
+        
+        //单个类名添加
+        if (this.hasClass(attr)) return;
+        var str = this.className;
+        var ary = attr.replace(/^ +| +$/g,'').split(/ +/);
+        for (var i = 0; i < ary.length; i++) {
+            if (!this.hasClass(ary[i])) {
+                str += ' ' + ary[i];
+            }            
+        }
+        this.className = str;
+    }
+
+    HTMLElement.prototype.removeClass = function (attr) {
+        attr = attr || '';
+        if (!this.hasClass(attr)) return;
+        let str = this.className;
+        let ary = attr.replace(/^ +| +$/g, '').split(/ +/);
+        ary.forEach(item=>{
+            let reg = new RegExp(`\\b${item}\\b`,'g');
+            str = str.replace(reg, '')
+        })
+        str = str.replace(/ +/g, ' ');
+        this.className = str;
+    }
+
+    HTMLElement.prototype.toggleClass = function (attr) {
+        attr = attr || '';
+        if (this.hasClass(attr)) {
+            this.removeClass(attr);
+        } else {
+            this.addClass(attr);
+        }
+    }
+</script>
