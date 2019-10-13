@@ -1,0 +1,184 @@
+<!DOCTYPE html><html><head><title>作业</title><meta charset='utf-8'><link href='https://cdn.maxiang.io/res-min/themes/marxico.css' rel='stylesheet'><style></style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+
+
+<h2 id="作业">作业</h2>
+
+<p><strong>01.</strong>  下面代码的输出结果</p>
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-keyword">var</span> a = <span class="hljs-string">'abc'</span> + <span class="hljs-number">123</span> + <span class="hljs-number">456</span>;
+</div><div class="hljs-line">alert(a);
+</div><div class="hljs-line"><wbr>
+</div><div class="hljs-line"><span class="hljs-keyword">var</span> b = <span class="hljs-string">'456'</span> - <span class="hljs-string">'123'</span>;
+</div><div class="hljs-line">alert(b);
+</div><div class="hljs-line"><wbr>
+</div><div class="hljs-line"><span class="hljs-keyword">var</span> c = <span class="hljs-number">1</span>,
+</div><div class="hljs-line">    d = <span class="hljs-string">'1'</span>;
+</div><div class="hljs-line"><span class="hljs-keyword">var</span> f = c &gt; d ? (c &lt; d ? c : d) : (c == d ? c : d);
+</div><div class="hljs-line">alert(f);
+</div></code></pre>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-keyword">var</span> str = <span class="hljs-string">'abc123'</span>,
+</div><div class="hljs-line">    num = <span class="hljs-built_in">parseFloat</span>(str);
+</div><div class="hljs-line"><span class="hljs-keyword">if</span> (num === <span class="hljs-literal">NaN</span>) {
+</div><div class="hljs-line">    alert(<span class="hljs-literal">NaN</span>);
+</div><div class="hljs-line">} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (num === <span class="hljs-number">123</span>) {
+</div><div class="hljs-line">    alert(<span class="hljs-number">123</span>);
+</div><div class="hljs-line">} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> num === <span class="hljs-string">'number'</span>) {
+</div><div class="hljs-line">    alert(<span class="hljs-string">'number'</span>);
+</div><div class="hljs-line">} <span class="hljs-keyword">else</span> {
+</div><div class="hljs-line">    alert(<span class="hljs-string">'str'</span>);
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<p><strong>02.</strong> 写出下面代码输出的结果</p>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-keyword">let</span> point = {
+</div><div class="hljs-line">    <span class="hljs-attr">x</span>: <span class="hljs-number">10</span>,
+</div><div class="hljs-line">    <span class="hljs-attr">y</span>: <span class="hljs-number">20</span>,
+</div><div class="hljs-line">    <span class="hljs-attr">moveTo</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">x, y</span>) </span>{
+</div><div class="hljs-line">        <span class="hljs-keyword">let</span> moveX = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">x</span>) </span>{
+</div><div class="hljs-line">            <span class="hljs-keyword">this</span>.x = x;
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">        <span class="hljs-keyword">let</span> moveY = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">y</span>) </span>{
+</div><div class="hljs-line">            <span class="hljs-keyword">this</span>.y = y;
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">        moveX(x);
+</div><div class="hljs-line">        moveY(y);
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">};
+</div><div class="hljs-line">point.moveTo(<span class="hljs-number">100</span>, <span class="hljs-number">200</span>);
+</div><div class="hljs-line"><span class="hljs-built_in">console</span>.log(point.x, point.y);
+</div></code></pre>
+
+<p><strong>03. </strong> 请说出你对 “重排和重绘读写分离” 的理解！</p>
+
+<p><strong>04.</strong>  JS中有一个insertBefore方法，目的是实现把新元素插入到指定元素之前，现在你实现一个 insertAfter 方法，把新元素插入到指定元素之后！</p>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">insertAfter</span>(<span class="hljs-params">newEle, originEle</span>) </span>{
+</div><div class="hljs-line">    <span class="hljs-comment">//=&gt;newEle:新插入的元素</span>
+</div><div class="hljs-line">    <span class="hljs-comment">//=&gt;originEle:指定的老元素</span>
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<p><strong>05.</strong> 编写一个函数,把一个列表中的每一项反序</p>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-html hljs xml"><div class="hljs-line"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">id</span>=<span class="hljs-string">'target'</span>&gt;</span>
+</div><div class="hljs-line">    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+</div><div class="hljs-line">    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+</div><div class="hljs-line">    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>3<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+</div><div class="hljs-line">    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>4<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+</div><div class="hljs-line">    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>5<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+</div><div class="hljs-line"><span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+</div></code></pre>
+
+<p><strong>06.</strong> jQuery的原理，怎么扩展插件</p>
+
+<p><strong>07.</strong> 使用JQ实现点击按钮弹出一个对话框（对话框在整个页面正中间，并且最初页面中没有任何的HTML标签）</p>
+
+<p><strong>08. </strong> 写出你掌握的JS继承方式，项目中什么时候你用到了继承？</p>
+
+<p><strong>09.</strong> 完成如下需求</p>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment">//=&gt;toChineseChar这个函数可以把阿拉伯数字转换为大写的中文数字汉字</span>
+</div><div class="hljs-line"><span class="hljs-string">"54389"</span>.toChineseChar(); <span class="hljs-comment">//=&gt;”伍肆叁捌玖”</span>
+</div></code></pre>
+
+<p><strong>10.</strong> 完成如下需求</p>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment">//=&gt;在javascript对象上定义一个repeatify函数,这个函数接受一个整数参数,来明确子字符串需要重复几次</span>
+</div><div class="hljs-line"><span class="hljs-string">"abc"</span>.repeatify(<span class="hljs-number">3</span>); <span class="hljs-comment">//=&gt;"abcabcabc"</span>
+</div></code></pre>
+
+<p><strong>11.</strong> 完成如下需求</p>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-keyword">let</span> str = <span class="hljs-string">'hello&lt;img src="haha.png" alt="哈哈"/&gt;world'</span>;
+</div><div class="hljs-line"><span class="hljs-comment">//=&gt;正确匹配输出 "hello[哈哈]world"</span>
+</div></code></pre>
+
+<p><strong>12.</strong> 写出完整的验证函数:长度不能小于6位，首字母必须是字母，合法字符只能是数字、字母、下划线</p>
+
+<p><strong>13.</strong> 完成如下需求</p>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment">/* </span>
+</div><div class="hljs-line"><span class="hljs-comment">    在函数式编程当中有一个很重要的概念就是函数组合， 实际上就是把处理数据的函数像管道一样连接起来， 然后让数据穿过管道得到最终的结果。 例如：</span>
+</div><div class="hljs-line"><span class="hljs-comment">    const add1 = (x) =&gt; x + 1;</span>
+</div><div class="hljs-line"><span class="hljs-comment">    const mul3 = (x) =&gt; x * 3;</span>
+</div><div class="hljs-line"><span class="hljs-comment">    const div2 = (x) =&gt; x / 2;</span>
+</div><div class="hljs-line"><span class="hljs-comment">    div2(mul3(add1(add1(0)))); //=&gt;3</span>
+</div><div class="hljs-line"><span class="hljs-comment"></span>
+</div><div class="hljs-line"><span class="hljs-comment">    而这样的写法可读性明显太差了，我们可以构建一个compose函数，它接受任意多个函数作为参数（这些函数都只接受一个参数），然后compose返回的也是一个函数，达到以下的效果：</span>
+</div><div class="hljs-line"><span class="hljs-comment">    const operate = compose(div2, mul3, add1, add1)</span>
+</div><div class="hljs-line"><span class="hljs-comment">    operate(0) //=&gt;相当于div2(mul3(add1(add1(0)))) </span>
+</div><div class="hljs-line"><span class="hljs-comment">    operate(2) //=&gt;相当于div2(mul3(add1(add1(2))))</span>
+</div><div class="hljs-line"><span class="hljs-comment"></span>
+</div><div class="hljs-line"><span class="hljs-comment">    简而言之：compose可以把类似于f(g(h(x)))这种写法简化成compose(f, g, h)(x)，请你完成 compose函数的编写 </span>
+</div><div class="hljs-line"><span class="hljs-comment">*/</span>
+</div></code></pre>
+
+<p><strong>14.</strong> 完成如下需求</p>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment">/* </span>
+</div><div class="hljs-line"><span class="hljs-comment">    [结构]</span>
+</div><div class="hljs-line"><span class="hljs-comment">    &lt;ul&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment">        &lt;li&gt;&lt;a href='http://xxx'&gt;xxx&lt;/a&gt;&lt;/li&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment">        &lt;li&gt;&lt;a href='http://sss'&gt;sss&lt;/a&gt;&lt;/li&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment">    &lt;/ul&gt; </span>
+</div><div class="hljs-line"><span class="hljs-comment">    点击第一个LI创建对象： </span>
+</div><div class="hljs-line"><span class="hljs-comment">    {</span>
+</div><div class="hljs-line"><span class="hljs-comment">        index: 1,</span>
+</div><div class="hljs-line"><span class="hljs-comment">        name: 'xxx',</span>
+</div><div class="hljs-line"><span class="hljs-comment">        link: 'http://xxx'</span>
+</div><div class="hljs-line"><span class="hljs-comment">    }</span>
+</div><div class="hljs-line"><span class="hljs-comment">    同样点击第二个LI创建对象 </span>
+</div><div class="hljs-line"><span class="hljs-comment">    {</span>
+</div><div class="hljs-line"><span class="hljs-comment">        index: 2,</span>
+</div><div class="hljs-line"><span class="hljs-comment">        name: 'sss,</span>
+</div><div class="hljs-line"><span class="hljs-comment">        link: 'http://sss'</span>
+</div><div class="hljs-line"><span class="hljs-comment">    }</span>
+</div><div class="hljs-line"><span class="hljs-comment">*/</span>
+</div></code></pre>
+
+<p><strong>15.</strong> 补全1/2处的代码实现如下需求</p>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params">str</span>) </span>{
+</div><div class="hljs-line">    <span class="hljs-keyword">this</span>.str = str;
+</div><div class="hljs-line">}
+</div><div class="hljs-line">fn.prototype.format = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+</div><div class="hljs-line">    <span class="hljs-keyword">let</span> arg = __1__;
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.str.replace(__2__, (a, b) =&gt; {
+</div><div class="hljs-line">        <span class="hljs-keyword">return</span> arg[b] || <span class="hljs-string">''</span>;
+</div><div class="hljs-line">    });
+</div><div class="hljs-line">};
+</div><div class="hljs-line"><span class="hljs-keyword">let</span> t = <span class="hljs-keyword">new</span> fn(<span class="hljs-string">`&lt;p&gt;</span>
+</div><div class="hljs-line"><span class="hljs-string">    &lt;a href="{0}"&gt;{1}&lt;/a&gt;</span>
+</div><div class="hljs-line"><span class="hljs-string">    &lt;span&gt;{2}&lt;/span&gt;</span>
+</div><div class="hljs-line"><span class="hljs-string">&lt;/p&gt;`</span>);
+</div><div class="hljs-line"><span class="hljs-keyword">let</span> HTML = t.format(<span class="hljs-string">"http://www.alibaba.com"</span>, <span class="hljs-string">"Alibaba"</span>, <span class="hljs-string">"welcome"</span>);
+</div><div class="hljs-line"><span class="hljs-comment">// console.log(HTML); =&gt; "&lt;p&gt;&lt;a href="http://www.alibaba.com"&gt;Alibaba&lt;/a&gt;&lt;span&gt;welcome&lt;/span&gt;&lt;/p&gt;"</span>
+</div></code></pre></div></body></html>
+<script>
+    var box = document.getElementById('preview-contents')
+</script>

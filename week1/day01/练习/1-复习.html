@@ -83,6 +83,31 @@
     */
 
     var a = [1,2,3,4,5,6,7];
-    var c = a.map((item,index)=>index=3);
+    var c = a.map((item,index)=>index=3); // map返回值是由它的回调函数return的值组成的和原数组一样长度的新数组
+
+    // 不定项求和
+
+    function sum () {
+        let total = 0;
+        for (let i = 0; i < arguments.length; i++) {
+            let temp = arguments[i];
+            if (typeof temp === 'number' && !isNaN(temp)) {
+                total += temp;
+            }
+        }
+        return total;
+    }
+
+    function getStr () {
+        let str = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789';
+        let s = '';
+        while (s.length < 4) {
+            let n = str(Math.round(Math.random()*(str.length - 1)));
+            if (s.indexOf(str[n]) !== -1) {
+                s += str[n];
+            }
+        }
+        return s;
+    }
     
 </script>

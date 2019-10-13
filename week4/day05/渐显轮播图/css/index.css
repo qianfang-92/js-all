@@ -1,0 +1,85 @@
+*{
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+#box{
+    margin:30px auto;
+    overflow:visible;
+    position:relative;
+    width:590px;
+    height:470px;
+}
+#box .img_box{
+    width:590px;
+    height:470px;
+    overflow:hidden;
+}
+#box .img_box ul{
+    width:590px;
+    height:100%;
+    overflow:hidden;
+    position:relative;
+}
+.img_box li{
+    position:absolute;
+    width:100%;
+    height:100%;
+}
+.img_box img{
+    width:100%;
+    height:100%;
+}
+.img_box p{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:50px;
+    line-height:50px;
+    background:rgba(0,0,0,0.5);
+    text-align:center;
+    color:#ccc;
+}
+.tip_box{
+    position:absolute;
+    bottom:-30px;
+    right:30px;
+    line-height:30px;
+    height:30px;
+}
+.tip_box .tip{
+    display:inline-block;
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:rgba(178, 34, 34,0.5);
+    cursor:pointer;
+}
+.tip.current{
+    background:firebrick;
+
+}
+.btn_box{
+    position:absolute;
+    top:50%;
+    transform: translateY(-50%);
+    overflow:hidden;
+    width:100%;
+}
+.btn_box div{
+    width:40px;
+    height:100px;
+    line-height:100px;
+    text-align:center;
+    background:rgba(0,0,0,0.5);
+    color:#fff;
+    font-size:30px;
+    cursor:pointer;
+    user-select: none;
+}
+.left_btn{
+    float:left;
+}
+.right_btn{
+    float:right;
+}

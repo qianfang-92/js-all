@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    // JS 异步单线程   进程 线程
+    // 打开浏览器，浏览器就是一个进程，一个进程会包含多个线程(就像可以打开多个窗口)
+
+    // 主队列  等待队列
+    console.log(666); //主队列
+    setTimeout(()=>{
+        console.log(7);
+    },1000); //等待队列
+    setTimeout(()=>{
+        console.log(9);
+    },200)  // 等待队列
+
+    for (var i = 0; i < 999999999; i++){}; // 主队列的
+    console.log(8); //主队列
+
+    // 执行时，先执行主队列的，然后执行等待队列的，等待队列里的顺序也是按照执行等待时间排的
+
+</script>

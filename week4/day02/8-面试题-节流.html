@@ -14,6 +14,7 @@
 </head>
 
 <body>
+    <input type="text" id="inp">
     <div id="box"></div>
 </body>
 
@@ -43,7 +44,8 @@
         }
     }
     function f () {
-        console.log(7);
+        console.log(this);
     }
     window.onscroll = throttle(f,2000);
+    inp.oninput = throttle(f,2000)
 </script>

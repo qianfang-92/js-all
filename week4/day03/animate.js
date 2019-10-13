@@ -48,10 +48,6 @@ var animate = (function () {
             cb = duration;
             duration = 1000;
         }
-        if (typeof time == 'function') {
-            cb = time;
-            time = 1000;
-        }
         if(typeof type == 'function') {
             cb = type;
             type = 'linear';

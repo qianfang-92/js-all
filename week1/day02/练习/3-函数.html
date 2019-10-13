@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    function fn () {};  //上下都能调用
+    var f = function qqq () {}; // 这里的qqq 不能用来函数调用
+
+    // 剩余运算符 就是为了 箭头函数准备的
+
+    /*
+        变量提升
+            在代码执行之前，JS会把代码中带var 和 带function 的提前声明
+                带var 的是只声明不定义
+                带 function 的是又声明又定义 但是函数里 return 后面的不提升
+            变量提升只提升等号左边的部分
+            变量提升 对于条件来说 不管条件成立不成立 都会进行变量提升 在条件句或者循环句中 function 声明 高版本的浏览器都是 只声明不定义 和var 一样的
+
+        var let const 的区别
+            var 可以重复声明 let const不行
+            var 存在变量提升 let const 不存在
+            var 声明的变量会在window下增加一个对应的属性
+            let const 会识别块级作用域 var不会
+         
+
+    */
+~function(){
+    function change(content, ...arg){
+        //=>实现你的代码
+        var a = Symbol();
+            content[a] = this;
+        var resf = content[a](...arg);
+        delete content[a];
+        return resf;
+    };
+    Function.prototype.change=change;
+}();
+let obj = {name:'zhufeng'};
+function func(x,y){
+    this.total=x+y;
+    return this;
+}
+let res = func.change(obj,100,200);
+//res => {name:'Alibaba',total:300}
+console.log(res);
+</script>

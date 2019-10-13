@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding:0;
+            list-style:none;
+        }
+        #box{
+            width:200px;
+            height:200px;
+            background:lightcoral;
+            position:relative;
+            left:0;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+</body>
+</html>
+<script>
+    var box = document.getElementById('box');
+    /*
+        需要知道的是：
+            移动的元素；
+            移动的距离
+            移动的时间
+            移动的方向
+    */
+
+    function move (ele, attr, duration, changeL) {
+        var start = parseFloat(getComputedStyle(ele)[attr]);
+        var speed = changeL/duration;
+        var l = 0;
+        var timer = setInterval(()=>{
+            l += speed*20;
+            if (l >= changeL) {
+                l = changeL;
+                clearInterval(timer);
+            }
+            ele.style[attr] = start + l + 'px';
+        },20)
+    }
+
+    function linear (changeL, duration, tim) {
+        //begin 是初始位置，end是目标位置，duration是运动时间，tim是从开始到现在运动了多久
+        //由以上四个值，我们可以算出元素的移动距离
+        return changeL/ duration * tim ;
+    }
+
+    function move2 (ele, attr, duration, changeL) {
+        var start = parseFloat(getComputedStyle(ele)[attr]);
+        var time = 0;
+        var start = parseFloat(getComputedStyle(ele)[attr]);
+        var timer = setInterval(()=>{
+            time += 20;
+            var l = linear(changeL, duration, time);
+            if (l >= changeL) {
+                l = changeL;
+                clearInterval(timer);
+            }
+            ele.style[attr] = start + l + 'px';
+        },20)
+    }
+    move2(box,'left',1000,500);
+</script>

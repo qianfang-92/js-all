@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            list-style:none;
+        }
+        #box{
+            width:100px;
+            height:100px;
+            position:relative;
+            left:0;
+            top:0;
+            background:lightcoral;
+            transition: left 1s linear, top 1s linear;
+            /* animation: move 2s linear infinite; */
+        }
+        /*@keyframes move {
+            0%{
+                transform:translate(0,0)
+            }
+            50%{
+                transform: translate(300px, 300px);
+            }
+            100%{
+                transform: translate(0,0);
+            }
+        } */
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <button id="btn">点击</button>
+</body>
+</html>
+<script src="jq.js"></script>
+<script>
+    // JS动画  固定步长  固定时间
+    var box = document.getElementById('box');
+    // 目标位置 向右移动500px  
+    var timer = null;
+    var n = parseFloat(getComputedStyle(box).left); //获取box 位置的初始值
+    // timer = setInterval(()=>{
+    //     n+=10;
+    //     if (n >= 500) {
+    //         n = 500;
+    //         clearInterval(timer);
+    //     }
+    //     box.style.left = n + 'px';
+    // },20)
+
+    function fn() {
+        n++;
+        if (n >= 500) {
+            n = 500;
+        } else {
+            setTimeout(()=>{
+                fn();
+            },10);
+        }
+        box.style.left = n + 'px';
+    }
+    // fn();
+
+    //requestAnimationFrame(cb);  当前画面重绘完成之后会触发回调函数
+    function f () {
+        n+=4;
+        if (n >= 500) {
+            n = 500;
+        } else {
+            requestAnimationFrame(f);
+        };
+        box.style.left = n + 'px';
+    }
+    // f()
+
+
+    // 固定时间 需要算出每步移动的距离
+    // let duration = 1000;
+    // let maxL = 500;
+    // let speed = (maxL - n) / duration;
+    // let time = 0; //记录运动过的时间
+    // timer = setInterval(()=>{
+    //     time += 10;
+    //     if (time >= duration) {
+    //         time = 1000;
+    //         clearInterval(timer);
+    //     }
+    //     box.style.left = n + speed*time + 'px';
+    // },10)
+    let flag = true;
+    btn.onclick = function () {
+        if (flag) {
+            flag = false;
+            box.style.left = '500px';
+            box.style.top = '500px';
+        } else {
+            flag = true;
+            box.style.left = '0px';
+            box.style.top = '0px';
+        }
+         //这样 要补上top的初始值
+    }
+
+    // 如果用c3的 transform 的 translate 来让盒子运动，这时 盒子的offsetTop是不会随着盒子的运动改变的
+
+    // 让盒子 上下左右居中 ： 让盒子的父级元素 ： display:flex;  justify-content: center; align-items:center;
+    //      position:absolute; 四个方向都是0；margin:auto;
+    //      top:50%; margin-top: - 一半的高度；
+    //      top:50%; transform : translateY(-50%);
+
+    $(box).animate({left:300,top:300},500)
+</script>
