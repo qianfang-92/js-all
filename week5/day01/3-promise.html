@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script src="jquery-3.3.1.js"></script>
+<script>
+
+    // $.ajax({
+    //     url:'./data.json',
+    //     success:function (data) {
+    //         $.ajax({   // 在请求数据成功后再请求下一个数据
+    //             url:'./data.json',
+    //             success:function () {
+
+    //             }
+    //         })
+    //     }
+    // })
+
+    // executor 就是promise里的回调函数
+    let a = new Promise( function ( resolve, reject ) {
+        // resolve 是执行成功对应的回调函数  
+        // reject 是执行失败对应的回调函数
+        //具体是执行成功还是失败是由你自己决定的
+        setTimeout( () => {
+            reject(123);
+            // reject(eee); // 这个报错 是定时器的这个异步的，promise管不着，promise管它自己里面的报错
+        }, 3000)
+        resolve(qqq);  // 这里报错，它会默认走失败的
+    } );  //这里的函数不是我们执行的，是promise执行的，是一个回调函数
+    // console.log(p)
+
+    // then 接收两个函数作为参数，第一个函数对应　resolve　第二个函数对应　reject
+    a.then( function (data) {  
+        console.log('success')
+        console.log(data);
+    }, function (err) {
+        console.log('error')
+        console.log(err)
+    } ).then( function (data2) {
+        console.log('data2',data2)
+    }, function (err2) {
+        console.log('err2',err2)
+    });
+    // 第二个then及以后，是看前一个then有没有执行出错，如果没有报错，都会执行第一个函数，只有前一个then报错了才会执行第二个函数，这里面是按顺序排的，前面的是success 后面的是error
+
+
+    /*
+        Promise是专门来处理异步的，但是也可以处理同步
+        Promise 实例有三个状态，分别是 
+            pending(等待状态) ：当前的promise还是处于等待状态
+            resolved： 代表当前走了成功的回调函数
+            rejected : 代表当前走了失败的回调函数
+            状态一旦修改就不会再发生任何改变
+    */
+
+    let p = new Promise(function (res, rej) {
+        $.ajax({
+            url:'./data.json',
+            success:res,
+            error:function (data) {
+                console.log(data)
+                rej(data); 
+            },
+            // error:rej
+        })
+    });
+
+    //then 可以写两个参数，也可以只写一个参数，写一个参数时对应的是成功的回调
+    p.then(function (data) {
+        console.log(data);
+        return new Promise(function (res, rej) {
+            res(666)
+        });
+    }).then(function (data2) {  // 从第二个then开始，里面的参数是上一个的返回值 ; 如果return是promise实例，那么data2接收的参数是promise成功的
+        console.log(data2)
+    }).catch(function (err) {
+        console.log(err)
+    })   // 可以用catch捕获失败时的回调
+
+    new Promise(function (res, rej) {
+        res(123);
+        console.log(888)
+    }).then((data)=>{
+        console.log(data)
+    }).catch((err)=>{
+        console.log(err)
+    })
+    console.log(999); //  999比123早输出，因为then里面有异步的东西, 输出顺序是 888 999 123
+
+    new Promise(function (res, rej) {
+        rej(123);
+        console.log(888)
+    }).then((data)=>{
+        console.log(data)
+    }).catch((err)=>{
+        console.log(err);
+        return 4
+    }).finally(()=>{
+        console.log('finally')
+    })
+    console.log(999);  // 不管走成功还是失败，最后都会走finally,而且finally没有任何参数，因为不知道promise的最终状态
+</script>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    var addTwoNumbers = function (l1, l2) {
+        if (!l1[l1.length - 1] || !l2[l2.length - 1]) return;
+        let sum = Number(l1.reverse().join('')) + Number(l2.reverse().join('')) + '';
+        console.log(sum)
+        let ary = sum.split('').reverse().map(Number);
+        console.log(ary)
+        return ary;
+    };
+    addTwoNumbers([2,4,3], [5,6,4]);
+</script>

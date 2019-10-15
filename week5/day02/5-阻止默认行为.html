@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            list-style:none;
+        }
+        #box{
+            width:100px;
+            height:100px;
+            border:1px solid darkblue;
+            box-shadow:4px 4px 0px 0px darkgoldenrod;
+            user-select: none;
+            display:none;
+            position:absolute;
+        }
+    </style>
+</head>
+<body>
+    <a href="http://baidu.com" id="a" target="_blank">百度</a>
+    <div id="box">珠峰</div>
+    <input type="text" id="inp">
+</body>
+</html>
+<script>
+    a.onclick = function (e) {
+        e = e || window.event; //事件对象
+        // e.preventDefault(); // 阻止默认行为
+        var tar = e.target || e.srcElement; //事件源
+        console.log(a.setAttribute('href','https://www.163.com'));
+        alert('a'); // alert可以打断下面代码的执行，可以看出，浏览器先执行这个点击事件，然后再跳转
+        return false; // 这也阻止了默认行为，如果不写之前的preventDefault的话
+    }
+    window.oncontextmenu = function (e) {
+        e.preventDefault();
+        // console.log(e.pageY,e.pageX);
+        box.style.display = 'block';
+        box.style.left = e.pageX + 'px';
+        box.style.top = e.pageY + 'px';
+    }
+    window.onclick = function () {
+        box.style.display = 'none';
+    }
+
+    // 浏览器的滚轮事件 浏览器改成了先执行默认事件再执行绑定事件，
+    // 这与普通事件不同，普通事件是先执行绑定的事件再执行默认行为的。
+
+    inp.onkeydown = function (e) {
+        // e.preventDefault();  //这时，就不能输入东西了，因为input的事件有 keydown keyup oniput 一般顺序是 keydown input keyup 如果阻止默认事件了 就不会执行后面的input 和up事件了，也就输入不上去了
+    }
+
+
+</script>

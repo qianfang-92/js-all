@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box{
+            width:200px;
+            height:200px;
+            background:darkorange;
+            margin:30px auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="box" contenteditable="true"></div>
+    <input type="text" id="inp">
+    <button id="btn">按钮</button>
+</body>
+</html>
+<script src="./jquery-3.3.1.js"></script>
+<script>
+    /*
+        鼠标事件：
+            onclick   单击事件
+            ondblclick   双击事件  大约300ms之内连续点击两次算双击
+            onmouseenter  鼠标移入
+            onmouseleave  鼠标移出
+            onmouseover   鼠标划过
+            onmouseout    鼠标划出
+            onmousemove   鼠标滑动
+            onmousewheel  鼠标滚轮事件
+            onmousedown   鼠标按下
+            onmouseup     鼠标抬起
+            oncontextmenu 鼠标右键点击
+    */
+   var box = document.getElementById('box');
+   box.ondblclick = function () {  
+        console.log(4)
+   }
+//    box.onmousemove = function () {
+//        console.log('滑')
+//    }
+   box.onclick = function () {
+       console.log('click');
+   }
+   box.onmousedown = function () {
+       console.log('down')
+   }
+   box.onmouseup = function () {
+       console.log('up')
+   }
+   box.oncontextmenu = function (e) {
+       console.log('right');
+       e.preventDefault();  //阻止默认事件，右键时不会出现那个默认的下拉框了
+   }
+
+   /*
+        键盘事件
+            onkeydown   键盘按下
+            onkeyup     键盘抬起
+            onkeypress  按下抬起 （相当于click）  有些系统键是监听不到的
+
+        键盘事件可以绑定的对象是:  window   document.body   input  textarea  和能在上面输入的东西(凡是能获取焦点的东西)
+   */
+
+   box.onkeydown = function () {
+       console.log('key')   // box 上 加 contenteditable 就可以绑定键盘事件了
+   }
+
+   /*
+        input框事件
+            onfocus     获取焦点
+            onblur      失去焦点
+            oninput     内容改变就触发
+            onchange    内容发生改变  并且失去焦点的时候
+   */
+   var inp = document.getElementById('inp')
+   inp.onfocus = function () {
+       console.log('focus')
+   }
+   inp.onblur = function () {
+       console.log('blur')
+   }
+   inp.oninput = function () {
+    //    this.value = 0;
+       console.log('input')  // 通过其他方式改变inp里的内容 oninput事件会不会被触发？？
+   }
+   inp.onchange = function () {
+       console.log('change')  //敲回车键会触发onchange事件
+   }
+
+   btn.onkeydown = function () {
+       console.log('btn')
+   }
+
+   /*
+        系统事件
+            window.onscroll     凡是能出现滚动条的都可以绑定 scroll这个事件   滚动条移动的时候触发
+            window.onresize     窗口大小发生改变的时候触发
+            window.onload       页面资源加载完成后触发  凡是需要从远程加载资源的都可以绑定这个事件
+
+   */
+
+   window.onload = function () {
+        console.log('load')
+   }
+   $(window).ready(function () {
+        console.log('read')
+   })
+   // ready 指的是DOM结构，骨架加载完后触发； load是页面资源加载完，那些图片，链接，加载完后触发   所以ready比load先出来  这是它们的区别
+</script>

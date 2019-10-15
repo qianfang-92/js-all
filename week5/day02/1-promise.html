@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script src="jquery-3.3.1.js"></script>
+<script>
+    let p = new Promise( function ( res, rej ) {
+        setTimeout(() => {
+        }, 2000);
+        // console.log(qqq)
+
+        // $.ajax({
+        //     url:'./data.json',
+        //     success : function (data) {
+        //         rej(data)
+        //     },
+        //     error : function (err) {
+        //         res(err)
+        //     }
+        // })   // promise 不仅同步报错可以捕获到，也能捕获ajax的失败，所以这样写，它还是捕获到了失败，走失败的回调函数
+        res(111);
+        res(222);  //promise的状态一旦由pending改变到成功或者失败的状态，那么就不再改变状态了，相当于then只捕获一次；虽然res(222)代码也执行了，但是不会被then捕获了
+    }).then( function (data) {
+        console.log(1,data) 
+    }, function (err) {
+        console.log(0)
+    }).catch (function (err) {
+        console.log(666); // 这里 错误信息已经被上面的then捕获到了，所以这个catch捕获不到了，不会输出666
+    }).finally(function () {
+        console.log(9); // 不管成功还是失败，都要执行的代码，我们可以放在finally这里
+    })
+
+    // then  catch finally  这三个方法是在promise原型上的，promise的实例可以调到
+
+    /*
+        all race  resolve  reject   
+        工作中很多插件是promise封装的
+
+        all:
+            所有都成功，才会走成功的回调函数，只要有一个失败，就会走对应的失败函数，后边的就不看了，不管后面有成功还是失败。代码都是会被执行的，只是不被then或者catch捕获而已  Promise的executor函数是同步执行的，then，catch等里面的函数是异步执行的
+    */
+
+    var p1 = new Promise( function (res, esj) {
+        setTimeout(()=>{
+            res(111);
+        },2000)
+    })
+    var p2 = new Promise( function (res, esj) {
+        setTimeout(()=>{
+            res(222);
+        },3000)
+    })
+    var p3 = new Promise( function (res, esj) {
+        setTimeout(()=>{
+            esj(333);
+        },4000)
+    })
+    var p4 = new Promise( function (res, esj) {
+        setTimeout(()=>{
+            res(444);
+        },5000)
+    })
+
+    Promise.all([p1,p2,p3,p4]).then(function (data) {
+        console.log('data', data) // all里面全成功才会走成功的回调函数，如果有一个失败，就走失败，  工作中是一次性要发三个请求，三个请求都要成功时，需要用到all
+    },(err)=>{
+        console.log('err', err)
+    });
+    Promise.allSettled([p1,p2,p3,p4]).then(function (data) {
+        console.log('data',data)
+    },(err)=>{
+        console.log('err',err)
+    })  // allSettled 不管res还是rej 都会走then的成功的回调函数
+
+    Promise.race([p1,p2,p3,p4]).then((data)=>{  // 赛跑的意思，看谁先走完，就走谁，最先走完的是成功就走成功，最先走完的是失败就走失败
+        console.log('success',data)
+    },(err)=>{
+        console.log('fail',err)
+    })
+
+    Promise.resolve(555).then((data)=>{
+        console.log(data)  // 为了成功的返回一个成功的实例
+    })
+
+    Promise.reject(777).then((data)=>{
+        console.log(data)  
+    },(err)=>{
+        console.log(err)  // 为了返回一个失败的实例
+    })
+
+
+</script>

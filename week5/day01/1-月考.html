@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    function A() {
+        console.log('A');
+        console.log(this);
+        console.log(arguments);
+    }
+    function B() {
+        console.log('B');
+        console.log(this);
+        console.log(arguments);
+    }
+    B.call.call(A, 1, 2, 3);  //  B.call 看成 FN
+
+    // FN.call(A,1,2,3)    FN 中的this本来是B  现在换成A ; 所以相当于： A.call(1,2,3) 
+
+    // 类数组转数组   Array.prototype.slice.call(arg)
+
+    // 在网页上直接输入 ：在行内加入contenteditable
+
+    // 15题：example3
+    /*
+        在对象里，把对象当作属性名的时候，会先把这个当作属性名的对象用toString转一下，所以 下面的会把上面的顶掉
+        把 数组当作属性名时，也会先调用数组的toString方法转一下，所以都会调用自己的toString方法
+    */
+
+    // 18题  
+    /*
+        最后一行 因为Fn的prototype上的A 是一个箭头函数，所以它不能new 所以会报错
+    */
+
+    // 20题
+    /*
+        最后一个，A3本身没有name了，向原型上找name 是Tom
+    */
+
+    //21题  JQ方法
+    /*
+        $('button').on('click', function () {
+            var n = $(this).index('button');   // index 不加 参数 拿到的是this的兄弟元素的索引 所以要加button参数
+            $('#box').css({background: colorAry[n]})
+        })
+    */
+
+    // 数组扁平化 递归
+    function flatten(ary) {
+        var temp = [];
+        function fn(ary) {
+            ary.forEach(item => {
+                if (typeof item === 'object') {
+                    fn(item);
+                } else {
+                    temp.push(item);
+                }
+            })
+        }
+        fn(ary);
+        return temp;
+    }
+
+    // new 函数封装
+    function _new (classN, ...arg) {
+        let obj = {};
+        obj.__proto__ = classN.prototype;
+        let res = classN.call(obj, ...arg);
+        return typeof res === 'oject' ? res : obj;
+    }
+
+    // create 函数封装 
+    function create (pro) {
+        let obj = {};
+        obj.__proto__ = pro;
+        return obj;
+    }
+
+    // 数组 交集
+
+</script>

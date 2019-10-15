@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script src="../jquery-3.3.1.js"></script>
+<script>
+    ( function ( global, factory ) {
+        // 兼容node.js
+        if ( false ) {
+
+        } else {
+            factory( global );
+        }
+    })( typeof window !== 'undefined' ? window : this, function ( window, noGlobal ) {
+        var version = '3.3.1',
+            jQuery = function ( selector, context ) {
+                return new jQuery.fn.init( selector, context );
+            };
+        jQuery.fn = jQuery.prototype = {
+            constructor : jQuery,
+            toArray : function () {
+                return slice.call( this )
+            }
+        }
+        jQuery.extend = jQuery.fn.extend = function () {};
+        jQuery.extend({
+            isReady : true,
+            isEmptyObject : function (obj) {
+                var name;
+                for (name in obj) {
+                    return false;
+                }
+                return true;
+            }
+        })
+        var inite = jQuery.fn.init = function (selector, context) {}
+        init.prototype = jQuery.fn;
+    } )
+</script>

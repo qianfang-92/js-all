@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script src="jquery-3.3.1.js"></script>
+<script src="">
+    (function (global, factory) {
+        // 处理 兼容 node.js
+        if (false) {
+
+        } else {
+            factory(global)
+        }
+    })(typeof window !== 'undefined' ? window : this, function (window, noGlobal) {
+        var
+            version = "3.3.1",
+
+            // Define a local copy of jQuery
+            jQuery = function (selector, context) {
+                // selector 是css选择器  context 是上下文 范围，默认是document
+                // The jQuery object is actually just the init constructor 'enhanced'
+                // Need init if jQuery is called (just allow error to be thrown if not included)
+                return new jQuery.fn.init(selector, context);  
+                // new init 后，如果A == new jQuery.fn.init();
+                // A.__proto__ = jQuery.fn.init.prototype
+                //因为 init.prototype = jQuery.fn;
+                //所以，A.__proto__ = jQuery.prototype  这就是为什么jQ执行会返回jQ的实例
+            };
+            jQuery.fn = jQuery.prototype = {
+                // 原型重构 
+                constructor : jQuery, // 保证constructor指向
+                jquery : version,
+                toArray : function () {
+                    return slice.call(this); //这里this是jQ实例
+                },
+                get : function (num) {
+                    if (num == null) {
+                        return slice.call(this);
+                    }
+                    return num < 0 ? this[num + this.length] : this[num];
+                }
+            }
+            jQuery.extend = jQuery.fn.extend = function () {}   // 这两个extend不一样 不一样在this不一样，所以一个在jQuery对象属性，一个在jQuery原型上
+            jQuery.extend({
+                ifReady : true,
+                isEmptyObject : function ( obj ) {
+                    var name;
+                    for (name in obj) {
+                        return false;   //obj不是空对象时，就能走for in循环，就输出false
+                    }
+                    return true;
+                }
+            })
+
+            var init = jQuery.fn.init = function ( seletocr, context, root ) {}
+            init.prototype = jQuery.fn;
+            
+            var _jQuery = window.jQuery,
+                _$ = window.$;  // 之前的值，$在使用jQuery之前所代表的东西
+            jQuery.noConflict = function (deep) {
+                if (window.$ === jQuery) {
+                    window.$ = _$; //把$还给之前的值
+                }
+                if (deep && window.jQuery === jQuery) {
+                    window.jQuery = _jQuery;
+                }
+                return jQuery;
+            }  //让渡$的使用权，让$ 只代表jQuery
+
+            if (!noGlobal) {
+                window.$ = window.jQuery = jQuery
+            }  // 这就使在外面能调用jQuery  
+    })
+</script>

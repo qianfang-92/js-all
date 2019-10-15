@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    function A () {
+        console.log('A');
+        console.log(this);
+        console.log(arguments)
+    }
+    function B () {
+        console.log('B');
+        console.log(this);
+        console.log(arguments)
+    }
+    B.call.call(A,1,2,3); //->  A.call(1,2,3)
+
+    var colorAry = ['red', 'green', 'blue'];
+    $('button').on('click', function () {
+        var n = $(this).index('button');  // index是所有兄弟元素的索引，加上参数是指定类别的兄弟元素索引
+        $('#box').css({background:colorAry[n]})
+    })
+
+    function flatten (ary) {
+        let temp = [];
+        function fn (ary) {
+            ary.forEach(item=>{
+                if (typeof item === 'object') {
+                    fn(item)
+                } else {
+                    temp.push(item)
+                }
+            })
+        }
+        fn(ary);
+        return temp;
+    }
+
+    function create (pro) {
+        let obj = {};
+        obj.__proto__ = pro;
+        return obj;
+    }
+</script>

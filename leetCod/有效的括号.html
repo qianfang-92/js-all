@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    // var isValid = function (s) {
+    //     if (s === '') return true;
+    //     var reg = /^([\(\)\[\]\{\}]*[\(\)\[\]\{\}]*)*$/;  // 保证字符串中都是括号
+    //     if (!s.match(reg)) return false;
+    //     // return true;
+    //     //要保证字符串中前括号和后括号出现的次数相等
+    //     let obj = {};
+    //     let ary = s.split('')
+    //     ary.forEach(item => {
+    //         if (obj.hasOwnProperty(item)) {
+    //             obj[item] += 1;
+    //         } else {
+    //             obj[item] = 1;
+    //         }
+    //     })
+    //     console.log(obj);  
+    //     if (!('(' in obj && ')' in obj && obj['('] == obj[')'] ) || !('[' in obj && ']' in obj && obj['['] == obj[']'] ) || !('{' in obj && '}' in obj && obj['{'] == obj['}'] )) return false;
+
+    //     // 字符串中的前括号和后括号的顺序要前后
+
+    //     if (! ary.indexOf('(') > ary.indexOf(')') || ! ary.indexOf('[') > ary.indexOf(']') || ! ary.indexOf('{') > ary.indexOf('}') ) return false;
+
+    //     // 不能出现不同类型括号交叉的情况
+
+    // };
+
+    //方法1
+    var isValid = function (s) {
+        var Json = {
+            ')': '(',
+            ']': '[',
+            '}': '{'
+        }
+        var stack = [];
+        for (var i = 0; i < s.length; i++) {
+            var c = s.charAt(i);
+            if (c in Json) {
+                var template = stack.length != 0 ? stack.pop() : '#';
+                if (template !== Json[c]) {
+                    return false;
+                }
+
+            } else {
+                stack.push(c);
+            }
+        }
+        return stack.length == 0;
+    };
+
+    // 方法2
+    var isValid = function (s) {
+        let old;
+        while (s.length) {
+            old = s;
+            s = s.replace('{}', '').replace('[]', '').replace('()', '');
+            if (old == s) return false;
+        }
+        return s == ''
+    };
+</script>

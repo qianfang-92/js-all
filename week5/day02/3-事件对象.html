@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box{
+            width:200px;
+            height:200px;
+            background:darkorange;
+            margin:30px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">珠峰
+        <p>888</p>
+    </div>
+    <input type="text" id="inp">
+    <textarea name="" id="txt" cols="30" rows="10"></textarea>
+</body>
+</html>
+<script>
+    box.onclick = function (e) {
+        //e 是个事件对象， 所有的事件都有事件对象e
+        e = e || window.event;  // 这是为了兼容IE低版本浏览器的
+        var tar = e.target || e.srcElement; // 为了兼容 是点击的那个元素
+        console.log(e)
+    }
+
+    /*
+        e.clientY :  鼠标点击时的那个位置到可视窗口左上角的距离（X就是横方向的，Y就是竖着的方向的）
+        e.pageY    :  鼠标点击时的那个位置 到body 左上角的距离
+        e.target   或 e.srcElement :  鼠标点击的那个元素 不是事件绑定的那个元素；这个就是事件源  不同于this,this是事件绑定的元素
+         
+    */
+
+    inp.oninput = function (e) {
+        // console.log(e.target.value) ; //通过事件对象获取 input框的value
+    }
+
+    inp.onkeydown = function (e) {
+        console.log(e) // 这里keycode  就可以记录到按的是哪个键，因为每个键都有自己的keycode
+        if (e.keyCode == 13) {
+            alert('提交')
+        }
+    }
+</script>

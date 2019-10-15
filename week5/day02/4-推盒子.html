@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            list-style:none;
+        }
+        #box{
+            width:200px;
+            height:200px;
+            position:relative;
+            background:darkorange;
+            top:0;
+            left:0;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <button id="btn">点击</button>
+</body>
+</html>
+<script>
+    // 按上下左右键让盒子往哪里走
+    var box = document.getElementById('box');
+    let n = 0;
+    let m = 0;
+    // window.onkeydown = function (e) {
+    //     // 上 38 下40 左37 右39
+    //     switch (e.keyCode) {
+    //         case 38: //上
+    //             n-=10;
+    //             break;
+    //         case 40: //下
+    //             n+=10;
+    //             break;
+    //         case 37: //左
+    //             m-=10;
+    //             break;
+    //         case 39: //右
+    //             m+=10;
+    //             break;
+    //     }
+    //     box.style.top = n + 'px';
+    //     box.style.left = m + 'px';
+    // }
+
+    // box.style.left = '100px';
+    // box.style.transition = 'left 0.5s';
+
+    btn.onclick = function () {
+        box.style.transition = null;
+        box.style.left = '100px';
+        // var l = box.clientLeft; 
+
+        // box.style.left = '200px';
+        // var l = box.clientLeft; 
+
+        // box.style.left = '300px';
+        var l = box.clientLeft;    //读操作，放在了上一段写操作和下一段写操作之间，这时，浏览器渲染器就会让读操作之前的写操作执行，一般的话，都会要求读写分离，让写操作放在一起，读操作放在一起，省性能，但是在这里，我们利用这个读写分离机制，可以实现 先让盒子快速到100px，再让盒子慢速到400px，让我们之前写的transition = null 起作用
+
+        // box.style.left = '400px';
+        // var l = box.clientLeft; 
+
+        box.style.transition = 'left 0.5s';
+        box.style.left = '400px';
+
+        // console.log(box.clientLeft);
+
+    }
+    // 可以实现重绘回流的读操作 offset client scroll 12个参数，和 getComputedStyle 
+
+
+</script>

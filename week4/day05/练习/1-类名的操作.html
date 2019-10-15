@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script src="../jq.js">
+</script>
+<script>
+    var box = document.getElementById('box');
+    //检测一个类名
+    HTMLElement.prototype.hasClass = function (attr = '') {
+        // this 是元素
+        if (attr.match(/^ *$/)) return false;
+        let str = this.className.trim();
+        let ary = str.split(/ +/);
+        attr = attr.replace(/^ +| +$/g, '');
+        // return ary.indexOf(attr) == -1 ? false : true;
+        let arr = attr.split(/ +/);
+        // 可以使用 ary 和arr的交集数组 与arr 进行长度的比较
+        let temp = []; //交集数组
+        for (let i = 0; i < arr.length; i++) {
+            ary.indexOf(arr[i]) == -1 ? null : temp.push(arr[i])
+        }
+        return temp.length === arr.length
+    }
+    //检测多个类名
+    HTMLElement.prototype.hasClass = function (attr = '') {
+        if (attr.match(/^ *$/)) return false;
+        let arr = attr.replace(/^ +| +$/g, '').split(/ +/);
+        let str = this.className;
+        let flag = true;
+        for (let i = 0; i < arr.length; i++) {
+            let reg = new RegExp(`\\b${arr[i]}\\b`);
+            if (!reg.test(str)) {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    }
+
+    HTMLElement.prototype.addClass = function (attr = '') {
+        if (this.hasClass(attr)) return;
+        let arr = attr.replace(/^ +| +$/g, '').split(/ +/);
+        let str = this.className;
+        arr.forEach(item=>{
+            this.hasClass(item) ? null : (str += ' ' + item)
+        })
+        str = str.replace(/^ +| +$/g, '').replace(/ +/g, ' ');
+        this.className = str;
+    }
+
+    HTMLElement.prototype.removeClass = function (attr = '') {
+        if (!this.hasClass(attr)) return;
+        let arr = attr.replace(/^ +| +$/g, '').split(/ +/);
+        let str = this.className;
+        arr.forEach(item=>{
+            let reg = new RegExp(`\\b${item}\\b`, 'g');
+            this.hasClass(item) ? str = str.replace(reg, '') : null;
+        })
+        str = str.replace(/^ +| +$/g, '').replace(/ +/g, ' ');
+        this.className = str;
+    }
+
+    HTMLElement.prototype.toggleClass = function () {}
+</script>
