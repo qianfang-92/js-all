@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script src="../jquery-3.3.1.js"></script>
+<script>
+
+    /*
+        promise 不仅它的executor函数的同步报错可以捕获到，也能捕获ajax的失败，所以这样写，它还是捕获到了失败，走失败的回调函数
+
+        promise的状态有三个，pending resolved rejected 一旦它的状态从pending变为resolved或rejected状态，之后的成功或失败都不会被then或者catch捕获到了
+
+        在then后面再写一个catch，如果是失败，那么这个失败会先被then捕获到，catch不能再捕获这个失败了
+
+        不管成功还是失败，都要执行的代码，我们可以放在finally里面
+
+
+        then catch finally 这三个方法是在promise原型上的，promise的实例可以调用到；
+    */
+    let p = new Promise(function (res, rej) {
+        setTimeout(()=>{
+            console.log(eee)
+        },2000)
+        console.log(qqq)
+    }).then(function (data) {
+        console.log(1,data)
+    }).catch((err)=>{
+        console.log('2',err)
+    })
+
+    /*
+        all  race  resolve  reject
+        
+    */
+</script>

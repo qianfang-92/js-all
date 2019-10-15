@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            list-style:none;
+        }
+        li{
+            height:30px;
+            border:1px solid #ccc;
+            margin:20px;
+            line-height:30px;
+        }
+    </style>
+</head>
+<body>
+    <ul id="ul">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+        <li>10</li>
+    </ul>
+</body>
+</html>
+<script>
+    // 事件的委托就是利用了事件的冒泡传播机制
+    var ul = document.getElementById('ul')
+    ul.onclick = function (e) {  //由于有事件的冒泡 所以点击li时也会触发ul的事件。所以可以不绑定Li,绑定ul
+        let tar = e.target || e.srcElement;
+        // console.dir(tar)
+        // if (tar.nodeName.toLowerCase() !== 'li') return;
+        if (tar !== this) {
+            // 1 元素节点 3是文本节点 8是注释节点 9是根节点
+            console.log(tar.innerText)
+        }
+    }
+</script>

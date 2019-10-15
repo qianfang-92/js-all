@@ -5,11 +5,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            list-style:none;
+
+        }
+        div{
+            box-sizing:border-box;
+        }
+        #outer{
+            width:500px;
+            height:500px;
+            background:darkgoldenrod;
+            margin:50px auto;
+            padding:50px;
+        }
+        #center{
+            width:400px;
+            height:400px;
+            background:seagreen;
+            /* margin:50px auto; */
+            padding:50px;
+        }
+        #inner{
+            width:300px;
+            height:300px;
+            background:darkolivegreen;
+            /* margin:50px auto; */
+            padding:50px;
+        }
+    </style>
 </head>
 <body>
-    
+    <div id="outer">
+        <div id="center">
+            <div id="inner">
+
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 <script>
-    
+    /*
+        点击的时候，根据html结构，点击子集，像击穿了一样，同样触发了父级的事件，
+        这是因为有事件的传播 也叫事件的冒泡传播
+    */
+    window.onclick = function () {
+        console.log('点了window')
+    }
+    outer.onclick = function (e) {
+        e.stopPropagation();
+        console.log('点了outer')
+    }
+    center.onclick = function (e) {
+        e.stopPropagation();
+        console.log('点了center')
+    }
+    inner.onclick = function (e) {
+        e = e || window.event;
+        e.stopPropagation(); //阻止事件的冒泡传播
+        console.log('点了inner')
+    }
+
+    //ie浏览器的阻止冒泡 e.cancelBubble = true;
+
+    /*
+        事件传播的两个过程：
+            捕获   点击的时候从最上级往最里层捕获
+            冒泡   再从里层往外层冒
+    */
 </script>

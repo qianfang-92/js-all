@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            list-style:none;
+        }
+        .litImg{
+            width:300px;
+            margin:50px;
+            border:1px solid firebrick;
+        }
+        .lit{
+            width:300px;
+            height:150px;
+            display:block;
+            /* margin-top:50px; */
+            border:1px solid darkgoldenrod;
+        }
+        
+        .bigImg{
+            width:400px;
+            height:400px;
+            position:absolute;
+            left:400px;
+            top:100px;
+            border:1px solid darkblue;
+            overflow:hidden;
+            /* padding:10px; */
+        }
+        .big{
+            width:1200px;
+            height:600px;
+            display:none;
+            position:absolute;
+        }
+        #show{
+            border:1px solid rgba(184, 134, 11,0.5);
+            width:100px;
+            height:100px;
+            background:rgba(184,164,11,0.5);
+            display:none;
+            position:absolute;
+            left:0;
+            top:0;
+            /* overflow:hidden; */
+        }
+    </style>
+</head>
+<body>
+    <div id="box" class="litImg">
+
+        <img src="./img/1.jpg" class="lit">
+        <div id="show"></div>       
+        
+    </div>
+    <div class="bigImg">
+        <img src="./img/1.jpg" class="big">
+    </div>
+</body>
+</html>
+<script>
+    var lits = document.getElementsByClassName('lit');
+    var bigs = document.getElementsByClassName('big')[0];
+    var show = document.getElementById('show');
+    var litImg = document.getElementsByClassName('litImg')[0];
+    var bigImg = document.getElementsByClassName('bigImg')[0];
+    
+        litImg.onmousemove = function (e) {
+            // // console.log(e.pageY)
+            bigs.style.display = 'block';
+            bigs.style.top = -show.offsetTop*4+200+'px';
+            bigs.style.left = -show.offsetLeft*4+200+'px';
+            
+            // console.log(e.pageY)
+            show.style.display = 'block';
+            
+            show.style.top = e.pageY -50+ 'px';
+            show.style.left = e.pageX -50+'px';
+            
+            
+        }
+        litImg.onmouseleave = function () {
+            show.style.display = 'none';
+        }
+        
+    
+    // litImg.onmouseover = function (e) {
+    //     show.style.display = 'block';
+        
+    // }
+    // litImg.onmouseleave = function (e) {
+    //     show.style.display = 'none';
+    // }
+
+    function offset (ele) {
+        let l = ele.offsetLeft,
+            t = ele.offsetTop,
+            par = ele.offsetParent;
+        while(par) {
+            l += par.clientLeft + par.offsetLeft;
+            t += par.clientTop + par.offsetTop;
+            par = par.offsetParent;
+        }
+        return {l,t}
+    }
+
+    // litImg.onmouseover = function (e) {
+    //     var tar = e.target || e.srcElement;
+    //     if (tar.nodeName.toLowerCase() !== 'div') {
+    //         // console.log(tar);
+    //         for (let i = 0; i < lits.length; i++) {
+    //             lits[i].onmouseover = function () {
+    //                 show.style.display = 'block';
+    //                 show.style.left = e.pageX  + 'px';
+    //                 show.style.top = e.pageY  + 'px';
+    //                 // bigs[i].style.display = 'block';
+                    
+    //             }
+    //             lits[i].onmouseleave = function () {
+    //                 // bigs[i].style.display = 'none';
+    //                 show.style.display = 'none';
+    //             }
+    //         }
+    //     }
+    // }
+    
+</script>
