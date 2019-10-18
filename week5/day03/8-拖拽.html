@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        #box {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            cursor: move;
+            background: seagreen;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+</body>
+
+</html>
+<script>
+    var box = document.getElementById('box');
+    /*
+        //鼠标按下，盒子跟随鼠标移动，  鼠标抬起，盒子停止跟随
+    
+        function move(e) {
+            // console.log(222)
+            this.style.left = e.pageX - this.sx + 'px';
+            this.style.top = e.pageY - this.sy + 'px';
+        }
+        box.addEventListener('mousedown', function (e) {
+            //鼠标按下时记录  鼠标在盒子上的初始位置; 记录到盒子自己的属性上
+            let o = offset(this);
+            this.sx = e.pageX - o.l;
+            this.sy = e.pageY - o.t;  //鼠标在盒子上的初始位置
+            // box.addEventListener('mousemove',move,false)
+            this.fn = move.bind(this)
+            document.addEventListener('mousemove', this.fn, false)   // 鼠标丢失的问题：当鼠标在盒子上滑动太快时，如果不在盒子上了，盒子就不跟着鼠标动了，
+        }, false)
+    
+    
+    
+        box.addEventListener('mouseup', function (e) {
+            document.removeEventListener('mousemove', this.fn, false)   // 因为bind会产生一个新的函数，所以这里再写Bind 也不是上面的那个函数了，移除不掉了,然后解决这个问题，就要保证remove和add里的cb一样，Mouseup和mousedown函数有相同点，就是它们的this一样，都是box；所以我们可以给this加一个私有属性，存一下这个cb函数
+        }, false)
+    
+        function offset(ele) {
+            var l = ele.offsetLeft,
+                t = ele.offsetTop,
+                temp = ele.offsetParent;
+            while (temp) {
+                l += temp.offsetLeft + temp.clientLeft;
+                t += temp.offsetTop + temp.clientTop;
+                temp = temp.offsetParent;
+            }
+            return {
+                l, t
+            }
+        }
+    */
+
+    class follow {
+        constructor(id) {
+            this.box = document.getElementById(id)
+            var _this = this;
+            this.box.addEventListener('mousedown', function (e) {
+                let o = _this.offset(this);
+                this.sx = e.pageX - o.l;
+                this.sy = e.pageY - o.t;  
+                _this.fn = _this.move.bind(this)
+                document.addEventListener('mousemove', _this.fn, false)   
+            }, false)
+
+            this.box.addEventListener('mouseup', function (e) {
+                document.removeEventListener('mousemove', _this.fn, false)
+            }, false)
+        }
+
+        move(e) {
+            //this是当前的实例
+            this.style.left = e.pageX - this.sx + 'px';
+            this.style.top = e.pageY - this.sy + 'px';
+        }
+    
+        offset(ele) {
+            var l = ele.offsetLeft,
+                t = ele.offsetTop,
+                temp = ele.offsetParent;
+            while (temp) {
+                l += temp.offsetLeft + temp.clientLeft;
+                t += temp.offsetTop + temp.clientTop;
+                temp = temp.offsetParent;
+            }
+            return {
+                l, t
+            }
+        }
+    }
+
+    new follow('box')
+</script>

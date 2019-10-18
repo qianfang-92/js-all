@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$珠峰培训$</title>
+    <style>
+        #canvas{
+            box-shadow: 1px 1px 3px 2px #111;
+        }
+    </style>
+</head>
+<body>
+<div id='div1'>珠峰培训</div>
+<!--canvas 就是相当于一个画布-->
+<canvas width="800" height="400" id="canvas">
+    您的浏览器版本不支持canvas，请升级浏览器
+</canvas>
+</body>
+</html>
+<script>
+    //获取元素
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');//创造一个操纵画布的环境
+
+    //创造方框
+
+    //创造方框
+    function Rect(x,y,w,h,color) {
+        //x 表示 方框在画布上的x轴的位置
+        //y 表示 方框在画布上的y轴的位置
+        //w 表示 方框的宽度
+        //h 表示 方框的高度
+        //color 表示 方框的颜色
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
+        this.color = color;
+    }
+
+    //创造出来之后，怎么找在画布上展现
+
+    Rect.prototype.draw = function () {
+        ctx.beginPath();//重新开始一个路径
+        ctx.rect(this.x,this.y,this.w,this.h);//画一个方框
+        ctx.fillStyle = this.color;//给方框填充颜色
+        ctx.fill();//填充到画布上
+        ctx.stroke();//给每一个方框加一个边框
+    }
+
+    //以上是画框部分；因为不管是蛇还是食物，都是用方框表示的，所以第一步我们是要画出方框
+
+    // new Rect(0,0,50,20,'#ccc').draw();
+
+    //我们发现 蛇是由几个方框组成的，所以我们在写蛇的组成时，是用几个方框拼接在一起表示
+
+    function Snake() {
+        //我们初始化蛇的时候是用了3个方框表示
+        var snakeAry = [];//用来存储蛇的组成方框
+        for(let i =0 ; i < 3; i++){
+            let rect = new Rect(i*20,0,20,20,'#ccc');//创造方框
+            snakeAry.unshift(rect)//把创造的方框放到定义好的用来存储蛇身体的数组里
+        }
+        snakeAry[0].color = 'red';//把数组的第一项的颜色改成红色
+        this.head = snakeAry[0];//把刚才改过的第一项当作蛇头存到head属性里
+        this.snakeAry = snakeAry;//把改好的数组存储到函数的私有属性上
+        this.direction = 39;//向右
+    }
+    Snake.prototype.draw = function(){
+        this.snakeAry.forEach((item)=>{
+            //循环数组
+            item.draw();
+        })
+    };
+
+    var snake = new Snake();
+    snake.draw();
+    var food = creatFood();
+    //画完蛇 ，接下来我们要让蛇动起来
+
+    Snake.prototype.move = function(){
+        let rect = new Rect(this.head.x,this.head.y,this.head.w,this.head.h,'#ccc');//在蛇头原有的位置创造一个跟蛇身体一样的方框；
+        let n = Math.abs(this.direction - this.prevDirection);
+        if(n == 2){
+            this.direction = this.prevDirection;
+        }
+        switch (this.direction){
+            case 37://左
+                this.head.x -= this.head.w;
+                break;
+            case 38://上
+                this.head.y -= this.head.h;
+                break;
+            case 39://右
+                this.head.x += this.head.w;//让蛇头往后移动一个格；
+                break;
+            case 40://下
+                this.head.y += this.head.h;
+                break;
+            default:
+                break;
+        }
+
+        this.snakeAry.splice(1,0,rect)//在存储蛇身体的数组里，蛇头的后边添加一项；
+        if(food.x == this.head.x && food.y == this.head.y){
+            //吃到食物
+            food = creatFood();
+        }else {
+            this.snakeAry.pop();//删除数组的最后一项，对应的就是咱们移动后的蛇尾巴
+        }
+        this.draw();//把改好的数组重新画到画布上
+        this.prevDirection = this.direction;
+
+
+        //gameover 两种情况 一种是吃到自己  另一种是撞墙
+        //吃到自己
+        this.snakeAry.forEach((item=>{
+            if(item != this.head){
+                if(item.x == this.head.x && item.y == this.head.y){
+                    window.clearInterval(timer);
+                }
+            }
+        }))
+
+        //撞墙
+        if(this.head.x < 0 || this.head.x >= canvas.width || this.head.y < 0 || this.head.y >= canvas.height){
+            clearInterval(timer);
+        }
+    };
+
+    //咱们要用定时器，让这个move一直执行
+
+    var timer = window.setInterval(function () {
+        ctx.clearRect(0,0,canvas.width,canvas.height);//清空画布
+        // snake.draw();//重画
+        snake.move();//让蛇动
+        food.draw();
+    },200);
+
+
+    document.onkeydown = function (e) {
+        switch (e.keyCode){
+            case 37:
+                //摁了左键
+                snake.direction = 37;
+                break;
+            case 38:
+                //摁了上键
+                snake.direction = 38;
+                break;
+            case 39:
+                //摁了右键
+                snake.direction = 39;
+                break;
+            case 40:
+                snake.direction = 40;
+                break;
+            default:
+                break;
+        }
+    }
+
+    function creatFood() {
+        let x = Math.floor(Math.random()*canvas.width/20)*20;//不超过x轴的最大距离
+        let y = Math.floor(Math.random()*canvas.height/20)*20;//不超过y轴的最大距离
+        let rect = new Rect(x,y,20,20,'#71dd25');
+        return rect;
+    }
+
+</script>  

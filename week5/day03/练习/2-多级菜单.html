@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .hide {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <ul id="box">
+        <li>
+            <span>一级菜单</span>
+            <ul>
+                <li>
+                    <span>二级菜单</span>
+                    <ul>
+                        <li><span>三级菜单</span></li>
+                    </ul>
+                </li>
+                <li>
+                    <span>二级菜单</span>
+                    <ul>
+                        <li><span>三级菜单</span></li>
+                    </ul>
+                </li>
+                <li><span>二级菜单</span></li>
+            </ul>
+        </li>
+        <li>
+            <span>一级菜单</span>
+            <ul>
+                <li>
+                    <span>二级菜单</span>
+                    <ul>
+                        <li><span>三级菜单</span></li>
+                    </ul>
+                </li>
+                <li>
+                    <span>二级菜单</span>
+                </li>
+                <li>
+                    <span>二级菜单</span>
+                    <ul>
+                        <li><span>三级菜单</span></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <span>一级菜单</span>
+            <ul>
+                <li>
+                    <span>二级菜单</span>
+                </li>
+                <li>
+                    <span>二级菜单</span>
+                </li>
+                <li>
+                    <span>二级菜单</span>
+                    <ul>
+                        <li><span>三级菜单</span></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <span>一级菜单</span>
+            <ul>
+                <li>
+                    <span>二级菜单</span>
+                    <ul>
+                        <li><span>三级菜单</span></li>
+                    </ul>
+                </li>
+                <li>
+                    <span>二级菜单</span>
+                </li>
+                <li>
+                    <span>二级菜单</span>
+                    <ul>
+                        <li><span>三级菜单</span></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</body>
+
+</html>
+<script src="../jquery-3.3.1.js"></script>
+<script>
+    /*
+        点击 box  通过 e.target判断点击的元素是不是span,是的话 就让它的兄弟元素显示隐藏，不是就啥也不干
+    */
+
+    var box = document.getElementById('box');
+    var ulA = box.getElementsByTagName('ul');
+    [...ulA].forEach(item=>{
+        item.classList.add('hide');
+    })
+    box.onclick = function (e) {
+        e = e || window.event;
+        var tar = e.target || e.srcElement; // 点击的那个元素
+        if (tar.nodeName.toLowerCase() == 'span') {
+            let nextE = tar.nextElementSibling; // span 的对应的那个兄弟元素 ul
+            nextE && nextE.classList.toggle('hide'); // nextE需要存在，然后再进行类名的操作
+            if (nextE && nextE.classList.contains('hide')) {
+                let uls = nextE.getElementsByTagName('ul');
+                [...uls].forEach(item=>{
+                    item.classList.add('hide');
+                })
+            }
+        }
+    }
+</script>

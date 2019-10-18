@@ -24,6 +24,8 @@
 
 
         then catch finally 这三个方法是在promise原型上的，promise的实例可以调用到；
+
+        Promise的executor函数是同步执行的，then  catch等里面的函数是异步执行的
     */
     let p = new Promise(function (res, rej) {
         setTimeout(()=>{
@@ -37,7 +39,20 @@
     })
 
     /*
-        all  race  resolve  reject
-        
+        all  race  resolve  reject   在promise自己上面，不在原型上
+        工作中的很多插件是promise封装的
+
+        all:
+            几个promise实例，把名字放在一个数组中，作为all的参数，只有数组中promise的实例都成功，才会走then的成功的回调函数，只要有一个失败，就会走对应的失败函数，后边的就不会被捕获到，
+            工作中是一次性要发几个请求，而且这几个请求都要成功，这时需要用到all
+
+        allSettled  
+            不管res还是rej都会走then里的成功的回调函数
+
+        race
+            赛跑的意思，看谁先走完，先走完的那个是成功，就走成功，是失败就走失败
+
+        resolve  reject 
+            是为了返回一个成功或失败的实例
     */
 </script>
