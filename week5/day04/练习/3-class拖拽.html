@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            list-style:none;
+        }
+        #box,#box1,#box2 {
+            width: 100px;
+            height: 100px;
+            background: firebrick;
+            /* border-radius:100px;   */
+            /* 大小和高度一致，成为两边半圆的长条 */
+            border-radius: 50%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            cursor: move;
+            user-select: none;
+
+        }
+        #box1{
+            background:forestgreen;
+        }
+        #box2{
+            background:gold;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <div id="box1"></div>
+    <div id="box2"></div>
+</body>
+</html>
+<script>
+    class Drag {
+        constructor (id,n) {
+            this.n = n ? n : Infinity;
+            this.m = 0;
+            this.box = document.getElementById(id);
+            this.Move = this.move.bind(this);
+            this.End = this.end.bind(this);
+            this.Start = this.start.bind(this);
+            this.box.addEventListener('mousedown',this.Start,false)
+        }
+        start (e) {
+            this.startX = this.offset(this.box).l;
+            this.startY = this.offset(this.box).t;
+            this.spx = e.pageX;
+            this.spy = e.pageY;
+            
+            document.addEventListener('mousemove',this.Move,false)
+            document.addEventListener('mouseup',this.End,false)
+        }
+        move (e) {
+            this.box.style.left = e.pageX - this.spx + this.startX + 'px';
+            this.box.style.top = e.pageY - this.spy + this.startY + 'px';
+        }
+        end (e) {
+            document.removeEventListener('mousemove',this.Move,false);
+            document.removeEventListener('mouseup',this.End,false);
+            this.m++;
+            if (this.m >= this.n) {
+                this.clear();
+            }
+        }
+        clear () {
+            this.box.removeEventListener('mousedown',this.Start,false)
+        }
+        offset(ele) {
+            let l = ele.offsetLeft,
+                t = ele.offsetTop;
+            let temp = ele.offsetParent;
+            while (temp) {
+                l += temp.offsetLeft + temp.clientLeft;
+                t += temp.offsetTop + temp.clientTop;
+                temp = temp.offsetParent;
+            }
+            return {
+                l,
+                t
+            }
+        }
+    }
+
+    var d = new Drag('box',3)
+    var d1 = new Drag('box1',4)
+    var d2 = new Drag('box2',5)
+</script>

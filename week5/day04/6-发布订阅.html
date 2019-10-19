@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn">按钮</button>
+</body>
+
+</html>
+<script>
+    /*  function on (ele,f) {
+         ele.ary = ele.ary || []; // 
+         ele.ary.push(f);
+     }
+     function fire (ele,...arg) {
+         ele.ary = ele.ary || [];
+         ele.ary.forEach((f)=>{
+             f.call(this,...arg)
+         })
+     }
+     function off (ele,f) {
+         ele.ary = ele.ary || [];
+         let i = ele.ary.indexOf(f);
+         if (i !== -1) {
+             ele.ary.splice(i, 1)
+         }
+     } */
+
+    // on(btn, 'click', function () {
+    //     console.log('点击1')
+    // })
+
+    function on(ele, type, f) {
+        if (/^my/.test(type)) {
+            // 不是原生事件，我们需要自己创造一个事件池  自己规定my开头的都是自定义事件
+            ele[type] = ele[type] || [];
+            ele[type].push(f);
+        } else {
+            type = type.replace(/^on/, ''); // 防止输入时多输入一个on字符
+            ele.addEventListener(type, f, false);  //addEventListener 自带事件池，不需要造事件池
+        }
+    }
+    function fire(ele, type, ...arg) {
+        if (/^my/.test(type)) {  //不是原生事件时执行
+            ele[type] = ele[type] || [];
+            ele[type].forEach(item => {
+                item.call(this, ...arg)
+            })
+        }
+    }
+    function off(ele, type, f) {
+        if (/^my/.test(type)) {
+            ele[type] = ele[type] || [];
+            let i = ele[type].indexOf(f);
+            if (i !== -1) {
+                ele[type].splice(f,1)
+            }
+        } else {
+            ele.removeEventListener(type,f,false);
+        }
+    }
+
+    var f1 = function () {
+        console.log(444)
+    }
+    on(btn,'click',function(){
+        console.log('点击')
+    })
+    on(btn,'onclick',f1);
+    off(btn,'click',f1)
+    
+</script>

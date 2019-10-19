@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">按钮</button>
+</body>
+</html>
+<script>
+    function on (ele, type, f) {
+        if (/^my/.test(type)) {
+            ele[type] = ele[type] || [];
+            ele[type].push(f);
+        } else {
+            type = type.replace(/^on/, '');
+            ele.addEventListener(type,f,false);
+        }
+    }
+
+    function fire (ele, type, ...arg) {
+        if (/^my/.test(type)) {
+            ele[type] = ele[type] || [];
+            ele[type].forEach(item=>{
+                item.call(this,...arg);
+            })
+        }
+    }
+    function off (ele, type, f) {
+        if (/^my/.test(type)) {
+            ele[type] = ele[type] || [];
+            let i = ele[type].indexOf(f);
+            if (i !== -1) {
+                ele[type].splice(f,1);
+            }
+        } else {
+            ele.removeEventListener(type,f,false);
+        }
+    }
+
+    var f1 = function () {
+        console.log(444);
+    }
+    on(btn, 'click', function () {
+        console.log('点击');
+    })
+    
+
+</script>

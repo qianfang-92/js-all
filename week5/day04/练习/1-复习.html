@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box"></div>
+</body>
+</html>
+<script>
+    /*
+        DOM二级事件绑定  box.addEventListener('事件类型'，回调函数，false);
+        移除  removeEventListener(三个参数必须和需要清除的一样，回调函数的地址必须和绑定的那个地址一致)
+        IE低版本 用的是 box.attachEvent('on事件类型'，cb)；移除是box.detachEvent('on事件类型'，cb)
+    */
+
+    Element.prototype.one = function (type, cb) {
+        // this 是 box
+        function f (e) {
+            cb.call(this,e);
+            this.removeEventListener(type,f,false);
+        }
+        this.addEventListener(type,f,false);
+    }
+    $(documet).ready(function () {});
+    document.addEventListener('DOMcontentLoaded',function () {});  //jQ的ready事件就是利用的DOM二级事件中的'DOMcontentLoaded' 进行编写的
+</script>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">你好</button>
+</body>
+</html>
+<script>
+    /*
+        发布订阅 是一种处理问题的方式，2级事件绑定就是一个发布订阅，每绑定一个事件，就是在这个事件里订阅一个，然后同意发布
+
+        订阅 ：把名字加入到订阅者清单中
+        发布： 按照清单去送期刊
+
+        js中 一般把清单做成一个数组
+        在js中，订阅者不是人，而是函数，
+    */
+
+    var ary = []; // 订阅者清单  又叫做 事件池
+    function on (f) {
+        // 订阅函数，，相当于订阅的渠道
+        //把对应的事件放到清单里
+        ary.push(f);
+    }
+    function fire (n) { //发布
+        ary.forEach(item=>{
+            item.call(this,n)
+        })
+    }
+    function off (f) {  //取消订阅
+        let i = ary.indexOf(f);
+        if (i !== -1) {
+            ary.splice(i,1)
+        }
+    }
+
+    function f1 () {console.log(1,this)};
+    function f2 () {console.log(2,this)};
+    function f3 () {console.log(3,this)};
+
+    on(f1);
+    on(f2);
+    on(f3);
+    fire(4);
+    btn.onclick = fire;
+
+</script>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            list-style:none;
+        }
+        div{
+            width:100px;
+            height:100px;
+            background:firebrick;
+            border-radius:50%;
+            position:absolute;
+            left:0;
+            top:0;
+            cursor:move;
+            user-select: none;
+        }
+        #box1{
+            background:darkgoldenrod;
+        }
+        #box2{
+            background:darkslateblue;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <div id="box1"></div>
+    <div id="box2"></div>
+</body>
+</html>
+<script>
+    /*
+        实现拖拽
+        鼠标按下 记录盒子的初始位置和鼠标的初始位置
+        鼠标移动，让盒子跟随鼠标移动 
+            鼠标当前的位置 - 鼠标的初始位置 + 盒子的初始位置 = 盒子当前的位置
+        鼠标抬起，盒子停止跟随
+    */
+
+    var box = document.getElementById('box');
+    var n = 0;
+    function start (e) {
+        this.startX = offset(this).l;
+        this.startY = offset(this).t;
+        this.spx = e.pageX;
+        this.spy = e.pageY;
+        this.Move = move.bind(this);
+        this.End = end.bind(this);
+        addZIndex(this);
+        document.addEventListener('mousemove',this.Move,false);
+        document.addEventListener('mouseup',this.End,false);
+    }
+    function move (e) {
+        this.style.left = e.pageX - this.spx + this.startX + 'px';
+        this.style.top = e.pageY - this.spy + this.startY + 'px';
+    }
+    function end (e) {
+        document.removeEventListener('mousemove',this.Move,false);
+        document.removeEventListener('mouseup',this.End,false)
+    }
+    box.addEventListener('mousedown',start,false);
+    box1.addEventListener('mousedown',start,false);
+    box2.addEventListener('mousedown',start,false);
+    function offset(ele) {
+        let l = ele.offsetLeft,
+            t = ele.offsetTop,
+            temp = ele.offsetParent;
+        while (temp) {
+            l += temp.clientLeft + temp.offsetLeft;
+            t += temp.clientTop + temp.offsetTop;
+            temp = temp.offsetParent;
+        }
+        return {
+            l,t
+        }
+    }
+    function addZIndex (ele) {
+        ele.style.zIndex = ++n;
+    }
+</script>

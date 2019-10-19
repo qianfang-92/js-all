@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #lit_box{
+            width:100px;
+            height:100px;
+            background:firebrick;
+        }
+        #big_box{
+            width:400px;
+            height:400px;
+            background:seagreen;
+            margin:50px;
+        }
+    </style>
+</head>
+<body>
+    <input type="file", id="inp">
+    <div id="lit_box" draggable='true'></div>
+    <div id="big_box"></div>
+</body>
+</html>
+<script>
+    var litBox = document.getElementById('lit_box'),
+        bigBox = document.getElementById('big_box');
+
+    litBox.ondragstart = function (e) {
+        console.log('start',e)
+    }
+    litBox.ondrag = function () {
+        // 拖动中
+    }
+    litBox.ondragend = function (e) {
+        // 拖动结束
+    }
+    // on dragstart  drag  dragend 是拖动的那个元素的事件
+
+    bigBox.ondragenter = function (e) {
+        // 把拖动的元素拖进来
+    }
+    bigBox.ondragover = function (e) {
+        // 拖动的元素在绑定元素内部滑动时触发 
+        console.log(1);
+        e.preventDefault();
+    }
+    bigBox.ondragleave = function (e) {
+        // 拖动的元素离开绑定事件的元素时触发
+    }
+    // on-  dragenter  dragover dragleave 是拖到那个上面的那个元素
+
+    /* bigBox.ondrop = function (e) {
+        // 必须和dragover一起配合使用，而且需要over阻止默认行为；因为：
+        
+            事件的侦听器 dragenter 或 dragover 事件被用来表示有效的 drop 目标，也就是拖放项目可能被 dropped 的地方。web页面或应用程序的大多数区域都不是 drop 数据的有效位置。因此，这些事件的默认处理是不允许出现 drop。
+            如果想要允许 drop，必须通过取消事件来防止默认的处理。
+        
+        console.log(e);
+        e.preventDefault();//阻止默认打开拖拽进来的文件的行为
+        console.log(e.dataTransfer.files[0]);
+        let file = e.dataTransfer.files[0]; 
+        let url = URL.createObjectURL(file); //产生对应文件的路径
+        console.log(url);
+        this.innerHTML = `<img src="${url}"/>`
+    } */
+
+    // base64 FileReader  base64就相当于把图片解码了，成为一堆代码，浏览器读这些代码就可以成为图片，不用从本地读取图片路径
+    // 后台从本地拿东西时，就没办法通过路径拿，只能用base64方法拿
+    bigBox.ondrop = function (e) {
+        e.preventDefault();
+        let file = e.dataTransfer.files[0];
+        let _this = this;
+        let res = new FileReader();
+        res.readAsDataURL(file);
+        res.onload = function (e) {
+            console.log(e)
+            _this.innerHTML = `<img src="${e.target.result}"/>`
+        }
+    }
+
+</script>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        #box,
+        #box1,
+        #box2 {
+            width: 100px;
+            height: 100px;
+            background: firebrick;
+            /* border-radius:100px;   */
+            /* 大小和高度一致，成为两边半圆的长条 */
+            border-radius: 50%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            cursor: move;
+            user-select: none;
+
+        }
+
+        #box1 {
+            background: forestgreen;
+        }
+
+        #box2 {
+            background: gold;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">1</div>
+    <div id="box1">2</div>
+    <div id="box2">3</div>
+</body>
+
+</html>
+<script src="event.js"></script>
+<script src="drag.js"></script>
+<script>
+    var n = 0;
+    var box = document.getElementById('box'),
+        box1 = document.getElementById('box1'),
+        box2 = document.getElementById('box2');
+    new Drag('box');
+    new Drag('box1');
+    new Drag('box2');
+    on(box,'myIndex',addIndex);
+    on(box1,'myIndex',addIndex);
+    on(box2,'myIndex',addIndex);
+    on(box,'myfly',fly);
+    on(box1,'myfly',fly);
+    on(box2,'myfly',fly)
+    function addIndex (ele) {
+        ele.style.zIndex = ++n;
+    }
+    function fly(ele) {
+        //初速度
+        // 根据速度 设置盒子的位置
+        clearTimeout(ele.flyTimer);
+        ele.speed *= 0.98;
+        var l = ele.offsetLeft + ele.speed;
+        //需要一个边界
+        var maxL = (document.documentElement.clientWidth || document.body.clientWidth) - ele.offsetWidth;
+        // l = l > maxL ? maxL : (l < 0 ? 0 : l);
+        if (l > maxL) {
+            l = maxL;
+            ele.speed *= -1;
+        } else if (l < 0) {
+            l = 0;
+            ele.speed *= -1;
+        }
+        ele.style.left = l + 'px';
+        if (Math.abs(ele.speed) > 0.1) {
+            ele.running = true;
+            ele.flyTimer = setTimeout(fly.bind(ele,ele), 30);
+        } else {
+            ele.running = false;
+        }
+    }
+
+</script>

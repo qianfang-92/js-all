@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        #box,#box1,#box2 {
+            width: 100px;
+            height: 100px;
+            background: firebrick;
+            /* border-radius:100px;   */
+            /* 大小和高度一致，成为两边半圆的长条 */
+            border-radius: 50%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            cursor: move;
+            user-select: none;
+
+        }
+        #box1{
+            background:forestgreen;
+        }
+        #box2{
+            background:gold;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+    <div id="box1"></div>
+    <div id="box2"></div>
+</body>
+
+</html>
+<script>
+
+    class Drag {//类里的this都是实例，需要自己去人为的保证，不然this指向会很乱，一会儿是实例，一会儿是元素
+        constructor(idN,n) {
+            this.n = n ? n : Infinity;
+            this.m = 0;
+            this.box = document.getElementById(idN);
+            this.Start = this.start.bind(this);
+            this.Move = this.move.bind(this);
+            this.End = this.end.bind(this); // 这三行是为了保证this是当前实例
+            this.box.addEventListener('mousedown',this.Start,false);
+        }
+        start(e) {
+            //this是当前的实例
+            this.startX = this.offset(this.box).l;
+            this.startY = this.offset(this.box).t;
+            this.spx = e.pageX;
+            this.spy = e.pageY;
+            addZIndex(this.box);
+            // bigZIndex(this.box)
+            document.addEventListener('mousemove', this.Move, false)
+            document.addEventListener('mouseup', this.End, false);
+        }
+        move(e) {
+            //this是当前实例
+            this.box.style.left = e.pageX - this.spx + this.startX + 'px';
+            this.box.style.top = e.pageY - this.spy + this.startY + 'px';
+        }
+        end(e) { // 鼠标抬起执行的函数
+            document.removeEventListener('mousemove', this.Move, false);
+            document.removeEventListener('mouseup', this.End, false);
+            // backZIndex(this.box)
+            // 做拖拽次数的判断   为什么不能把这个判断放在constructor里，是因为 this.m是在end时鼠标抬起时加数字的，所以constructor里this.m 一直是0的
+            this.m++
+            if (this.m >= this.n) {
+                this.clear()
+            }
+        }
+        clear () {
+            this.box.removeEventListener('mousedown',this.Start,false)
+        }
+        offset(ele) {
+            let l = ele.offsetLeft,
+                t = ele.offsetTop;
+            let temp = ele.offsetParent;
+            while (temp) {
+                l += temp.offsetLeft + temp.clientLeft;
+                t += temp.offsetTop + temp.clientTop;
+                temp = temp.offsetParent;
+            }
+            return {
+                l,
+                t
+            }
+        }
+    }
+    let n = 0;
+    function addZIndex(ele) {
+        ele.style.zIndex = ++n;
+    }
+    function bigZIndex(ele){
+        ele.style.zIndex = 999;
+    }
+    function backZIndex(ele){
+        ele.style.zIndex = 1;
+    }
+    var d = new Drag('box');
+    // d.clear()
+    var d1 = new Drag('box1');
+    var d2 = new Drag('box2');
+
+</script>

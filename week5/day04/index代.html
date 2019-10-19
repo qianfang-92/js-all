@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .body {
+            width: 1200px;
+            background: aliceblue;
+            margin: 30px auto;
+            position: relative;
+        }
+
+        #box2 {
+
+            position: fixed;
+            left: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        #box2 li {
+            width: 60px;
+            height: 50px;
+            border: 1px solid slateblue;
+            text-align: center;
+            color: red;
+            line-height: 50px;
+            /* background: rgba(0,0,0,0.5); */
+
+        }
+        .red{
+            background:darkcyan;
+        }
+        .gr{
+            background:salmon;
+        }
+
+        .cuuu {
+            background:chartreuse;
+        }
+
+        #box1 {
+            position: absolute;
+            left: 110px;
+        }
+
+        .current {
+            width: 400px;
+            height: 300px;
+            background: rgb(238, 158, 129);
+            margin-bottom: 20px;
+            text-align: center;
+            text-indent: -230px;
+            line-height: 300px;
+        }
+        /* #box2>li:nth-child(2n){
+           background: darkblue;
+        }
+        #box2>li:nth-child(2n-1){
+           background: salmon;
+        } */
+        /* .cuuu {
+            background:chartreuse;
+        } */
+    </style>
+</head>
+
+<body>
+    <div id="box1">
+        <div class="current">一</div>
+        <div class="current">二 </div>
+        <div class="current">三</div>
+        <div class="current">四</div>
+        <div class="current">五</div>
+        <div class="current">六</div>
+        <div class="current">七</div>
+        <div class="current">八</div>
+    </div>
+    <ul id="box2">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+    </ul>
+</body>
+
+</html>
+<script>
+    let box1 = document.getElementById('box1')
+    let box2 = document.getElementById('box2')
+    let lis = document.getElementsByTagName('li');
+    let cus = document.getElementsByClassName('current');
+    let n = 0, timer = null;
+    window.onscroll = function (ary) {
+        let scrmax = document.documentElement.scrollTop + 300;
+        for (let i = 0; i < lis.length; i++) {
+            if (i%2) {
+                lis[i].classList.add('gr')
+            } else {
+                lis[i].classList.add('red')
+            }
+        // let str = i%2 ? 'salmon' : 'darkcyan';
+        // lis[i].style.background = str;
+        // lis[i].mybg = str;
+        // lis[i].myIndex = i;
+            if (offset(cus[i]).t < scrmax) {
+                clear(lis)
+                click(lis)
+                lis[i].classList.add('cuuu');
+            }
+        }
+    }
+
+function click(ary){
+    let s = document.documentElement.scrollTop;
+    [...ary].forEach((item,index)=>{
+        item.onclick = function(){
+            
+            clearInterval(timer)
+            n = index*cus[0].clientHeight+index*20;
+            if(s>n){
+                timer = setInterval(()=>{
+                    s-=10;
+                    if(s<n){
+                        s=n;
+                        clearInterval(timer)
+                      
+                    }
+                    document.documentElement.scrollTop = s;
+                },)
+            }
+            if(s<n){
+                timer = setInterval(()=>{
+                    s+=10;
+                    if(s>=n){
+                        s=n;
+                        clearInterval(timer)
+                      
+                    }
+                    document.documentElement.scrollTop = s;
+                },)
+            }
+             
+        }
+    })
+}
+  
+    function clear(ary) {
+        [...ary].forEach(item => {
+            item.classList.remove('cuuu')
+        })
+    }
+
+    function offset(ele) {
+        let l = ele.offsetLeft;
+        let t = ele.offsetTop;
+        let temp = ele.offsetParent;
+        while (temp) {
+            l += temp.offsetLeft + temp.clientLeft;
+            t += temp.offsetTop + temp.clientTop;
+            temp = temp.offsetParent;
+        }
+        return {
+            l, t
+        }
+    }
+
+
+
+
+
+
+
+</script>

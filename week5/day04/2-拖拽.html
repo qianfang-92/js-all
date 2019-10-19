@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            list-style:none;
+        }
+        #box, #box1, #box2{
+            width:100px;
+            height:100px;
+            background:firebrick;
+            /* border-radius:100px;   */
+            /* 大小和高度一致，成为两边半圆的长条 */
+            border-radius:50%;
+            position:absolute;
+            left:0;
+            top:0;
+            cursor:move;
+            user-select: none;
+            
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <div id="box1"></div>
+    <div id="box2"></div>
+</body>
+</html>
+<script src="jquery-3.3.1.js"></script>
+<script>
+    /*
+        拖拽  鼠标按下，记录盒子的初始位置和鼠标的初始位置
+        鼠标移动，让盒子跟随鼠标移动  鼠标当前的位置-鼠标的初始位置+盒子的初始位置 == 盒子当前的位置
+        鼠标抬起 盒子停止跟随
+    */
+
+  /*  var box = document.getElementById('box');
+    function move(e) {
+        this.style.left = e.pageX - this.spx + this.startX + 'px';
+        this.style.top = e.pageY - this.spy + this.startY + 'px';
+    }
+    box.onmousedown = function (e) {
+        this.startX = $(this).offset().left;
+        this.startY = $(this).offset().top;
+        this.spx = e.pageX;
+        this.spy = e.pageY;
+
+        document.onmousemove = move.bind(this);
+        document.onmouseup = function () {
+            document.onmousemove = null;
+            document.onmouseup = null;
+        }
+    }  */
+    // document.onmouseup = function () {
+    //     console.log(666)
+    //     document.onmousemove = null;
+    // }
+    // setCapture 可以避免鼠标丢失，但是只有火狐浏览器可以用
+
+    
+    // 把上面的0级事件换成2级事件
+    var box = document.getElementById('box');
+    function move(e) {
+        this.style.left = e.pageX - this.spx + this.startX + 'px';
+        this.style.top = e.pageY - this.spy + this.startY + 'px';
+    }
+    function end (e) { // 鼠标抬起执行的函数
+        document.removeEventListener('mousemove',this.Move, false);
+        document.removeEventListener('mouseup',this.End,false)
+    } 
+    function offset(ele) {
+        let l = ele.offsetLeft,
+            t = ele.offsetTop;
+        let temp = ele.offsetParent;
+        while (temp) {
+            l += temp.offsetLeft + temp.clientLeft;
+            t += temp.offsetTop + temp.clientTop;
+            temp = temp.offsetParent;
+        }
+        return {
+            l,
+            t
+        }
+    }
+    function start (e) {
+        this.zIndex
+        this.startX = offset(this).l;
+        this.startY = offset(this).t;
+        this.spx = e.pageX;
+        this.spy = e.pageY;
+        this.Move = move.bind(this);
+        this.End = end.bind(this);
+        document.addEventListener('mousemove',this.Move,false)
+        document.addEventListener('mouseup', this.End, false)
+    }
+    box1.addEventListener('mousedown', start, false)
+    box.addEventListener('mousedown', start, false)
+    box2.addEventListener('mousedown', start, false)
+</script>
