@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    var ary = [];
+    function on (f) {
+        if (ary.indexOf !== -1) {
+            ary.push(f);
+        }
+    }
+    function fire (...arg) {
+        ary.forEach(item=>{
+            item.call(this, ...arg); //目的是让item执行  只是保证了this指向和参数问题
+        })
+    }
+
+    function off (f) {
+        let i = ary.indexOf(f)
+        if (i !== -1) {
+            ary.splice(i,1)
+        }
+    }
+</script>

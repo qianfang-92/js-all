@@ -1,18 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+
 <body>
-    
+
 </body>
+
 </html>
 <script>
+    //pending等待状态  resolved成功状态  rejected失败状态 三个promise的状态  一旦从等待状态转变为成功或失败中的任意状态，都不再改变
     let p = new Promise(function (res, rej) {
         // 这个函数我们称为executor 它是由promise执行的，它的形参res,rej 的实参是由promise传的
-        res(234)  //
-    });   
+        console.log(res, rej)
+        // res(123)  //  同步把状态变成了resolved 
+        res(qqq); // 同步报错，会被 then捕获到
+        rej(333)
+        // console.log(qqq)   
+        console.log(888)
+    });
+    p.then(function (data) {
+        //res
+        console.log(data);
+    }, function (err) {
+        //rej
+        console.log(err)
+    }).catch((err) => {
+        console.log('catch')
+    }).finally(() => {
+        console.log('finally')
+    })
+
+    /* Promise.all([p1,p2,p3]).then((data)=>{
+
+    },(err)=>{
+
+    }) */
+    /* Promise.race([p1, p2, p3]).then((data) => {
+
+    }, (err) => {
+
+    }) */
+    Promise.resolve('执行失败').then(()=>{},()=>{})  //手动创造一个成功态
+    Promise.reject('执行成功').then(()=>{})   //手动创造一个失败态
 </script>

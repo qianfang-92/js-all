@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .lit {
+            width: 100px;
+            border: 1px solid firebrick;
+            position: fixed;
+            top: 50px;
+            left: 30px;
+        }
+
+        .lit>li {
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            border-bottom: 1px solid firebrick;
+        }
+
+        .lit>li:last-child {
+            border-bottom: none;
+        }
+
+        .big {
+            width: 600px;
+            border: 2px solid darkgreen;
+            position: absolute;
+            left: 200px;
+            top: 30px;
+        }
+
+        .big>li {
+            width: 100%;
+            height: 200px;
+            border-bottom: 2px solid darkgreen;
+            line-height: 200px;
+            text-align: center;
+        }
+
+        .darksalmon {
+            background: darksalmon;
+        }
+
+        .lightcyan {
+            background: lightcyan;
+        }
+        .current {
+            background: darkorange;
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="lit">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+        <li>10</li>
+    </ul>
+    <ul class="big">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+        <li>10</li>
+    </ul>
+</body>
+
+</html>
+<script>
+    var lit = document.getElementsByClassName('lit')[0];
+    var big = document.getElementsByClassName('big')[0];
+    var lits = lit.getElementsByTagName('li');
+    var bigs = big.getElementsByTagName('li');
+    var st = null;
+
+    var maxT = parseFloat(getComputedStyle(big).height) + offset(big).t + big.clientTop * 2 - document.documentElement.clientHeight;   // 卷曲的最大高度
+
+
+    function evey(ary) {
+        (ary).forEach((item, index) => {
+            if (index % 2) {
+                item.className = 'darksalmon';
+                item.mg = 'darksalmon';
+            } else {
+                item.className = 'lightcyan';
+                item.mg = 'lightcyan';
+            };   //给lit加隔行变色
+        })
+    }
+    evey([...lits])
+
+    window.onscroll = function () {
+        st = document.documentElement.scrollTop;
+        let m = Math.round(st / (maxT / 10));
+        m == 10 ? m = 9: m = m;
+        console.log(m)
+        for (let i = 0; i < lits.length; i++) {
+            lits[i].classList.remove('current');
+            lits[m].classList.add('current');
+            bigs[i].classList.remove('current');
+            bigs[m].classList.add('current');
+        }
+        // console.log(st);
+    }
+
+    function click (ary) {
+        ary.forEach((item,index)=>{
+            item.addEventListener('click',function () {
+                index == 9 ? index = 10 : index = index;
+                document.documentElement.scrollTop = index*(maxT/10);
+            },false);
+            item.addEventListener('click',function () {
+                index == 10 ? index = 9 : index = index;
+                for (let i = 0; i < bigs.length; i++) {
+                    bigs[i].classList.remove('current');
+                    bigs[index].classList.add('current');
+                }
+            },false)
+        })
+    }
+    click([...lits])
+
+    function offset(ele) {
+        let l = ele.offsetLeft,
+            t = ele.offsetTop;
+        let temp = ele.offsetParent;
+        while (temp) {
+            l += temp.offsetLeft + temp.clientLeft;
+            t += temp.offsetTop + temp.clientTop;
+            temp = temp.offsetParent;
+        }
+        return {
+            l,
+            t
+        }
+    }
+</script>

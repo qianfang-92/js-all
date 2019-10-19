@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        #lit_box {
+            margin: 100px;
+            width: 200px;
+            height: 100px;
+            float: left;
+            position:relative;
+        }
+
+        #lit {
+            width: 50px;
+            height: 50px;
+            background: rgba(184, 134, 11, 0.5);
+            /* display:none; */
+            position:absolute;
+            left:0;
+            top:0;
+        }
+
+        #lit_box img {
+            width: 100%;
+            height:100%;
+        }
+
+        #big_box {
+            margin: 100px;
+            width: 200px;
+            height: 200px;
+            overflow:hidden;
+            float: left;
+            background: rgba(0, 0, 0, 0.3);
+            position:relative;
+            /* z-index:1; */
+        }
+
+        #big_box img {
+            width: 800px;
+            height: 400px;
+            /* z-index:0; */
+            position:absolute;
+            left:0;
+            top:0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <div id="lit_box">
+            <img src="./无标题.png" alt="">
+            <div id="lit"></div>
+        </div>
+        <!-- <div id="big_box">
+            <img src="./无标题.png" alt="" id="big">
+        </div> -->
+    </div>
+
+</body>
+
+</html>
+<script>
+    var box = document.getElementById('box'),
+        litBox = document.getElementById('lit_box'),
+        lit = document.getElementById('lit'),
+        bigBox = null,
+        big = null,
+        div = null;
+
+
+    // function init () {
+    //     lit.style.display = 'none';
+    //     bigBox.style.display = 'none';
+    // }
+    // init();
+    litBox.onmouseenter = function () {
+        lit.style.display = 'block';
+        // bigBox.style.display = 'block';
+        div = document.createElement('div');
+        div.innerHTML = `<div id="big_box">
+            <img src="./无标题.png" alt="" id="big">
+        </div>`
+        box.appendChild(div);
+        bigBox = document.getElementById('big_box');
+        big = document.getElementById('big')
+    }
+    litBox.onmouseleave = function () {
+        lit.style.display = 'none';
+        // bigBox.style.display = 'none';
+        box.removeChild(div);
+    }
+    litBox.onmousemove = function (e) {
+        //鼠标在盒子上移动，我们要让蒙层跟着移动；需要算出鼠标相对于盒子的位置
+        let l = e.pageX - offset(litBox).l - lit.clientWidth/2;
+        let t = e.pageY - offset(litBox).t - lit.clientHeight/2;
+        l = l <= 0 ? 0 : (l >= (litBox.offsetWidth - lit.clientWidth) ?(litBox.offsetWidth - lit.clientWidth) : l);
+        t = t <= 0 ? 0 : (t >= (litBox.offsetHeight - lit.clientHeight) ? (litBox.offsetHeight - lit.clientHeight) : t);
+        lit.style.left = l + 'px';
+        lit.style.top = t + 'px';
+        let num = lit.clientHeight/bigBox.offsetHeight
+        big.style.left = -l/num + 'px';
+        big.style.top = -t/num + 'px';
+    }
+
+    function offset(ele) {
+        let l = ele.offsetLeft,
+            t = ele.offsetTop;
+        let temp = ele.offsetParent;
+        while (temp) {
+            l += temp.offsetLeft + temp.clientLeft;
+            t += temp.offsetTop + temp.clientTop;
+            temp = temp.offsetParent;
+        }
+        return {
+            l,
+            t
+        }
+    }
+
+    
+</script>

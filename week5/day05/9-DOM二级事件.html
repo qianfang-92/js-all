@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">点击</button>
+</body>
+</html>
+<script>
+    let btn =document.getElementById('btn');
+    function f(e) {
+        console.log(1,e)
+    }
+    btn.addEventListener('click',f,false);   // false f在冒泡阶段触发    true  f在捕获阶段触发
+    btn.removeEventListener('click',f,false);
+    document.ready = function (cb) {
+        function fn (e) {
+            cb.call(this,e);
+            document.removeEventListener('DOMContentLoaded',fn,false)
+        }
+        document.addEventListener('DOMContentLoaded',fn,false)
+    }
+    document.ready(function() {
+        console.log('完成执行')
+    })
+
+    
+    btn.one = function (type,cb) {
+        function f (e) {
+            cb.call(this,e);
+            btn.removeEventListener(type,f,false);
+        }
+        btn.addEventListener(type,f,false);
+    }
+    btn.one('click',function () {
+        console.log('一次')
+    })
+</script>
