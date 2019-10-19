@@ -113,12 +113,12 @@
     }
     evey([...lits])
 
-    window.onscroll = function () {
+    window.onscroll = function () {  
         st = document.documentElement.scrollTop;
-        let m = Math.round(st / (maxT / 10));
+        let m = Math.round(st / (maxT / 10));  //滚动屏幕时，卷曲高度除以 （最大卷曲高度除以10）得到0-10之间的数字，取整；
         m == 10 ? m = 9: m = m;
         console.log(m)
-        for (let i = 0; i < lits.length; i++) {
+        for (let i = 0; i < lits.length; i++) {  //给相应的盒子样式
             lits[i].classList.remove('current');
             lits[m].classList.add('current');
             bigs[i].classList.remove('current');
@@ -129,7 +129,7 @@
 
     function click (ary) {
         ary.forEach((item,index)=>{
-            item.addEventListener('click',function () {
+            item.addEventListener('click',function () {   //点击侧边栏的时候，一是要屏幕滚动到相应位置，二是相应的盒子加样式
                 index == 9 ? index = 10 : index = index;
                 document.documentElement.scrollTop = index*(maxT/10);
             },false);
