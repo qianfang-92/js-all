@@ -1,0 +1,17 @@
+#box {
+  width: 4.66666667rem;
+  height: 4.66666667rem;
+  background: firebrick;
+}
+#box {
+  width: 350px;
+  height: 350px;
+  background: firebrick;
+}
+@media all and (max-width: 750px) {
+  #box {
+    width: 100px;
+    height: 100px;
+    background: firebrick;
+  }
+}
