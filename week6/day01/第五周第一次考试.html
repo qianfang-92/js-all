@@ -1,0 +1,107 @@
+<!DOCTYPE html><html><head><title>第五周第一次考试</title><meta charset='utf-8'><link href='https://cdn.maxiang.io/res-min/themes/marxico.css' rel='stylesheet'><style></style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+<h3 id="第五周第一次考试">第五周第一次考试</h3>
+
+<p><strong>1. 写出下面代码的输出结果</strong></p>
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment">/*===第1题===*/</span>
+</div><div class="hljs-line"><span class="hljs-built_in">console</span>.log(a); 
+</div><div class="hljs-line"><span class="hljs-keyword">var</span> a=<span class="hljs-number">12</span>; 
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params">a</span>)</span>{
+</div><div class="hljs-line">    <span class="hljs-built_in">console</span>.log(a); 
+</div><div class="hljs-line">    <span class="hljs-keyword">var</span> a=<span class="hljs-number">13</span>;   
+</div><div class="hljs-line">}
+</div><div class="hljs-line">fn();   
+</div><div class="hljs-line"><span class="hljs-built_in">console</span>.log(a);
+</div><div class="hljs-line"><span class="hljs-comment">//==================-----------------------------------</span>
+</div><div class="hljs-line"><span class="hljs-built_in">console</span>.log(a); 
+</div><div class="hljs-line"><span class="hljs-keyword">var</span> a=<span class="hljs-number">12</span>;
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params"></span>)</span>{
+</div><div class="hljs-line">    <span class="hljs-built_in">console</span>.log(a);
+</div><div class="hljs-line">    a=<span class="hljs-number">13</span>;
+</div><div class="hljs-line">}
+</div><div class="hljs-line">fn();
+</div><div class="hljs-line"><span class="hljs-built_in">console</span>.log(a);
+</div></code></pre>
+
+<p><strong>2. 写出下面代码输出的结果</strong></p>
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-keyword">var</span> a=<span class="hljs-number">9</span>; 
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params"></span>)</span>{ 
+</div><div class="hljs-line">    a=<span class="hljs-number">0</span>;       
+</div><div class="hljs-line">    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">b</span>)</span>{ 
+</div><div class="hljs-line">        <span class="hljs-keyword">return</span> b+a++; 
+</div><div class="hljs-line">    }    
+</div><div class="hljs-line">}
+</div><div class="hljs-line"><span class="hljs-keyword">var</span> f=fn();
+</div><div class="hljs-line"><span class="hljs-built_in">console</span>.log(f(<span class="hljs-number">5</span>));
+</div><div class="hljs-line"><span class="hljs-built_in">console</span>.log(fn()(<span class="hljs-number">5</span>));
+</div><div class="hljs-line"><span class="hljs-built_in">console</span>.log(f(<span class="hljs-number">5</span>));
+</div><div class="hljs-line"><span class="hljs-built_in">console</span>.log(a);
+</div></code></pre>
+
+<p><strong>3. 写出下面代码的运行结果</strong></p>
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-keyword">var</span> name = <span class="hljs-string">"WINDOW"</span>;
+</div><div class="hljs-line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params"></span>)</span>{
+</div><div class="hljs-line">    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.name);
+</div><div class="hljs-line">}
+</div><div class="hljs-line"><span class="hljs-keyword">var</span> obj = {
+</div><div class="hljs-line">    <span class="hljs-attr">name</span>:<span class="hljs-string">"OBJ"</span>,
+</div><div class="hljs-line">    <span class="hljs-attr">fn</span>:<span class="hljs-function"><span class="hljs-params">()</span>=&gt;</span>{
+</div><div class="hljs-line">        <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.name);
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">};
+</div><div class="hljs-line">fn();
+</div><div class="hljs-line">obj.fn();
+</div><div class="hljs-line">fn.call(obj);
+</div><div class="hljs-line"><span class="hljs-built_in">window</span>.onload=<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+</div><div class="hljs-line">    <span class="hljs-comment">//页面加载完成，事件就会触发</span>
+</div><div class="hljs-line">    fn();
+</div><div class="hljs-line">    obj.fn();
+</div><div class="hljs-line">};
+</div><div class="hljs-line">fn.bind(obj);
+</div></code></pre>
+
+<p><strong>4. 完成如下需求</strong></p>
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment">/*</span>
+</div><div class="hljs-line"><span class="hljs-comment"> * 1.编写一个方法“flatten”，将数组扁平化 （至少两种办法）</span>
+</div><div class="hljs-line"><span class="hljs-comment"> */</span>
+</div><div class="hljs-line"><span class="hljs-keyword">let</span> arr = [[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">5</span>], [<span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>,[<span class="hljs-number">11</span>, <span class="hljs-number">12</span>, [<span class="hljs-number">12</span>, <span class="hljs-number">13</span>, [<span class="hljs-number">14</span>]]]], <span class="hljs-number">10</span>];
+</div><div class="hljs-line">ary.flatten()
+</div></code></pre>
+
+<p><strong>5、手写一个instanceof  实现如下的功能</strong></p>
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">instanceof</span>(<span class="hljs-params">temp,ClassN</span>)</span>{
+</div><div class="hljs-line">        <span class="hljs-comment">// 你的代码</span>
+</div><div class="hljs-line">    }
+</div><div class="hljs-line">    <span class="hljs-keyword">var</span> ary = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>];
+</div><div class="hljs-line">    <span class="hljs-keyword">instanceof</span>(ary,<span class="hljs-built_in">Array</span>);<span class="hljs-comment">//true</span>
+</div><div class="hljs-line"><wbr>
+</div></code></pre>
+
+<p><strong>6、请手写debounce 防抖函数</strong></p>
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">debounce</span>(<span class="hljs-params">fn</span>)</span>{
+</div><div class="hljs-line">        <span class="hljs-comment">// 你的代码</span>
+</div><div class="hljs-line">    }
+</div></code></pre>
+
+<p><strong>7、请编写一个getParam方法 功能如下 </strong></p>
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"> <span class="hljs-keyword">var</span> str = <span class="hljs-string">'http://www.zhufengpeixun.cn/?lx=1&amp;from=wx&amp;b=12&amp;c=13#qqqq'</span>;
+</div><div class="hljs-line"> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getParam</span>(<span class="hljs-params">url</span>)</span>{
+</div><div class="hljs-line"><wbr>
+</div><div class="hljs-line">   }
+</div><div class="hljs-line">    getParam(str); <span class="hljs-comment">// {lx:1,from:wx,b:12,c:13,hash:'qqqqq'}</span>
+</div></code></pre>
+
+<p><strong>8、DOM0级事件绑定和DOM2级事件绑定有什么区别？怎么阻止默认事件？</strong></p>
+
+<p><strong>9、JS的DOM事件传播机制是怎么样的？事件委托是怎么回事？怎么阻止传播</strong></p>
+
+<p><strong>10、介绍一下你了解的JS DOM事件流 </strong></p></div></body></html>

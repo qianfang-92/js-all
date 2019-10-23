@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    // underscore.js(提供防抖和节流)   loadsh.js(提供深拷贝) _.cloneDeep(objects)  两个工具库
+    var ary = [{ a: 1 }, { b: 2 }, { c: 3 }];
+    var arr = ary.map(item => item);
+    arr[0] === ary[0]; // ===>  true  item是同一个地址，称为浅拷贝 只拷贝了一层
+    // 如果是简单数据类型，那么arr不影响ary 
+
+    // 深拷贝 是 可以把里面的东西完全拷贝出来
+    /*
+        JSON.parse(ISON.stringify(ary))
+        这可以实现简单的深拷贝
+    */
+
+    var obj = {
+        a: {
+            b: 12,
+            c: {
+                d: 234
+            }
+        },
+        z: {
+            x: 1
+        }
+    }
+    function clone(obj) {
+        var _obj = {};
+        /*     for (var k in obj) {
+                if (typeof obj[k] === 'object') {
+                    _obj[k] = clone(obj[k])
+                } else {
+                    _obj[k] = obj[k];
+                }
+            } */
+
+        if (typeof obj == 'object') {
+            for (var k in obj) {
+                if (typeof obj[k] === 'object') {
+                    _obj[k] = clone(obj[k])
+                } else {
+                    _obj[k] = obj[k];
+                }
+            }
+        } else {
+            
+        }
+        return _obj;
+    }
+    var temp = clone(obj);
+
+    function isTypeOf (ele, type) {
+        let str = Object.prototype.toString.call(ele).match(/ (\w+)\]/)[1];
+        return str.toLowerCase() === type.toLowerCase();
+    }
+
+    Object.assign();//用来合并对象，浅合并
+</script>

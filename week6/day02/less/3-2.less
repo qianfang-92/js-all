@@ -1,0 +1,128 @@
+/*
+    less： 1、嵌套写法
+            2、可以写变量
+            3、混合
+            4、函数
+            5、循环
+    写了less 自动会在css文件中更新css文件，如果下次添加的less有错误，它不会更新css，会使用上一次更新的css文件
+*/
+
+.mystyle(@a:300px,@b:300px){  // 给形参默认值
+    width:@a;
+    height:@b;
+}   // 声明了一个函数，用的话直接执行就可以  这时，不会把这个函数名当类名，它不会出现在css里
+
+
+.qqq (@n,@f) when (@n < 10) {
+    .box_@{n}{
+        width:@f*@n;
+    };
+    .qqq(@n+1,@f);
+};
+.qqq(1,10px); // 循环 批量生成样式
+
+
+*{
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+@keyframes move{
+    0%{
+        transform: rotateX(0) rotateY(0);
+        /* transform-origin: top left; */
+    }
+    /*   50%{
+        transform: rotateX(180deg) rotateY(180deg);
+        /* transform-origin: top left; */
+    /* }   */ 
+    100%{
+        transform: rotateX(360deg) rotateY(360deg);
+        /* transform-origin: top left; */
+    }
+}
+@w:100px; //声明一个变量 @w  对应的值是200px   @是固定的 后面的字母自己可以定
+@b:box;  // 还可以这么写
+@img:'../img/';  // 可以作为图片路径的前面文件路径
+.w{
+    /* width:100%;
+    height:100%; */
+    .mystyle(200px,300px);
+    overflow:hidden;
+    .q{
+        background:lightcoral;
+    }
+}
+// div{
+//     .w;  //相当于直接把  .w 的整个样式复制过来 ,包括它的子元素及样式
+// }
+span:extend(.w){};
+    // extend 只会把.w自己的样式拿过来，不会混合它的后代的样式
+
+#@{b}{
+    @w:150px;  // 有点像作用域的变量
+    width:@w;
+    height:@w;
+    margin:150px auto;
+    position:relative;
+    perspective: 2000px;
+    // background:url('@{img}1.jpg');
+    // &:hover{
+    //     background:saddlebrown;
+    // }
+    /* 景深 */
+    ul{
+        position:absolute;
+        width:@w;
+        height:@w;
+        transform-style:preserve-3d;
+        transform: rotateX(45deg) rotateY(30deg);
+        animation: move 2.5s infinite linear;
+        transform-origin: @w/2 @w/2 0px; 
+        /* 旋转的点 */
+        >li{
+            position:absolute;
+            top:0;
+            left:0;
+            width:@w;
+            height:@w;
+            background:rgba(206, 199, 137, 0.5);
+            text-align:center;
+            line-height:@w;
+            border:1px solid rgb(1, 61, 19);
+            box-sizing: border-box;
+            &:nth-child(1) {
+                // less 里的 & 符号就代表了当前的父级元素
+                transform: translateZ(@w/2) ;
+                // background:rgba(165, 42, 42,0.5)
+            }
+            &:nth-child(2) {
+                // less 里的 & 符号就代表了当前的父级元素
+                transform: translateZ(-@w/2) rotateX(180deg);
+                // background:rgba(105, 108, 160,0.5)
+            }
+            &:nth-child(3) {
+                // less 里的 & 符号就代表了当前的父级元素
+                transform: translateX(-@w/2) rotateY(90deg);
+                // background:rgba(127, 255, 0,0.5)
+            }
+            &:nth-child(4) {
+                // less 里的 & 符号就代表了当前的父级元素
+                transform: translateX(@w/2) rotateY(-90deg);
+                // background:rgba(75, 75, 153,0.5)
+            }
+            &:nth-child(5) {
+                // less 里的 & 符号就代表了当前的父级元素
+                transform: translateY(@w/2) rotateX(-90deg);
+                // background:rgba(230, 61, 207, 0.5)
+            }
+            &:nth-child(6) {
+                // less 里的 & 符号就代表了当前的父级元素
+                transform: translateY(-@w/2) rotateX(90deg);
+                // background:rgba(255, 140, 0,0.5)
+            }
+        }
+       // & :nth-child(2)  // ul下的第二个儿子
+    }
+}
+// less 可以嵌套 不用写标签名了

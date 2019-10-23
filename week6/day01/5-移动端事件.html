@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        #box {
+            width: 80%;
+            height: 1600px;
+            background: lightgreen;
+            margin: auto;
+        }
+        #box::after{
+            content:'你好';
+            display:block;
+            background:lightsalmon;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        珠峰培训
+    </div>
+</body>
+
+</html>
+<script src="https://zeptojs.bootcss.com/zepto-docs.min.js"></script>
+<script>
+    var box = document.getElementById('box');
+    /* box.onclick = function (e) {
+        // click事件在移动端大概有300毫秒的延迟
+        // console.log(e)
+    }
+    box.ontouchstart = function (e) {
+        // 手指触碰到屏幕时 
+        console.log(e);
+        e.changedTouches[0].pageY;   // 相当于之前的pageY
+        e.touches[0].pageY;
+    }
+    box.ontouchmove = function (e) {
+        //手指移动时
+        console.log('move',e)
+    }
+    box.ontouchend = function (e) {
+        console.log('移动结束',e)
+    } */
+    // zepto 小型的jQ   
+    /*  $('#box').longTap(function (e) {
+         console.log(e)
+     })
+     $('#box').on('tap',function (e) {
+         // console.log(e)
+     }) */
+
+    Element.prototype.longTab = function (f) {
+        var timer = null;
+        this.ontouchstart = function (e) {
+            timer = setTimeout(() => {
+                f.call(this, e);
+            }, 300)
+        }
+        this.ontouchend = function () {
+            clearInterval(timer);
+        }
+    }
+    box.longTab(function (e) {
+        console.log(e);
+    })
+    /* box.ontouchmove = function (e) {
+        //手指移动时
+        e.preventDefault();
+        // console.log('move',e)
+    } */
+    Element.prototype.swipup = function (cb) {
+        var start = null;
+        var end = null;
+        this.ontouchstart = function (e) {
+            start = e.touches[0].pageY;
+        }
+        this.ontouchend = function (e) {
+            end = e.changedTouches[0].pageY;
+            if (start - end > 50) {
+                cb.call(this,e);
+            }
+        }
+
+    }
+    box.addEventListener('touchmove',function (e) {
+        e.preventDefault();
+    },{passive:true});   
+    // passive:true时，先执行默认事件，后执行绑定的事件，      //移动端
+    //          false时先执行绑定的事件，后执行默认事件
+    
+</script>

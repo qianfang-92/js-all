@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box{
+            width:400px;
+            height:400px;
+            border:1px solid firebrick;
+            margin: 50px auto;
+            overflow:scroll;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+</body>
+</html>
+<script>
+    /*
+        new Promise(executor)  ; executor(res,rej){}
+        pending resolved rejected 三种状态
+        then catch finally  Promise原型上 
+        Promise.  all   resolve  reject  race  静态方法 
+
+        $.extend  $.fn.extend     {}   $.noConflict()
+
+        鼠标 键盘 Input  系统
+        e.preventDefault  ready()  onload  DOMContentLoaded   e.target 事件源 
+        事件的传播机制  冒泡传播 击穿 先捕获再冒泡 目标处理阶段 （把事件对象确定下来）  e.stopPropagation() 阻止冒泡  e.cancelBubble = 'true'  
+        事件委托  原理就是冒泡传播 
+
+        dragstart 0级事件  drag  dragend     是绑定在被拖拽的元素身上(需要加属性 dragable='true')才会被拖动
+        dragenter dragover  dragleave  drop   是绑定在鼠标进入的元素身上   drop能起作用需要over阻止默认行为   drop阻止默认事件是为了防止拖拽的文件被直接打开
+
+    */
+
+    var box = document.getElementById('box');
+    box.ondragover = function (e) {
+        e.preventDefault();
+    }
+    box.ondrop = function (e) {
+        e.preventDefault();// 阻止默认打开图片
+        // console.log(e);
+        var file = e.dataTransfer.files[0];
+        // console.log(file);
+        // var str = URL.createObjectURL(file);
+        // console.log(str);
+        // this.innerHTML = `<img src='${str}'/>`
+
+        var url = new FileReader();   // base64
+        var _this = this;
+        url.readAsDataURL(file);
+        url.onload = function (e) {
+            _this.innerHTML = `<img src="${e.target.result}" />`
+        }
+    }
+
+    /*
+    重排和重绘读写分离
+    回流 重绘  读写不分离 导致一直在重绘或回流 
+
+    
+    */
+</script>

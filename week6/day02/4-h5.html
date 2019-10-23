@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box{
+            width:100px;
+            height:100px;
+        }
+        /* input{
+            width:100px;
+            height:100px;
+            position:absolute;
+            opacity:0;
+        } */
+    </style>
+</head>
+<body>
+    <div id="box">
+            <input type="color" id="inp">
+    </div>
+    <input type="date" id="inp2">
+    <!-- 
+        section 大块
+        nav   导航
+        header
+        main
+        footer
+        artical
+        aside
+        video 
+        audio
+    
+    -->
+</body>
+</html>
+<script>
+    inp.onchange = function () {
+        console.log(this.value);
+        box.style.background = this.value;
+    }
+</script>

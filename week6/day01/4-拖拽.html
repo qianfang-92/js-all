@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            list-style:none;
+        }
+        body{
+            height:2000px;
+        }
+        #box{
+            width:600px;
+            height:400px;
+            margin: auto;
+            overflow:hidden;
+            border:1px solid firebrick;
+        }
+        img{
+            width:100%;
+            user-select: none;
+        }
+        #lit_box{
+            width:200px;
+            height:150px;
+            position:fixed;
+            /* 固定定位时 它的offsetParent是可视窗口 */
+            right:0;
+            top:50%;
+            /* transform: translateY(-50%); */
+            /* 这个会在拖拽的时候往上跑一段时间 */
+            cursor:move;
+            border:1px solid firebrick;
+            overflow:hidden;
+            display:none;
+
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <img src="../../week5/day03/img/big.jpg" alt="" id="big">
+    </div>
+    <div id="lit_box">
+        <img src="../../week5/day03/img/lit.jpg" alt="" draggable="false">
+    </div>
+</body>
+</html>
+<script src="jquery-3.3.1.js"></script>
+<script src="drag.js"></script>
+<script>
+    function judge () {
+        let sro = document.documentElement.scrollTop;
+        let ch = $('#box').outerHeight();
+        let o = $('#box').offset().top;
+        if (ch + o <= sro) {
+            $('#lit_box').show();
+        } else {
+            $('#lit_box').hide();
+        }
+    }
+    window.onscroll = judge;
+    let w = document.documentElement.clientWidth || document.body.clientWidth;
+    let h = document.documentElement.clientHeight || document.body.clientHeight;
+    new Drag('lit_box',{range:[0,0,w-202,h-152]})
+</script>

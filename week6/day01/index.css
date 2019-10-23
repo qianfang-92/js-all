@@ -1,0 +1,67 @@
+.box{
+    width: 600px;
+    margin:200px auto;
+    border: 1px solid #ccc;
+}
+.top{
+    height: 50px;
+    line-height: 50px;
+    background: aliceblue;
+    border-bottom: 1px solid #ccc;
+    user-select: none;
+}
+.top span{
+    float: left;
+    margin-left: 20px;
+}
+.top div{  
+    float: left;
+    margin: 0 10px 0 0;
+    border: 1px solid lightblue;
+    height: 25px;
+    line-height: 25px;
+    margin-top:12px;
+    cursor: pointer;
+    display: none;
+}
+.top div span{
+    float: left;
+    margin: 0 5px;
+}
+.top .desc{
+    color: lightblue;
+}
+.top div .cancel{
+    background: #25a5c3;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    text-align: center;
+    color: #fff;
+    margin-top:4px;
+    font-size: 15px;
+}
+.body_box{
+    padding: 0 20px;
+    user-select: none;
+}
+.body_box li{
+    height: 50px;
+    line-height: 50px;
+    border-bottom: 1px dashed #999;
+}
+.body_box li h3{
+    float: left;
+    color: #ccc;
+    font-size: 15px;
+    font-weight: 300;
+    font-size: 14px;
+}
+.body_box li span{
+    float: left;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.body_box li:last-child{
+    border-bottom: 0;
+}

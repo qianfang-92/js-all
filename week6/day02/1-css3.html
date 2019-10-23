@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box{
+            width:400px;
+            height:400px;
+            border:10px solid rgba(0,0,0,0.5);
+            background:lightseagreen url('../../week5/day02/img/2.jpg') no-repeat center center;
+            padding:20px;
+            background-origin:content-box;
+            background-clip:content-box;
+            background-size:100% 100%;
+            transition:height 1s 2s ease,opacity 1s 2s ease;
+        }
+        /* body{
+            background:url('../../week5/day02/img/2.jpg') no-repeat center center;
+            height:2000px;
+            background-attachment: fixed;
+        } */
+        h3{
+            font-size:50px;
+            color:rgb(172, 36, 36);
+            text-align:center;
+            text-shadow: 3px 5px 4px darkgreen;
+            -webkit-text-stroke:3px rgb(194, 194, 10);
+        }
+        #box:hover{
+            height:600px;
+            opacity:0;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+
+    </div>
+    <!-- <h3>hello world </h3> -->
+</body>
+</html>
+<script>
+    let box = document.getElementById('box');
+    box.addEventListener('transitionend',function () {
+        console.log(7)   // 为什么出现两次  因为有两个效果 一个height opacity  有一个属性发生变化，就会触发一次这个函数
+    },false)
+    box.addEventListener('webkitTransitionEnd', function () {
+        console.log(9)
+    },false)
+</script>
