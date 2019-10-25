@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    /*
+        underscore.js(提供防抖和节流)  loadsh.js(提供深拷贝)
+        _.cloneDeep(objects)  两个工具库
+    */
+
+    var ary = [{a : 1}, {b : 2}, {c : 3}];
+    var arr = ary.map(item=>item) ;
+    // 虽然map循环数组返回一个新的数组，与原数组的地址不一样，arr与ary的地址不一样，但是由于ary中的每项是引用数据类型，所以这时arr中每项的地址还是ary中每项的地址； 这种拷贝方式，我们称为浅拷贝 只拷贝了一层
+
+    /*
+        深拷贝 就是可以把拷贝的对象的里面的所有层的都拷贝一份，地址都不一样了
+
+        JSON.parse(JSON.stringify(ary)) 这种方式可以实现深拷贝
+    */
+
+    // 但是当对象是下面这样，里面的内容无限的循环时，JSON的这个深拷贝的方法会报错
+    var a = {b : 12};
+    a.c = a;
+
+    var obj = {
+        a: {
+            b: 12,
+            c: {
+                d: 234
+            }
+        },
+        z: {
+            x: 1
+        }
+    }
+    function clone (obj) {
+        var _obj = {};
+        for (let k in obj) {
+            if (typeof obj[k] === 'object') {
+                _obj[k] = clone(obj[k]);
+            } else {
+                _obj[k] = obj[k]
+            }
+        }
+        return _obj;
+    }
+    clone(obj);  // 这是简单的实现深克隆
+
+    function isTypeof (ele, type) {
+        let str = {}.toString().call(ele).match(/ (\w+)\]/)[1];
+        return str.toLowerCase() === type.toLowerCase();
+    }
+    let DFSdeepClone = (obj, visitedArr = []) => {
+        let _obj = {};
+        if (isTypeof(obj, 'array') || isTypeof(obj, 'object')) {
+            // obj是数组或者对象时
+            let index = visitedArr.indexOf(obj);
+            _obj = isTypeof(obj, 'array') ? [] : {};
+            if (~index) { // ~index = -1 - index  判断环状数据
+                _obj = visitedArr[index];
+            } else {
+                visitedArr.push(obj);
+                for (let k in obj) {
+                    _obj[k] = DFSdeepClone(obj[k],visitedArr)
+                }
+            }
+        } else if (isTypeof(obj, 'function')) {
+            _obj = eval('(' + obj.toString() + ')');
+        } else {
+            _obj = obj;
+        }
+        return _obj;
+    }
+</script>

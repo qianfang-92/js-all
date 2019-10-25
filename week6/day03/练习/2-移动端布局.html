@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box">
+        <p>但是</p>
+    </div>
+</body>
+</html>
+<script>
+    /*
+        dpr  1  2  3  就是说 手机屏是几倍屏 倍数越高，屏幕越清晰 但是呀哦和initial-scale=1.0配套 是几倍，这个值就是1/倍数  得到的数
+
+        rem  1个 rem 就是html标签的font-size
+        em 相对于父节点的font-size (前提是 设置不是自己的font-size属性)
+            自己有font-size属性时，em是相对于自己的font-size了（除了font-size属性）
+            自己的font-size属性的em还是相对于父节点的font-size;
+
+        vh vw : 1vh就是一个屏幕高度的1%；1vw就是一个屏幕宽度的1%
+    */
+
+    /*
+        假设设计稿的宽度是750px; html的font-size怎么设置？？能保证所有手机上的一个rem 就是100px
+        有两种方法， 一个 ：
+            let w = document.documentElement.clientWidth || document.body.clientWidth;
+            w/750 = x/100;
+            document.documentElement.style.fontSize = w*100/750 + 'px';
+                二：用淘宝  flexible.js 把整个屏幕宽度分为10份
+    */
+</script>

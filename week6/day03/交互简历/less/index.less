@@ -1,0 +1,237 @@
+@img:'../images/';
+
+*{
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+
+.w(){
+    width:100%;
+    height:100%;
+    overflow:hidden;
+}
+.hide{
+    display:none;
+}
+html,body{
+    .w();
+    // 相对于屏幕来说 为了全屏
+    font-size:16px;
+    >section{
+        .w();
+        position: absolute;
+        top:0;
+        left:0;
+    }
+    section.loadingBox{
+        background:#333;
+        transition: opacity 1s;
+        z-index:30;
+        text-align:center;
+        color:#fff;
+        h1{
+            font-size:0.8rem;
+            position: relative;
+            top:25%;
+        }
+        h2{
+            font-size:0.6rem;
+            position: relative;
+            top:30%;
+            // padding:0.1rem,
+        }
+        .progressBox{
+            width:80vw;
+            height:0.4rem;
+            border-radius:0.4rem;
+            overflow:hidden;
+            margin: auto;
+            background:#fff;
+            position: relative;
+            top:40%;
+            .progress{
+                height:0.4rem;
+                width:0%;
+                transition:width 1s;
+                background: linear-gradient(45deg, #6faa6d 0%, #6faa6d 25%, #77c570 25%, #77c570 50%, #6faa6d 50%, #6faa6d 75%, #77c570 75%, #77c570 100%);
+                background-size: 0.4rem 0.4rem;
+                // 这个 0.4rem和height一样的，保持
+            }
+        }
+        
+    }
+    section.phoneBox{
+        z-index:20;
+        background:url('@{img}phone-bg.jpg');
+        background-size:cover;
+        transition:transform 1s;
+        header{
+            color:#fff;
+            text-align:center;
+            position: relative;
+            top:0.3rem;
+            h1{
+                font-size:0.9rem;
+            }
+            h2{
+                font-size:0.27rem;
+
+            }
+
+        }
+        footer{
+            width:90vw;
+            height:62vw;
+            position: absolute;
+            left:5vw;
+            bottom:0.4rem;
+            background:url('@{img}phone-listen.png');
+            background-size:cover;
+            .circle{
+                width:23vw;
+                height:23vw;
+                border-radius:50%;
+                border:0.02rem solid #77c570;
+                position: absolute;
+                left:65.5vw;
+                top:28.5vw;
+                animation: move 0.8s infinite linear;
+            }
+        }
+        .overBox{
+            width:90vw;
+            background:url('@{img}phone-key.png') no-repeat;
+            height:115vw;
+            background-size:contain;
+            position: absolute;
+            left:5vw;
+            bottom:0.2rem;
+            transition:all 0.5s;
+            .overBtn{
+                position: absolute;
+                width:26vw;
+                height:26vw;
+                left:50%;
+                transform: translateX(-50%);
+                bottom:7vw;
+            }
+        }
+        .bot{
+            transform:translateY(110%)
+        }
+    }
+    section.chatBox{
+        .w();
+        background:#eee;
+        z-index:10;
+        .chatMsgBox{
+            transition:transform 1s;
+            padding:5vw;
+            >li{
+                transition: all 0.5s;
+                margin-bottom:5vw;
+                overflow:hidden;
+                >div{
+                    float:left;
+                }
+                .imgBox{
+                    width:13vw;
+                    height:13vw;
+                    border-radius:50%;
+                    overflow:hidden;
+                    img{
+                        .w();
+                    }
+
+                }
+                .msg{
+                    max-width:60vw;
+                    margin-left:4vw;
+                    background:#fff;
+                    border:0.01rem solid #ccc;
+                    box-sizing:border-box;
+                    border-radius:0.1rem;
+                    padding:2.4vw 3vw;
+                    word-break:break-all;
+                    // 英文换行 不然不加这个，英文不换行
+                    &::before{
+                        content:'';
+                        display:block;
+                        width:2.5vw;
+                        height:2.5vw;
+                        transform: rotateZ(45deg) translateX(-1.5vw) translateY(4.5vw);
+                        position: absolute;
+                        background:#fff;
+                        border-left:1px solid #ccc;
+                        border-bottom:1px solid #ccc;
+                    }
+                }
+            }
+            >li.right{
+                overflow:hidden;
+                position:relative;
+                >div{
+                    float:right;
+                }
+                .msg{
+                    margin-left:0;
+                    margin-right:4vw;
+                    background:#77c570;
+                    border-color:#6faa6d;
+                    // 英文换行 不然不加这个，英文不换行
+                    &::before{
+                        transform: rotateZ(45deg) translateX(40.5vw) translateY(-37.5vw);
+                        background:#77c570;
+                        border:none;
+                        border-right:1px solid #ccc;
+                        border-top:1px solid #ccc;
+                        right:5.3rem;
+                    }
+                }
+            }
+            li.opa{
+                transform: translateY(0.5rem);
+                opacity:0;
+            }
+        }
+        .keyboard{
+            transition:transform 0.5s;
+            width:7.5rem;
+            height:6.05rem;
+            background:url('@{img}message-keyboard.png') no-repeat;
+            background-size:contain;
+            position: absolute;
+            bottom:-0.5rem;
+            .chatBtn{
+                position: absolute;
+                width:1.47rem*(75/64);
+                height:0.74rem*(75/64);
+                background:url('@{img}message-chatBtn.png') no-repeat;
+                background-size:contain;
+                right:0.1rem;
+                bottom:0.7rem;
+            }
+            >p{
+                // border:1px solid firebrick;
+                position: absolute;
+                width:4.8rem;
+                height:0.5rem;
+                top:0.4rem;
+                left:1rem;
+            }
+        }
+        .bot{
+            transform: translateY(4.4rem);
+        }
+    }
+}
+
+@keyframes move{
+    0%{
+        transform:scale(1)
+    }
+    100%{
+        transform:scale(1.4);
+    }
+}

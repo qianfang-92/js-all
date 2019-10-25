@@ -20,3 +20,21 @@
     </div>
 </body>
 </html>
+<script>
+    var box = document.getElementById('box');
+    var ul = box.getElementsByTagName('ul')[0]
+    var x = y = 0;
+    box.ontouchstart = function (e) {
+        this.sx = e.touches[0].pageX;
+        this.sy = e.touches[0].pageY;
+    }
+    document.ontouchmove = function (e) {
+        let  {pageX,pageY} = e.changedTouches[0];
+        console.log(pageX - box.sx);
+        x = x + pageY - box.sy;
+        y = y + pageX - box.sx;
+        if (x>180){x= -x};
+        if (y > 180) {y = -y}
+        ul.style.transform = `rotateY(${y*0.2}deg) rotateX(${x*0.2}deg)`
+    }
+</script>
