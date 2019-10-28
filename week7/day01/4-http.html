@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    /*
+        http  计算机网络
+        http事务  一次http事务就是一次完整的http请求(请求+响应)；
+        http报文   network  要经常看的
+            通用头 general
+                Request URL : 请求路径 就是接口地址
+                Request Method : 请求方法
+                Status Code : 200  状态码   
+                Remote Address : IP地址
+            请求头  Request headers     是前端设置的
+                Accept : 接受什么样的东西，都是接受的东西的格式 *不限   * / * ：不限
+                Accept-Encoding : 接受什么样的压缩
+                User-Agent:用户机型 当前设备的信息    前端拿用户信息：控制台输入：navigator.userAgent 
+                Connection:keep-alive ：缓存时涉及到    
+                Cache-Control : no-cache   不缓存       
+            响应头   Response Headers  是后台设置的
+                Content-Encoding: gzip  压缩方式
+                Date : 是一个时间戳 什么时候请求的，
+                Etag : 后端生成一个HASh值，，两次请求一样 就返回一个304 在缓存区拿东西
+                Set-Cookie : 后端种植的cookie  
+
+            请求体  ：除了上面的三个头 之外有时有的 Query String Parameters  放的是 url里的？后面的search部分
+
+            响应体 ： 
+
+            强缓存  操作的是 cache-control字段  设置一个max-age 在这个时间段内，浏览器不会向服务器发请求  
+            协商缓存  304就是协商缓存  每次都向服务器问一下缓存的东西有效没效 ，有的话就不从服务器请求，没效的话就重新请求
+
+            后台给了我们一个Etag 回头前端把这个字段给后台，后台对比两次的Etag，如果没变化，就直接用缓存的，如果不一样就说明后台的东西改动了，资源更新了，就会由后台给我们东西 Etag 就是协商缓存； last-Modified：后台给了一个时间段，上次更改的时间  然后前端的请求头加一个if-Modified-since，请求时对比这个更改时间，如果时间一样，就走缓存，如果不一样就不走缓存
+
+            解决这个 就在 url的search里随便加一个随机的东西，使之变成一个新地址，更新业务的时候
+        WS WebSocket 互问互答式的
+
+        http  状态码   status Code : 200代表成功 301：永久重定向(访问一个网址是重新定向到了其他网址) 302(临时重定向，现在基本用307代替) 304(当前请求走本地缓存，就是协商缓存) 307     403(访问被拒绝)  404(路径错误，90%前端写错了，接口文档错误；或者10%运维错误，没给配映射)  405(方法使用错误，get/post这个使用方法用错了)  5XX(统一是服务器的错误)
+    */
+
+    /*
+        URL  :统一资源路径   /.../.../等    URL.createObject.URL
+        URN  ：统一资源名称
+        URI ： 统一资源标识   = URL + URN
+    */
+
+    /*
+        https://www.baidu.com:443/s?wd=flex&rsv_spt=1#qqq
+        由几个部分组组成
+            https: 协议   http   https   ftp
+                https与http的区别  https是在http基础上增加了一个SSL安全套阶层，
+            www.baidu.com  ：域名部分  .com是顶级域名  baidu是它的二级域名   域名后面的    
+            :443    :端口号  从0-65535，有这些号，每一个服务都会对应一个端口号 可以理解成房间号  服务器可以理解为一个大楼  有时的端口里没有服务  https 默认443  http默认80   ftp默认21    ftp协议是个上传协议 往服务器上传东西时
+            /s   ： 路径部分
+            ?  后面是  search部分   search部分更改会引起网页的刷新
+            # 后面是 hash部分   hash部分的更改不会引起网页的刷新
+    */
+</script>

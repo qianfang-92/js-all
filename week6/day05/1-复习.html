@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            list-style:none;
+        }
+        .hide{
+            display:none;
+        }
+       #box{
+           width:200px;
+       }
+        li{
+            width:200px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+            <input type="text" id="inp">
+            <ul id="list" class="hide">
+                <li>狮子</li>
+                <li>老虎</li>
+                <li>大象</li>
+                <li>斑马</li>
+            </ul>
+    </div>
+    
+</body>
+</html>
+<script>
+    /*
+        css3   transition  animation (@keyframes结合)
+                transform  translate   rotate  scale   skew(倾斜)   
+                transform-style:preserve-3d (3d效果)+ 景深 perspective:2000px;
+                animation-play-style:running paused
+
+        h5 标签语义化  header footer main  nav section artical input做了增强  color  date 
+    */
+    inp.onfocus = function (e) {
+        e.stopPropagation();
+        list.classList.remove('hide');
+    }
+    
+    list.onclick = function (e) {
+        e.stopPropagation();
+        if (e.target.nodeName.toLowerCase() == 'li') {
+            inp.value = e.target.innerText;
+            list.classList.add('hide')
+        }
+    }
+    inp.onblur = function () {
+        setTimeout(()=>{
+            list.classList.add('hide');
+        },300)
+    }
+</script>

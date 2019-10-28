@@ -22,7 +22,16 @@ function loadBox () {
             }
         }
     })
-    btn.ontouchend = function () {
+    btn.ontouchstart = function (e) {
+        this.sx = e.touches[0].pageX;
+        this.sy = e.touches[0].pageY;
+    }
+    btn.ontouchend = function (e) {
+        // 防止在按键时不想按，向旁边移动来取消按键；
+        let changeX = Math.abs(e.changedTouches[0].pageX - this.sx); //取绝对值
+        let changeY = Math.abs(e.changedTouches[0].pageY - this.sy);
+        if (changeX >= 20 || changeY >= 20) return;
+        
         loadingBox.style.opacity = 0;
         loadingBox.addEventListener('transitionend',function (e) {
             if(e.propertyName == 'opacity') {

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button>按钮</button>
+</body>
+</html>
+<script>
+    /*
+        cookie  前端用来保存一些数据的；  前后端都能操作cookie   后端也能在前端种植 cookie   cookie是属于用户自己的，前端自己的东西，前端可以操作cookie 
+                document.cookie 可以拿到cookie  往上种植cookie  直接写 document.cookie = ''就可以，本来是要覆盖的，但是浏览器不会，会添加上；
+            比如 登陆一个网页时，再刷新网页还是处于登陆状态 这就涉及到cookie   
+            一般用来存储用户信息  cookie的大小一般在5k左右
+            发个请求给后台，cookie也会一起被发过去
+
+        H5新增，前端用来存储数据的API   它们的大小在5M左右
+            这两个API只能由前端操作；后端操作不了   存储的有 标签 样式 减少向后台请求的次数 
+            哪个网页的localStorage就是在哪个网页，不会跑到别的网页上去的，叫做  ‘认门’
+        localStorage   
+            在控制台拿到它里面的内容  localStorage.getItem('名字')  还可以删除 removeItem()  remove之后再查看  getItem 时，返回null              clear是全部清除    还可以设置   setItem(key，value);   它没有过期时间，可以自己remove   localStorage.key(index) 根据索引拿key名字
+        sessionStorage  
+            与localStorage的区别是  sessionStorage是在与网页交互时产生，浏览器关闭会自动清除，但是localStorage会
+    */
+
+    /*  
+        getCookie(属性名) 
+        setCookie(属性名  属性值  过期日期)  
+        removeCookie(属性名):一般删除cookie是把过期日期设置成过去的日期，或者-1，这样就可以被删除了
+    */
+
+    /*
+        cookie与localStorage session区别：
+            cookie前后端都能设置    大小只有5k左右   设置cookie只能自己编写方法； cookie有过期时间   会随着请求发给后台
+            localStorage   只能前端设置  大小在5M左右  有现成的方法设置   后端无法操作  没有过期时间
+    */
+
+    /*
+        数据埋点 ：  记录点击率等的次数的  点一下   埋点的记录是后端来做的
+    */
+    function getCookie (key) {
+        let str = document.cookie;
+        str += '; '; //让最后一个能满足正则
+        let reg = new RegExp(`\\b${key}=([^ ;]+); `);
+        return str.match(reg) ? str.match(reg)[1] : null;
+    }
+    getCookie()
+
+    function setCookie (key, value, date) {
+        if (date) {
+            document.cookie = `${key} = ${value}; expires = ${new Date(date)}`;
+        } else {
+            document.cookie = `${key} = ${value}`;
+        }
+    }
+
+    function removeCookie (key,domain) {
+        if (domain) {
+            document.cookie = `${key}=null;domain=${domain};expires=${new Date(1999)}`; // 把这个日期改为过去的日期，所以日期变成过期的了
+        } else {
+            document.cookie = `${key}=null;expires=${new Date(1999)}`;
+        }
+    }
+</script>
+<script>
+    btn.onclick = function () {
+        // 发送ajax给后台，让后台知道 按钮被点击了一次  但是有同源的问题
+        let img = new Image();
+        img.src = '接口'   //图片路径就不会有同源问题了         埋点   神策：专门用来做埋点的
+    }
+</script>
