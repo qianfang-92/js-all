@@ -1,0 +1,145 @@
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+html header,
+body header {
+  padding: 2vw;
+  background: darkred;
+  color: #fff;
+}
+html header nav,
+body header nav {
+  overflow: hidden;
+  position: relative;
+  height: 10vw;
+  line-height: 10vw;
+}
+html header nav .icon_lg,
+body header nav .icon_lg {
+  float: left;
+  font-size: 16vw;
+  height: 10vw;
+  line-height: 10vw;
+  display: block;
+}
+html header nav .phone,
+body header nav .phone {
+  position: absolute;
+  top: 1vw;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 3.3vw;
+  background: rgba(0, 0, 0, 0.4);
+  width: 30vw;
+  text-align: center;
+  height: 8vw;
+  line-height: 8vw;
+  border-radius: 8vw;
+}
+html header nav .phone :nth-child(2),
+body header nav .phone :nth-child(2) {
+  font-size: 3vw;
+  color: #333;
+}
+html header nav .tool,
+body header nav .tool {
+  float: right;
+}
+html header nav .tool span:nth-child(2),
+body header nav .tool span:nth-child(2) {
+  margin: 0 2vw ;
+}
+html header a,
+body header a {
+  color: #fff;
+  text-decoration: none;
+}
+html header .new ul,
+body header .new ul {
+  width: 100%;
+  margin-top: 3vw;
+  display: flex;
+  flex-wrap: wrap;
+}
+html header .new ul li,
+body header .new ul li {
+  width: 14.2%;
+  display: flex;
+  height: 10vw;
+}
+html header .new ul li a,
+body header .new ul li a {
+  flex: 1;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+html .banner,
+body .banner {
+  height: 60vw;
+  padding: 2vw;
+}
+html .banner .swiper-container .ba .swiper-slide,
+body .banner .swiper-container .ba .swiper-slide {
+  position: relative;
+}
+html .banner .swiper-container .ba .swiper-slide img,
+body .banner .swiper-container .ba .swiper-slide img {
+  height: 60vw;
+}
+html .banner .swiper-container .ba .swiper-slide p,
+body .banner .swiper-container .ba .swiper-slide p {
+  position: absolute;
+  bottom: 1vw;
+  left: 0;
+  width: 100%;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.4);
+  height: 10vw;
+  line-height: 10vw;
+  padding-left: 2vw;
+}
+html .banner .swiper-container .swiper-pagination,
+body .banner .swiper-container .swiper-pagination {
+  text-align: right;
+  color: #fff;
+}
+html .banner .swiper-container .swiper-pagination span:nth-child(1),
+body .banner .swiper-container .swiper-pagination span:nth-child(1) {
+  font-size: 7vw;
+}
+html .list,
+body .list {
+  padding: 2vw;
+}
+html .list ul li,
+body .list ul li {
+  display: flex;
+  height: 25vw;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 2vw;
+  box-sizing: border-box;
+}
+html .list ul li .word,
+body .list ul li .word {
+  width: 60vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+html .list ul li .img,
+body .list ul li .img {
+  flex: 1;
+}
+html .list ul li .img img,
+body .list ul li .img img {
+  height: 100%;
+  width: 100%;
+}

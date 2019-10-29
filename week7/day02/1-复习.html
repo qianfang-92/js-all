@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        a{
+            text-decoration: none;
+            color:#333;
+        }
+        a.current{
+            color:#fff;
+            background:saddlebrown;
+        }
+        div{
+            display:none;
+            background:goldenrod;
+            color:#fff;
+            font-size:25px;
+        }
+    </style>
+</head>
+<body>
+    <a href="#css" >css</a>
+    <!-- 写＃号更改hash值 -->
+    <a href="#js" >js</a>
+    <a href="#html" >html</a>
+    <div class="css">css</div>
+    <div class="js">js</div>
+    <div class="html">html</div>
+</body>
+</html>
+<script>
+    /*
+        cookie  localStorage   sessionStorage
+        DNS  域名解析 
+        URL   URN URI
+        协议：//域名：端口号/路径?search#hash
+
+        http 超文本传输协议   默认端口号  80
+        https 在http基础上 增加一个 安全套阶层  默认端口是443
+        ftp 文本传输协议  后台上传文件的协议 默认端口是 21；
+
+        强缓存  cache-control ： no-cache（不走强缓存 走协商缓存）     既不走强缓存又不走协商缓存的是 no-store
+    */
+    let a = document.querySelectorAll('a');
+    let div = document.querySelectorAll('div');
+
+    function init () {
+        switch (location.hash) {
+            case '#css':
+                show(0)
+                break;
+            case '#js':
+                show(1)
+                break;
+            case '#html':
+                show(2)
+                break;
+        }
+    }
+    init();
+    
+
+    function show (n) {
+        a.forEach((item,index)=>{
+                    if (index == n) {
+                        item.classList.add('current');
+                        div[index].style.display = 'block';
+                    } else {
+                        item.classList.remove('current');
+                        div[index].style.display = 'none';
+                    }
+                })
+    }
+
+    window.onhashchange = function () {
+        // 监听hash的更改
+        console.log(location.hash);
+        init();
+    }
+   // 这种选项卡的优势 ： 刷新的时候不会回到初始位置  不用点击，通过改hash也可以  缺点是不利于eso的优化
+</script>

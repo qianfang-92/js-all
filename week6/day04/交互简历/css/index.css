@@ -213,6 +213,7 @@ body > section.chatBox ul li > p {
   font-size: 0.26rem;
   border-radius: 0.1rem;
   box-sizing: border-box;
+  position: relative;
   word-break: break-all;
 }
 html > section.chatBox ul li > p::before,
@@ -225,7 +226,8 @@ body > section.chatBox ul li > p::before {
   width: 0.1rem;
   height: 0.2rem;
   position: absolute;
-  left: 1.2rem;
+  top: 0.3rem;
+  left: -0.1rem;
 }
 html > section.chatBox ul li.right img,
 body > section.chatBox ul li.right img {
@@ -236,6 +238,7 @@ body > section.chatBox ul li.right img {
 html > section.chatBox ul li.right p,
 body > section.chatBox ul li.right p {
   float: right;
+  position: relative;
   background: #a0e55f;
   border: 1px solid #93b474;
 }
@@ -249,7 +252,9 @@ body > section.chatBox ul li.right p::before {
   width: 0.1rem;
   height: 0.2rem;
   position: absolute;
-  left: 5.1rem;
+  top: 0.3rem;
+  left: auto;
+  right: -0.1rem;
 }
 html > section.chatBox .send,
 body > section.chatBox .send {

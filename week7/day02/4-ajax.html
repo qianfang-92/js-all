@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    /*
+        ajax  全名是：  async  javascript and xml
+        异步的  
+        readyState 代表请求状态  （派了一个人去，然后回来）
+                0  ： UNSENT  代表未发送的状态  
+                1  ： OPENED  已打开的状态 已执行了open函数
+                2  ： HEADERS_RECEIVED  代表已经接收响应头
+                3  ： LOADING  正在加载响应体
+                4  ： DONE    请求完成
+            0-1的状态是由JS控制的
+            2-3-4的状态 是由http控制的
+
+            open里面的第三个参数 false 同步  true异步
+            false的时候，1-2  2-3 都被http拦住了，直接从1-4
+            一般都写true，异步的
+    */
+    let xhr = new XMLHttpRequest();
+    xhr.open('get', 'https://www.easy-mock.com',true);    // open把readyState状态从0变成1  同步的变成1   从0变成1 是由前端  JS控制的
+
+    xhr.onreadystatechange = function () {
+        console.log(xhr.readyState)  // readyState 代表http的请求状态
+        if (xhr.readyState == 4 && /304|200/.test(xhr.status)) {
+            // 前面是说 东西被拉回来了  后面的是说拿到的东西是需要的  这样才代表成功
+        }
+    }
+    xhr.onerror = function (e) {
+        // 在请求失败的时候触发，  跨域时会触发 
+        console.log(e)
+    }
+    xhr.timeout = 1000; // 最长请求时间，超过这个时间之后自动结束请求
+    xhr.ontimeout = function () {
+        console.log('超时')  ; // 超时时，请求被取消了
+    }
+    // abort  在原型上 主动打断请求
+    xhr.onabort = function () {
+        // 主动打断请求的时候会触发
+        console.log('请求被打断')
+    }
+    xhr.send();
+    // xhr.abort(); //打断请求  需要在请求还没完成的时候打断，不然请求已经结束就没法打断了
+    setTimeout(()=>{
+        xhr.abort()   ; //  请求已经结束  不能打断了
+    },1000)
+</script>
