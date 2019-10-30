@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    //  event loop  事件队列
+
+    /* console.log('script start')  // 同步            1
+
+    setTimeout(function () {
+        console.log('settimeout')     // 异步      宏任务  6
+    })
+
+    let promise1 = new Promise(function (resolve) {
+        console.log('promise1')   // 同步          2
+        resolve()              // 同步           
+        console.log('promise1 end')   // 同步       3
+    }).then(function () {
+        console.log('promise2')       //异步  5   一个Promise 大的宏任务  then，catch是它的微任务  它会把这整个宏任务的所有微任务都执行完再去执行下一个宏任务
+    })
+
+    console.log('script end')        //同步        4 */
+
+    //-------------------------------------------------------------------------------------------------------------------------------------------
+
+    /*  console.log('script start')
+ 
+     setTimeout(function () {
+         console.log('settimeout')
+     })
+ 
+     let promise1 = new Promise(function (resolve) {
+         console.log('promise1')
+         setTimeout(() => {
+             resolve()
+         })
+         console.log('promise1 end')
+     }).then(function () {
+         console.log('promise2')           // 这时，触发这个微任务必须要上面那个定时器的宏任务执行完，所以这时，就会先走最上面的那个定时器的宏任务，再执行下面那个定时器，再执行这行 
+     })
+ 
+     console.log('script end') */
+
+    //-----------------------------------------------------------------------------------------------------------------------------------------
+    /* async function async1() {
+        console.log('async1 start');      //同步  2
+        await async2();    // 它后面的是个异步的  
+        console.log('async1 end')    //异步   5
+    }
+    async function async2() {
+        console.log('async2')     //同步   3
+    }
+
+    console.log('script start');         // 同步   1
+    async1();
+    console.log('script end')    //同步  4 */
+
+    //---------------------------------------------------------------------------------------------------------------------------------------
+    async function async1() {
+        console.log('async1 start');//2
+        await async2();    // 形成一个微任务
+        console.log('async1 end'); //6
+    }
+    async function async2() {
+        console.log('async2'); //3
+    }
+    console.log('script start');    //1
+    setTimeout(function () {
+        console.log('setTimeout');//8
+    }, 0)
+    async1();
+    new Promise(function (resolve) {
+        console.log('promise1');//4
+        resolve();
+    }).then(function () {
+        console.log('promise2');//7   微任务
+    });
+    console.log('script end');//5
+
+
+</script>

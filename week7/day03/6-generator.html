@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    function *fn () {
+        yield 10
+        return 3
+        yield 100
+        yield 200
+    }
+    let t = fn();   // t是generator的一个实例 
+    console.dir(t);   // t.next() 结果就是每个yield   和一个done参数，当done:true时表示 已经走完全部的yield
+</script>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    /*
+        async  await 必须跟promise合用   await后面必须跟promise实例  可以等异步的结束后执行，像同步了，但是其实还是异步的；
+    */
+   let p1 = new Promise((res, rej)=>{
+        setTimeout(()=>{
+            res('error');
+            console.log('p1')
+        }, 2000)
+   })
+   let p2 = new Promise((res, rej)=>{
+        setTimeout(()=>{
+            res('error')
+            console.log('p2')
+        }, 4000)
+   })
+   let p3 = new Promise((res, rej)=>{
+        setTimeout(()=>{
+            res('success');
+            console.log('p3')
+        }, 5000)
+   })
+   let p4 = new Promise((res, rej)=>{
+        setTimeout(()=>{
+            res('success2');
+            console.log('p4')
+        }, 6000)
+   })
+   async function fn () {
+        let res1 = await p1;   
+        console.log(res1);
+        let res2 = await p2;
+        console.log(res2);
+        let res3 = await p3;
+        console.log(res3);
+        let res4 = await p4;
+        console.log(res4);
+   }
+   fn();
+</script>

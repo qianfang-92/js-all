@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    /*
+        promise 用法
+    */
+   let p = new Promise(function executor (res,rej) {
+        res(666) ;    // 状态从pending变成 resolved 或 rejected 之后，不能再发生改变
+   })
+   p.then(function (data){
+       //成功的回调
+       console.log(data) 
+   }, function (err){
+       //失败的回调
+       console.log(err)
+   }).then(function (data) {   // 第二个then 接收的是 上一个 then的回调函数的执行结果，如果前一个then的执行没有报错，就会走第一个函数 有报错就走第二个函数
+       console.log(data);   // data是第一个then的回调函数执行的返回结果
+       return new Promise((res,rej)=>{})
+   },function (err) {
+       console.log(err);
+   }).then(()=>{},()=>{}).finally(()=>{})  // 如果前边的then的回调函数的返回值是一个新的promise实例，则后面的then就相当于给了这个新的实例
+
+   Promise.resolve('222')  // 返回一个成功态的实例
+   Promise.reject('111')  //返回的是一个失败态的实例
+   Promise.all([]).then(()=>{},()=>{});    
+   Promise.race([]).then(()=>{},()=>{});
+</script>

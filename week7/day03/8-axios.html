@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script src="axios.js"></script>
+<script src="">
+    axios.get('./data.json', { params: { a: 12, d: 3 } }).then((data) => {
+        console.log(data)
+    }, (err) => {
+        console.log('err')
+    })
+    axios.post('./data3.json', { a: 2, d: 3 }).then((data) => {
+        console.log(data)
+    }, (err) => {
+        console.log(err)
+    })
+    axios({
+        method: 'get',
+        params: {   // params 是   get 使用的
+            a: 12,
+            f: 2
+        },
+        data: {    //  data  是  post  使用的
+            a: 12,
+            e: 4
+        },
+        url: './data.json'
+    }).then((data) => {
+        console.log(data)
+    }, (err) => {
+        console.log(err)
+    })
+</script>
+<script>
+    /*
+        跨域 ： 协议  域名  端口号  三者有一个不一样 就是跨域(用link  src 不存在跨域     只有ajax请求数据时有)
+
+        同源策略  ： 是浏览器的安全机制    只有同源之间数据才能交互   所以说 跨域 问题只存在在浏览器中  后台没有跨域
+
+        正因为有同源限制  才能保证各个网站之间互不干扰
+
+
+        axios.get(url,{params:{}})      
+        axios.post(url,{}) 
+        axios({method:'',url:'',data:{},params:{},headers:{},timeout: ,transformRequest:[f1,f2,f3],transformResponse:[f1,f2,f3]})   
+
+        全局配置：
+        axios.defaults.baseURL   
+        
+        但是有时需要改一部分的baseURL:
+        var http = axios.create({
+            baseURL:'',
+            timeout: ,
+            transformRequest:[f1,f2,f3],
+            transformResponse:[f1,f2,f3]}
+        })
+    */
+    axios.defaults.baseURL = ' https://www.easy-mock.com/mock/5db94935f94af26320296ab3/qqq';   //把接口的前面一样的放这里
+    axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+    axios.defaults.transformRequest = function (data = {}) {   // data 只能拿post 的东西
+        // 所有请求在发出去的时候， 都会走该函数
+        console.log(data);
+        let str = '';
+        for (let k in data) {
+            str += `${k}=${data[k]}&`
+        }
+        return str = str.replace(/&$/, '')
+    }
+
+    // 添加请求拦截器
+    axios.interceptors.request.use(function (config) {
+        // 在发送请求之前做些什么
+        // console.log(config);
+        if (config.method == 'get') {
+            config.params.token = 1233;
+        } else {
+            config.data.token = 12233;    //统一在 data后面添加一个东西，不用一个个添加
+        }
+        return config;
+    }, function (error) {
+        // 对请求错误做些什么
+        return Promise.reject(error);
+    });
+
+    // 添加响应拦截器
+    axios.interceptors.response.use(function (response) {
+        // 对响应数据做点什么
+        console.log(response)
+        return response.data;     //  后面加上 data 这样 then里面的data就是后台传来的数据
+    }, function (error) {
+        // 对响应错误做点什么
+        return Promise.reject(error);
+    });
+
+    axios.post('/list', {
+        "userid": "zhangsan",
+        "name": "张三",
+        "orderInDepts": "{1:10, 2:20}",
+        "department": [1, 2],
+        "position": "产品经理",
+        "mobile": "1xxxxxxxxxx",
+        "tel": "xxxx-xxxxxxxx",
+        "workPlace": "",
+        "remark": "",
+        "email": "test@xxx.com",
+        "orgEmail": "test@xxx.com",
+        "jobnumber": "xxx",
+        "isHide": false,
+        "isSenior": false,
+        "extattr": {
+            "爱好": "旅游",
+            "年龄": "24"
+        }
+    }).then((data) => {
+        console.log(data)
+    }).catch((err) => {
+        console.log(err)
+    })
+
+    
+    
+</script>
