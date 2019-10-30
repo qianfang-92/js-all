@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" placeholder="name">
+    <input type="password" placeholder="密码">
+    <button id="btn">提交</button>
+
+    <a href="http://www.baidu.com/s?wd=珠峰">搜索珠峰</a>
+</body>
+</html>
+<script>
+    /*
+        get 传参  在接口后面补写 search
+        query  传参  ：把要给后台的参数 拼接成对应的search字符串 放在接口后边
+        get 请求 怎么避免走缓存 ？？ 每次都在后面拼接一个随机的字符串
+    */
+    let inps = document.querySelectorAll('input');
+    function getData (obj) {
+        let xhr = new XMLHttpRequest();
+        let str = '';
+        for (let k in obj) {
+            str += `${k}=${obj[k]}&`;
+        }
+        str += 't=' + Math.random();
+        str = str.replace(/&$/,'');
+        xhr.open('get',`../data.json?${str}`,true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && /200|304/.test(xhr.status)) {
+                console.log(xhr.response);
+            }
+        }
+        xhr.send();
+    }
+
+    btn.onclick = function () {
+        let name = inps[0].value;
+        let psw = inps[1].value;
+        let obj = {name,psw};
+        getData(obj)
+    }
+</script>

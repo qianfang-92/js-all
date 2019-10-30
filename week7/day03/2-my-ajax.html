@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script src="ajax.js"></script>
+<script>
+    ajax({
+        method:'get',  //不传参 默认值是get
+        url:'./data.json',  //必需
+        data:{
+            // 非必需  要传给后台的数据
+            a:12
+        },
+        async:true,  // true异步  false同步   默认是true 非必需
+        cache:true,  //true走缓存   false不走缓存  默认是true
+        headers:{
+            // 设置请求头  非必需  
+            g:12
+        },
+        success(data){},  //成功回调函数  非必需
+        error(err){console.log(err)}, //失败回调函数  非必需
+    })
+    ajax({
+        // 不写链接默认请求当前页
+        method:'post',
+        url:'https://www.souyidai.com/newbid/user_status',
+        success(data){
+            console.log(data)
+        },
+        error(err){
+            console.log(err)
+        }
+    })
+</script>

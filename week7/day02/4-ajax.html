@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <div id="box"></div>
 </body>
 </html>
 <script>
@@ -26,14 +26,19 @@
             open里面的第三个参数 false 同步  true异步
             false的时候，1-2  2-3 都被http拦住了，直接从1-4
             一般都写true，异步的
+
+            timeout = 2000  毫秒  超过这个时间会触发ontimeout事件
+            abort  取消http请求   取消成功后会触发onabort事件
     */
     let xhr = new XMLHttpRequest();
-    xhr.open('get', 'https://www.easy-mock.com',true);    // open把readyState状态从0变成1  同步的变成1   从0变成1 是由前端  JS控制的
+    xhr.open('get', './data.xml',true);    // open把readyState状态从0变成1  同步的变成1   从0变成1 是由前端  JS控制的
 
     xhr.onreadystatechange = function () {
         console.log(xhr.readyState)  // readyState 代表http的请求状态
         if (xhr.readyState == 4 && /304|200/.test(xhr.status)) {
             // 前面是说 东西被拉回来了  后面的是说拿到的东西是需要的  这样才代表成功
+            console.log(xhr.response);
+            box.appendChild(xhr.responseXML.firstChild); // 能直接用
         }
     }
     xhr.onerror = function (e) {
@@ -54,4 +59,5 @@
     setTimeout(()=>{
         xhr.abort()   ; //  请求已经结束  不能打断了
     },1000)
+
 </script>

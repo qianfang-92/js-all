@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            list-style:none;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="inp">
+    <ul id="box">
+        <li>
+            <span></span>
+        </li>
+    </ul>
+</body>
+</html>
+<script src="http://jquery.cuishifeng.cn/js/jquery-3.2.1_b5dbe7b.js"></script>
+<script>
+    $.ajax({
+        method:'post',
+        url:'./data.json',
+        async:false,  // 同步异步   false 同步    true 异步
+        cache:true, // true代表走缓存   只针对get起作用，因为post没有缓存    原理就是 false不走缓存时会在我们写的数据后面自动拼一个随机字符串 true就不会拼
+        timeout:2000, // 超时设定，超过2秒会取消请求
+        headers:{
+            qqq:123  // 在请求头添加信息,设置头部信息
+        },
+        data:{   //  传给后台的数据  根据 请求方式，jQ会把这个放在不同位置
+            a:12,
+            b:13,
+            c:"珠峰"
+        },
+        success:function (data) {
+            console.log(data)
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    })
+
+    $.get('./data.json', function (data) {
+        console.log(data)   // 简写方式  这个回调函数是一个成功的回调函数   如果要写失败的，就要全写
+    })
+
+    function aja (key) {
+        $.ajax({
+            url:'https://www.baidu.com/sugrec?pre=1&p=3&ie=utf-8&json=1&prod=pc&from=pc_web&sugsid=1430,21098,20697,29568,29699,29221&wd='+key,
+            dataType:'jsonp',
+            success(data){
+                console.log(data);
+                let str = '';
+                data.g = data.g || [];
+                data.g.forEach(item=>{
+                    str += `<li>
+                                <span>${item.q}</span>
+                            </li>`
+                })
+                box.innerHTML = str;
+            }
+        })
+    }
+    inp.oninput = debounce(function (){
+        aja(this.value)
+    })
+    function debounce (f,w=300) {
+        let timer = null;
+        return function fn () {
+            clearInterval(timer);
+            timer = setTimeout(()=>{
+                f.apply(this,arguments);
+            },w)
+        }
+    }
+</script>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+        <input type="text" placeholder="name">
+        <input type="password" placeholder="密码">
+        <button id="btn">提交</button>
+</body>
+</html>
+<script>
+    /*
+        post 不存在缓存这一说  它向后台传参的方式除了在接口后面添加 search字符串 之外
+        还可以  payload 传参  在  xhr.send() 里添加JSON字符串
+        或者  改成 form Data 格式：首先把要传的对象转成search字符串，然后再去更改请求头的content-type属性
+    */
+    let xhr = new XMLHttpRequest();
+    xhr.open('post','../data.json',true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+            if (/200|304/.test(xhr.status)) {
+                let t = xhr.getResponseHeader();
+                // 获取指定响应头
+                // xhr.getAllResponseHeaders();  获取所有的响应头
+                console.log(xhr.response);
+            } else if (/[45]\d{2}/.test(xhr.status)) {
+                console.log('失败')
+            }
+        }
+    }
+    xhr.setRequestHeader('content-type','application/x-www-form-urlencoded');
+    let obj = {
+        a:12,
+        b:13,
+        c:'珠峰'
+    }
+    let str = '';
+    for (let k in obj) {
+        str += `${k}=${obj[k]}&`;
+    }
+    xhr.send(str);
+
+</script>

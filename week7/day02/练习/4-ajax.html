@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box">
+        <button>333</button>
+    </div>
+</body>
+</html>
+<script>
+    /*
+        ajax   async  javascript   and  xml
+        readyState 代表请求状态
+
+        0 UNSENT  未发送
+        1 OPENED  已执行过open函数
+        2 HEADERS-RECEIVED  已经接收响应头
+        3 LOADING  正在加载响应体
+        4 DONE   请求完成
+
+        0-1  是由JS控制的
+        1-2  2-3  3-4  都是由http控制的
+    */
+
+    let xhr = new XMLHttpRequest();
+    xhr.open('get', '../data.json', true);
+    xhr.onreadystatechange = function () {
+        console.log(xhr.response);
+    }
+    xhr.timeout = 2000;  // 最长请求时间 ，超过这个时间后自动结束请求
+    xhr.ontimeout = function () {
+        console.log('超时');
+    }
+    xhr.onerror = function () {
+        // 在请求失败时触发 ；  跨域会触发
+    }
+    xhr.onabort = function () {
+        // 主动打断请求时会触发
+    }
+    xhr.send();
+    setTimeout(()=>{
+        xhr.abort(); // 主动打断http请求  ；请求还没完成的时候，可以打断
+    },1000)
+</script>

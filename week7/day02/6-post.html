@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    /*
+        live serve 不支持 post 方法
+        post 请求不会走缓存的 ，不用处理强制缓存 协商缓存问题
+    */
+    let xhr = new XMLHttpRequest();
+    xhr.open('post','https://www.souyidai.com/export/invest/portalData2',true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 ) {
+            if (/200|304/.test(xhr.status)) {
+                // let t = xhr.getResponseHeader('date');  // 获取制定响应头
+                //  xhr.getAllResponseHeaders()   获取所有的响应头
+                console.log(xhr.response);
+                console.log(t)
+            } else if (/[45]\d{2}/.test(xhr.status)) {
+                console.log('失败');
+            }
+        }
+    }
+    xhr.setRequestHeader('content-type','application/x-www-form-urlencoded')
+    let obj = {
+        a:12,
+        b:13
+    }
+    // xhr.send(JSON.stringify(obj));
+    // 这里的需要传一个字符串   这种传参方式叫 payload 方式
+
+    // 怎么转成 form Data 格式的传参的数据格式？  首先把要传的对象转成 search字符串  然后再去更改请求头的content-type属性
+
+    let str = '';
+    for (let k in obj) {
+        str += `${k}=${obj[k]}&`;
+    }
+    xhr.send(str);
+
+</script>
