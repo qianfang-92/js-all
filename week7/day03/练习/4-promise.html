@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    /*
+        promise 用法
+    */
+   let p = new Promise((res,rej)=>{
+        res(333)
+   }).then(function (data) {
+        return new Promise((res,rej)=>{})
+   }).then(()=>{})  // 当前边的then的回调函数的返回值是一个新的Promise实例，则后面的then就相当于给了这个新的实例 分别对应成功的和失败的回调函数
+</script>

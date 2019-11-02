@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script src="ajax.js"></script>
+<script>
+    ajax({
+        method:'post',
+        async:true,
+        cache:false,
+        url:'../data.json',
+        data:{
+            d:2,
+            e:3,
+        },
+        headers:{
+            g:5,
+            tt:4
+        },
+        success(data){
+
+        },
+        error(err){
+
+        }
+    })
+</script>

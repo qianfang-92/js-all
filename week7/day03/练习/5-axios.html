@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script src="../axios.js">
+</script>
+<script src="">
+    axios.get('../data.json',{params:{a:1,d:4}}).then()
+    axios.post('../data.json',{w:4,y:5}).then();
+
+    axios({
+        method:'get',
+        params:{
+            t:6,
+            y:6
+        },
+        data:{
+            t:0,
+            b:5
+        },
+        url:'../data.json'
+    }).then()
+</script>
+<script>
+    /*
+        跨域  ：  协议  域名  端口号  三者有一个不一样  就是跨域（用link  src  不存在跨域  只有ajax请求数据时有）
+
+        同源策略  ：  浏览器的安全机制   只有同源之间数据才能交互  所以说  跨域问题 只存在在浏览器中 后台没有跨域
+
+        正因为有同源限制  才能保证各个网站之间互不干扰
+
+        全局配置 ：
+        axios.default.baseURL
+
+        var http = axios.create({
+            baseURL:'',
+            timeout: ,
+            transformRequest:[f1,f2,f3],
+            transformResponse:[f1,f2,f3],
+        })
+    */
+
+    axios.defaults.baseURL = 'https://www.easy-mock.com/mock/5db94935f94af26320296ab3/qqq';
+    axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+    axios.defaults.transformRequest = function (data = {}) {
+        // data 只能拿post 的东西
+        // 所有请求在发出来的时候， 都会走该函数
+        console.log(data);
+        let str = '';
+        for (let k in data) {
+            str += `${k}=${data[k]}&`
+        }
+        return str = str.replace(/&$/,'');
+    }
+
+    // 添加请求拦截器
+    axios.interseptors.request.use(function (config) {
+        // 在发送请求之前做些什么
+        if (config.method == 'get') {
+            config.params.token = 1233;
+        } else {
+            config.data.token = 1222;
+        }
+        return config;
+    }, function (error) {
+        // 对请求错误做些什么
+        return Promise.reject(error);
+    });
+
+    // 添加响应拦截器
+    axios.inerceptors.response.use(function (response) {
+        return response.data;
+    }, function (error) {
+        return Promise.reject(error);
+    })
+</script>
