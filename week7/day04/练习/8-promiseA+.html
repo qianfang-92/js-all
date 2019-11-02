@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    function myPromise (executor) {
+        let self = this;
+        self.value = undefined;
+        self.reason = undefined;
+        self.status = 'pending';
+        self.resCallback = [];
+        self.rejCallback = [];
+        function res (value) {
+            if (self.status === 'pending') {
+                self.status = 'resolved';
+                self.value = value;
+                self.resCallback.forEach(item=>{
+                    item(self.value);
+                })
+            }
+        }
+        function rej (reason) {
+            if (self.status === 'pending') {
+                self.reason = reason;
+                self.status = 'rejected';
+                self.rejCallback.forEach(item=>{
+                    item(self.reason)
+                })
+            }
+        }
+        try {
+            executor(res, rej)
+        } catch (error) {
+            rej(error)
+        }
+    }
+    myPromise.prototype.then = function (res,rej) {
+        let self = this;
+        return new myPromise (function (res2,rej2) {
+            if (self.status === 'resolved') {
+                try {
+                    let value = res(self.value);
+                    res2(value);
+                } catch (error) {
+                    rej2(error)
+                }
+            }
+            if (self.status === 'rejected') {
+                try {
+                    let reason = rej(self.reason);
+                    res2(reason)
+                } catch (error) {
+                    rej2(error)
+                }
+            }
+            if (self.status === 'pending') {
+                self.resCallback.push(function (value) {
+                    // 当 promise里的res rej在异步执行，比如有个定时器时，这时为了让then等待，异步执行，添加了这个resCallback回调函数；
+                    try {
+                        let val = res(value);
+                        res2(val);
+                    } catch (error) {
+                        rej2(error)
+                    }
+                })
+                self.rejCallback.push(function (reason) {
+                    try {
+                        let rea = rej(reason);
+                        res2(rea);
+                    } catch (error) {
+                        rej2(error);
+                    }
+                })
+            }
+        })
+    }
+
+    let p = new myPromise((res,rej)=>{
+        rej(333);
+    });
+    p.then((data)=>{
+        console.log(data);
+    }, (err)=>{
+        console.log(err);
+    })
+</script>

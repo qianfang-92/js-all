@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script src='../day03/axios.js'></script>
+<script>
+   /*  axios.get(url,{params:{}}).then();
+    axios.post(url,{});    // 默认发送的是JSON字符串
+    axios({
+        method:'get',
+        data:{},
+        params:{}
+    }) */
+
+    axios.defaults.baseURL = 'https://www.baidu.com/s';
+    axios.defaults.transformRequest = function () {};
+    axios.defaults.headers['Content-type'] = 'application/x-www-form-urlencoded';
+</script>

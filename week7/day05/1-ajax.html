@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+   /*  let xhr = new XMLHttpRequest();
+    xhr.open(type,url,async); 
+    xhr.onreadystatechange = function () {
+    //监听请求状态
+    // readyState  0  1  2 3  4 
+    // status  200  301   302  304  307  403  404   405
+        if (xhr.readyState == 4) {
+            if (/2\d{2}|304/.test(xhr.status)) {
+
+            } else if (/[45]\d{2}/.test(xhr.status)) {
+
+            }
+        }
+
+    }
+    xhr.send() */
+
+    // webSocket  一个协议   
+    // socket.io 它是  websocket 的一个封装好的库
+    let ws = new WebSocket('wss://docs.qq.com/socket.io/?gtag=main_page_p.24092244&EIO=3&transport=websocket');
+    ws.onopen = function () {
+        // 链接打通的时候
+        console.log(1)
+    };
+    ws.onmessage = function (e) {
+        // 前端接收到后端推送的消息
+        console.log(e);
+    };
+    ws.onerror = function () {
+        // 链接出现失败时
+    }
+    ws.onclose = function () {
+        // 链接被关闭的时候
+    }
+    // ws.send('你好');
+    // ws.close();  // 主动关闭链接
+</script>

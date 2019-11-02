@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+
+
+    function myPromise(exector) {
+        let self = this;
+        self.value = undefined; // 用来存储成功状态下的值
+        self.reason = undefined;
+        self.status = 'pending'; // 存储promise的状态
+        self.resCb = []; // 存储成功的回调函数；
+        self.rejCb = []; // 用来存储失败的回调函数；
+        let res = function (value) {
+            setTimeout(()=>{  // 为了使then里面函数异步
+                if (self.status === 'pending') {
+                    self.status = 'resolved';
+                    self.value = value;
+                    self.resCb.forEach(item => {
+                        item && item(self.value);
+                    })
+                }
+            })
+        };
+        let rej = function (reason) {
+            setTimeout(()=>{
+                if (self.status === 'pending') {
+                    self.status = 'rejected';
+                    self.reason = reason;
+                    self.rejCb.forEach(item => {
+                        item && item(self.reason);
+                    })
+                }
+            })
+        };
+        try {
+            exector(res, rej)
+        } catch (error) {
+            rej(error)
+        }
+    }
+    myPromise.prototype.then = function (res, rej) {
+        let self = this;
+        return new myPromise((res2, rej2) => {
+            if (self.status == 'resolved') {
+                // 第二个then的回调函数参数 是由第一个then的回调函数的执行结果赋予的
+                try {
+                    let value = res(self.value);
+                    res2(value);
+                } catch (error) {
+                    rej2(error)
+                }
+            }
+            if (self.status == 'rejected') {
+                try {
+                    let reason = rej(self.reason);
+                    res2(reason) // 上一个失败回调没出现错误 就需要让下一个then的成功回调函数执行
+                } catch (error) {
+                    rej2(error)
+                }
+            }
+            if (self.status === 'pending') {
+                // self.resCb.push(res);
+                // self.rejCb.push(rej);
+                self.resCb.push(function (value) {
+                    try {
+                        let val = res(value);
+                        res2(val);
+                    } catch (error) {
+                        rej2(error)
+                    }
+                })
+                self.rejCb.push(function (reason) {
+                    try {
+                        let rea = rej(reason);
+                        res2(rea);
+                    } catch (error) {
+                        rej2(error)
+                    }
+                })
+            }
+        })
+    }
+
+    myPromise.all = function (ary) {
+        // ary中 都是mypromise实例
+        return new myPromise((res,rej)=>{
+            let done = gen(ary.length, res);
+            ary.forEach((item,index)=>{
+                item.then((data)=>{
+                    done(index,data)
+                },rej)
+            })
+        })
+    }
+    function gen (length, res) {
+        let values = [];
+        let count = 0;
+        return function (index, value) {
+            values[index] = value;
+            if (++count == length) {  // 这时说明ary里的都执行完了，再执行输出
+                res(values)
+            }
+        }
+    }
+
+
+    let p2 = new myPromise((res, rej) => {
+        // console.log(222);
+        // console.log(qqq)
+        setTimeout(() => {
+            res(333)
+        }, 3000)
+    });
+    p2.then((data) => {
+        console.log(data)
+    },(err)=>{
+        console.log(err)
+    }).then((data)=>{
+        console.log('2',data)
+    }, (err)=>{
+        console.log('2',err)
+    })
+    let p1 = new myPromise((res, rej) => {
+        setTimeout(() => {
+            res(222)
+        }, 4000)
+    });
+    myPromise.all([p1,p2]).then((data)=>{
+        console.log(data)
+    },()=>{})
+</script>

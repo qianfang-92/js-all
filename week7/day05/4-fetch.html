@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    /*
+        fetch  浏览器新增的aPi
+    */
+   fetch('./data.json').then((response)=>{
+    // 不管是200 还是4xx  5xx  都会走成功的回调
+    // console.log(response);
+    // console.log(response.json());
+    return response.json();   // json test 只能执行一次
+   }, ()=>{
+
+   }).then((data)=>{
+        console.log(data)
+   },(err)=>{
+        console.log(err)
+   })
+
+   fetch('./data.json',{
+       method:'post',    
+       headers:{},
+       credentials:'same-origin',
+       body:JSON.stringify({a:123,f:455}),   // get时不能有 body这个
+   }).then((response)=>{
+       return response.json();
+   },()=>{}).then((data)=>{
+       console.log(data)
+   },(err)=>{
+       console.log(err)
+   })
+</script>
