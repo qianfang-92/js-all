@@ -285,15 +285,15 @@ window.alert = (function () {
 			$DIALOG.style.opacity = 1;
 			$MAIN.style.transform = 'translateY(0)';
 
-			if (!this.options.confirm) {
-				let handled = this.options.handled;
-				this.timer = setTimeout(() => {
-					this.hide();
-					typeof handled === 'function' ? handled.call(this, 'CLOSE') : null;
-					clearTimeout(this.timer);
-					this.timer = null;
-				}, 3000);
-			}
+			// if (!this.options.confirm) {
+			// 	let handled = this.options.handled;
+			// 	this.timer = setTimeout(() => {
+			// 		this.hide();
+			// 		typeof handled === 'function' ? handled.call(this, 'CLOSE') : null;
+			// 		clearTimeout(this.timer);
+			// 		this.timer = null;
+			// 	}, 3000);
+			// }
 		}
 		hide() {
 			clearTimeout(this.timer);

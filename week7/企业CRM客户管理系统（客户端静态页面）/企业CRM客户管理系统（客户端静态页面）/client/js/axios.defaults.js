@@ -1,5 +1,6 @@
 axios.defaults.baseURL = 'http://127.0.0.1:8888';
 axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+axios.defaults.withCredentials = true;  // 默认false 跨域时不携带cookie  改成 true 就携带cookie
 axios.defaults.transformRequest = function (data={}) {
     // 处理post请求的参数，转成 search字符串
     let str = '';
