@@ -17,3 +17,9 @@ console.log('文件路径',__filename)
 /*
     npm run 对应的脚本命令 (在package.json的script中对应的属性名)
 */
+
+/*
+    装上 了 less less-loader 插件
+    修改过的package.json文件 改了对应的script属性中的 myqqq 
+    有对应的less文件
+*/
