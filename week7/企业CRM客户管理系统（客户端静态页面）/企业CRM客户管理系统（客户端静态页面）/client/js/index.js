@@ -111,7 +111,7 @@ $(function () {
                         <nav class="item">
                             <a href="./page/customerlist.html#my" target='iframeBox'>我的客户</a>
                             ${
-                                power.indexOf('allcustomer') !== -1 ? `<a href="./page/customerlist.html?t=2jh2k34hk2#all" target='iframeBox'>全部客户</a>` : ''
+                                power.indexOf('allcustomer') !== -1 ? `<a href="./page/customerlist.html?t=${Math.random()}#all" target='iframeBox'>全部客户</a>` : ''
                             }
                             ${
                                 power.indexOf('departcustomer')!== -1 ? `<a href="./page/customeradd.html" target='iframeBox'>新增客户</a>` : ''

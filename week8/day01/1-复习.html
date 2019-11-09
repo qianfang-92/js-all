@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    /*
+        http  三握四挥   http 和 https
+        ajax   timeout abort   ontimeout  onabort
+         readyState 0 - 4 
+         status http状态码 200 301  302  307 304  强缓存 协商缓存
+         axios   get post  拦截器 请求拦截：做一些参数的处理   响应拦截：返回 response.data 
+            content-type   application/x-www-form-urlencoded  设置formdata格式
+        fetch 基于promise 新的api  fetch(url,{}).then(()=>{判断是成功还是失败},()=>{}).then()
+    */
+
+    fetch('./data.json').then((data)=>{
+        return data.json();  // 只有这样才能拿到数据    
+    })
+
+    // 监听hash改变事件  onhashchange
+    // cookie 与 session的区别        localStorage  sessionStorage  
+    // promiseA+ 规范  背会
+    //  webSocket  双向数据通信  后端也可以给前端推送消息    socket.io  库 基于websocket封装  onopen  onmessage   onerror  onclose  send  close    
+    // 跨域 jsonp:script 的 src 不存在跨域 ；同源策略 
+    /*
+        cors
+        postMessage 
+    */  
+
+    function f (s) {
+        if (s.indexOf('[') == -1) return;
+        s = s.replace(/(\d+)\[([a-z]+)\]/i, function (a,b,c) {
+            let temp = '';
+            for (let i = 0; i < b; i++) {
+                temp += c;
+            }
+            return temp;
+        })
+        return s.indexOf('[') == -1 ? s : f(s)
+    }
+</script>

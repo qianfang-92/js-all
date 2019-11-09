@@ -24,7 +24,7 @@ function http(url,options={}){
         if(/[45]\d{2}/.test(data.status)){
             throw Error(`${data.status} ${data.statusText}`)
         }
-        return data.json();
+        return data.json(); // 基于fetch的二次   这个方法必须执行一下，才能调用到数据
     })
 }
 http.get = function(url,data){
