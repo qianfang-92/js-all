@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/game-nav.css">
+</head>
+
+<body>
+    <div class="box clearfix">
+        <div class="left">
+            <div class="banner">
+                <a href="" target="_blank"><img src="./img/game.jpg" alt="重装战姬"><span>重装战姬</span></a>
+            </div>
+            <div class="brief clearfix">
+                <a href="" target="_blank" title="命运-冠位指定（Fate/GO）"><img src="./img/game1.png" alt="命运-冠位指定（Fate/GO）"><span>命运-冠位指定（Fate/GO）</span></a>
+                <a href="" target="_blank" title="双生视界"><img src="./img/game2.jpg" alt="双生视界"><span>双生视界</span></a>
+                <a href="" target="_blank" title="碧蓝航线"><img src="./img/game3.png" alt="碧蓝航线"><span>碧蓝航线</span></a>
+            </div>
+        </div>
+        <div class="right">
+            <div class="all">
+                <a style="overflow:hidden; white-space:nowrap" href="" target="_blank" data-img="./img/game4.png"><span>A3!满开剧团</span></a>
+                <a style="overflow:hidden; white-space:nowrap" href="" target="_blank" data-img="./img/game5.png"><span>战双帕弥什</span></a>
+                <a style="overflow:hidden; white-space:nowrap" href="" target="_blank" data-img="./img/game6.png"><span>大王不高兴</span></a>
+                <a style="overflow:hidden; white-space:nowrap" href="" target="_blank" data-img="./img/game7.png"><span>哈利波特：魔法觉醒</span></a>
+                <a style="overflow:hidden; white-space:nowrap" href="" target="_blank" data-img="./img/game8.png"><span>公主连结Re:Dive</span></a>
+                <a style="overflow:hidden; white-space:nowrap" href="" target="_blank" data-img="./img/game9.png"><span>Dead Cells</span></a>
+                <a style="overflow:hidden; white-space:nowrap" href="" target="_blank" data-img="./img/game10.png"><span>魔法纪录  魔法少女小圆外传</span></a>
+            </div>
+        </div>
+        <div class="imgdiv" style="background-repeat: no-repeat;"></div>
+    </div>
+</body>
+
+</html>
+<script>
+    var onEventUtil = {
+        addEventListener: function (element, type, handler) {
+            if (element.addEventListener) {
+                element.addEventListener(type, handler, false);
+            } else if (element.attachEvent) {
+                element.attachEvent('on' + type, handler);
+            }
+        }
+    };
+    var aele = document.querySelectorAll('.all > a');
+    var imgele = document.querySelectorAll('.imgdiv');
+    for (var i = 0, max = aele.length; i < max; i++) {
+        onEventUtil.addEventListener(aele[i], 'mouseover', overimg);
+        onEventUtil.addEventListener(aele[i], 'mouseout', outimg);
+    }
+    function overimg() {
+        var img = this.getAttribute('data-img');
+        imgele[0].style.backgroundImage = 'url(' + img + ')';
+    }
+    function outimg() {
+        imgele[0].style.backgroundImage = '';
+    }
+
+
+</script>
