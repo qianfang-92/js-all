@@ -28,7 +28,7 @@ $(function () {
 
     // 检测是否登陆    每次进到首页都要验证
     axios.get('/user/login').then((data)=>{
-        if (data.code !== 0) {
+        if (data.code != 0) {
             // 这里 用两个等号，为了防止后端给了一个字符串0 如果用三个等号，会不匹配
             alert('当前登陆无效，请重新登陆', {
                 handled: function () {
@@ -111,7 +111,7 @@ $(function () {
                         <nav class="item">
                             <a href="./page/customerlist.html#my" target='iframeBox'>我的客户</a>
                             ${
-                                power.indexOf('allcustomer') !== -1 ? `<a href="./page/customerlist.html?t=${Math.random()}#all" target='iframeBox'>全部客户</a>` : ''
+                                power.indexOf('allcustomer') !== -1 ? `<a href="./page/customerlist.html#all" target='iframeBox'>全部客户</a>` : ''
                             }
                             ${
                                 power.indexOf('departcustomer')!== -1 ? `<a href="./page/customeradd.html" target='iframeBox'>新增客户</a>` : ''

@@ -2,7 +2,7 @@ let fs = require('fs');
 let obj = {};
 ['readFile','readdir'].forEach(item=>{
     obj[item] = function (url,encoding=null) {
-        if (/\.(js|css|html|txt|md)$/.test(url)) {
+        if (/\.(js|css|html|txt|md|json)$/.test(url)) {
             encoding = 'utf-8';
         }
         return new Promise ((res,rej) =>{
@@ -31,7 +31,7 @@ let obj = {};
 });
 ['writeFile','appendFile'].forEach(item=>{
     obj[item] = function (url,data,encoding=null) {
-        if (/\.(js|css|html|txt|md)$/.test(url)) {
+        if (/\.(js|css|html|txt|md|json)$/.test(url)) {
             encoding = 'utf-8';
         }
         return new Promise ((res,rej)=>{

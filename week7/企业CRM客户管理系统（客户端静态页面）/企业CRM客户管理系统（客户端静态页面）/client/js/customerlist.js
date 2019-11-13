@@ -1,10 +1,17 @@
 $(function () {
     let page = 1,limit = 5;
     console.log(location.hash);
-
-window.addEventListener('hashchange',function () {
-    console.log(location.hash);
-    sessionStorage.setItem('customerUrl','./page/customerlist.html'+location.hash) })
+    function fn() {
+        console.log(location.hash);
+        // 将当前操作的导航存到sessionStorage中
+        getData({
+            limit,
+            page
+        });
+        sessionStorage.setItem('customerUrl','./page/customerlist.html'+location.hash)
+    }
+    fn();
+    window.addEventListener('hashchange',fn)
 
     function getData (options={}) {
         // options 存储的是发送后台的数据
