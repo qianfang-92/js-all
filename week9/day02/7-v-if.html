@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <input type="number" v-model='n'>
+        <!-- v-if 和 v-else 之间不能有任何标签 否则会报错-->
+        <!-- <h1 v-if="n%2==0">{{name}}</h1> -->
+        <!-- <span></span> -->
+        <!-- <h2 v-else-if="n%3==0">{{n+name}}</h2> -->
+        <!-- 
+            v-if 和 v-show :  v-show只是让元素隐藏  v-if让元素整个就不加载 
+            v-for优先级要比 v-if高
+        -->
+        <h1 v-if="n%2==0">v-if</h1>
+        <h1 v-show='n%2==0'>v-show</h1>
+        <ul>
+            <!-- 两个指令同时存在时，vue先处理 v-for 再处理 v-if  因为 v-for的优先级高 -->
+            <li v-for='i in 4' v-if="i%2==0" >
+                {{i}}
+            </li>
+        </ul>
+        <button @click="change">切换</button>
+        <!-- key是为了不让vue 就地复用  等于告诉vue 这是两个不同的元素 key对于vue就是身份证 -->
+        <input v-if="flag" type="text" placeholder="姓名" key='1'>
+        <input v-else type="text" placeholder="年龄" key='2'>
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰",
+            n:0,
+            flag:true
+        },
+        methods:{
+            change(){
+                this.flag = !this.flag
+            }
+        }
+    })
+</script>

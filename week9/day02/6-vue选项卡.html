@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+        *{
+            margin:0;
+            padding: 0;
+            list-style: none;
+        }
+        .head{
+            display: flex;
+        }
+        .head>li{
+            width:100px;
+            border:1px solid  firebrick;
+            text-align: center;
+        }
+        .body{
+            overflow: hidden;
+            position: relative;
+            width:400px;
+            height: 300px;
+            border:1px solid saddlebrown;
+
+        }
+        .body>li{
+            position: absolute;
+            left:0;
+            top:0;
+            width: 400px;
+            height: 300px;
+            line-height: 300px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" v-cloak>
+        <h1>{{name}}</h1>
+        <ul class="head">
+            <li v-for="v,i in ary" @click="change(i)" >
+                {{v}}
+            </li>
+        </ul>
+        <ul class="body">
+            <li v-for="v,i in body" v-show='i == qqq'>
+                {{v}}
+            </li>
+        </ul>
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰",
+            ary:['js','css','html','vue'],
+            body:['JS学习','CSS学习','HTML学习','VUE学习'],
+            qqq:0
+        },
+        methods:{
+            change(n){
+                // console.log(n);
+                this.qqq = n;
+            }
+        }
+    })
+</script>

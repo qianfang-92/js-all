@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app" >
+        <h1>{{name}}</h1>
+        <input type="text" v-model='name'>
+        <input type="number" v-model="age" @keydown.13='submit'>
+        <!-- 按键修饰符  上面的代码是 只有当按键是回车键才会触发函数 13是回车键的keyCode  也可以写keydown.enter 也可以根据需要写别的键盘码-->
+        <button @click.alt.exact='submit'>444</button>
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰",
+            age:0
+        },
+        methods:{
+            submit(e){
+                console.log(e)
+                if(e.keyCode == 13) {
+                    console.log(this.name,this.age)
+                }
+            }
+        }
+    })
+</script>
