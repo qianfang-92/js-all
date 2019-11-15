@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    //  push  pop  shift unshift reverse sort splice
+
+    // forEach map filter some every find reduce include flat
+    var ary = [1,2,3,4,5,90,20,420];
+    var arr = ary.filter(item=>{
+        return item > 3;
+    });
+    // 过滤 
+    // some 只要有一个回调是true就是true 后边的回调就不再执行， every是只要有一个是false 结果就是flase，后边就不再执行
+    ary.reduce(function(pre,next){
+        console.log(arguments)
+    },20)
+
+    ary = [{a:1},{a:2},{a:3},{a:4},{a:5},{a:6}];
+    let res2 = ary.find((item,index)=>{
+        // 回调函数返回true  则把党外的这一项返回给res2  ；后边的回调函数不再执行
+        console.log(8);
+        return item.a == 3;
+    });
+
+    // 以上方法都属于声明式的写法  : 别人规定好的 直接用  forEach
+    //             编程式写法    ：自己写的              for 循环
+
+</script>

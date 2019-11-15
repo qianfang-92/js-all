@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" v-cloak>
+        <h2>姓名是{{name}}</h2>
+        <input type="text" v-model="name1"> 
+        <!-- v-model 指令 改变它的值 
+            在vue中  所有的 v-xxx的行内属性都是vue的指令
+        -->
+        <div v-once>
+            {{name1}}
+            <i>{{age}}</i>
+        </div>
+        <!-- 这个v-text 类似于小胡子 而且会避免渲染不及时出现小胡子 -->
+        <h3 v-text="name1"></h3>
+
+
+        <input type="number" v-model="age">
+        <h3>{{age >= 18 ? '成年人' : '未成年人'}}</h3>
+
+        <div>
+            {{p}}
+        </div>
+        <div v-text="p"></div>
+        <div v-html="p"></div>
+
+        <textarea v-model="n"></textarea>
+        <!-- <h1>{{n=100}}</h1> -->
+        <h2>{{n}}</h2>
+        <div v-html="n"></div>
+
+        <div v-pre>
+            {{name}}
+            {{age}}
+            {{n}}
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    //  vue把结构拿走，再还回, 虚拟DOM
+    /*
+        v-model="vue变量" 双向数据绑定
+        v-text="vue变量"  有点像innerText
+        v-html="vue变量"  可以识别出vue变量里面的DOM结构 有点像innerHTML
+        v-cloak 后边不跟值； vue渲染完成之前，元素上会带有v-cloak属性，配合css使用，会使元素不见  在vue渲染完成之后，vue会把这个行内属性去掉 这样 页面中就不会出现小胡子语法了
+        v-once 后边不跟值，有这个属性的元素里面的语法，vue只会渲染一次 这个元素的子元素都会继承了这个，vue只会一次
+        v-pre  告诉vue 有这个指令的标签和后代标签都不用进行编译  ，可以提升vue编译的效率 跳过没有指令的节点
+    */
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:'zhufeng',
+            name1:'666',
+            age:0,
+            p:'<h3>hello world</h3>',
+            n:0
+        }
+    });
+    // 数据更新 视图改变   双向视图改变
+</script>

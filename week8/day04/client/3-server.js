@@ -11,7 +11,7 @@ app.listen(8000, function () {
 
 //解决跨域
 app.use((req,res,next)=>{
-    res.header('Access-Control-Allow-Origin','http://127.0.0.1:3000'); // 让后端支持跨域
+    res.header('Access-Control-Allow-Origin','http://localhost:3000'); // 让后端支持跨域
     res.header('Access-Control-Allow-Credentials',true);
     next();
 })
@@ -45,6 +45,19 @@ app.use((req,res,next)=>{
         res.send('')
     })
 })
+
+app.use(session({
+    //在这个中间件之后 会在 req上多了一个 session的属性
+    // session 就相当于后端的cookie
+    secret: 'myqqq', //cookie生成是根据后端种的属性名和secret这个属性值来生成的
+    name : 'qqqq',
+	saveUninitialized: false,
+	resave: false,
+	cookie: {
+		maxAge: 1000 * 60 * 60 * 24 * 30
+	}
+}));
+
 
 app.post('/reg',function (req,res) {
     // 实现注册接口
@@ -83,16 +96,10 @@ app.post('/login',function (req,res) {
         return item.username == username && item.password == password
     })
     if (bol) {
-        // 登陆成功，需要后端给前端种植一个cookie 来判断用户是否处于登陆状态
-        session({
-            name:"hello",
-            secret:"myqqq",
-            resave:false,
-            saveUninitialized:false,
-            cookie:{
-                maxAge:1000*60*60
-            }
-        })
+        // 登陆成功，需要后端给前端种植一个cookie 来判断用户是否处于登陆状态  
+        // console.log(req.session);
+        req.session.username = username; // 这是后端在session上种植了一个属性 
+
         res.send({
             code:0,
             data:{
@@ -103,6 +110,28 @@ app.post('/login',function (req,res) {
         res.send({
             code:2,
             message:'用户名密码错误'
+        })
+    }
+})
+
+app.get('/info', function (req,res) {
+    console.log(req.session.username);
+    // 登陆成功之后，后端会给前端一个cookie 以后每一次请求后台接口的时候，后端都会根据这个cookie值判断前端是否处于有效登录期内
+
+    // 后端的具体做法是 根据登陆时 在 session 上设置的属性 还有没有来进行判断
+    if (req.session.username) {
+        res.send({
+            code:0,
+            data:{
+                name:req.session.username,
+                sex:0,
+                age:19
+            }
+        })
+    } else {
+        res.send({
+            code:1,
+            message:'no login'
         })
     }
 })

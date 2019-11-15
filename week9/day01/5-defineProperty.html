@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- <div id="app">
+        <h1>{{name}}</h1>
+    </div> -->
+
+    <div id="qqq">
+
+    </div>
+    <div id="www">
+
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    /* let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰"
+        }
+    }) */
+
+    // 
+    let ary = [];
+    let obj = {} 
+    let val = 0;
+    //  三个参数 ：监听的对象  对象的属性  属性值
+    Object.defineProperty(obj, 'qqq', {
+       /*  value:'珠峰',
+        enumberable:true,  // 可枚举
+        configurable:true,  // 可删除
+        writable:true,   // 可改写    */ 
+        get(){
+            console.log('get');
+            return val;  //拿属性时会触发这个函数 读取时的值就是这个return值
+        } ,  // get set和上面的不能一起写      
+        set(value){
+            val = value;
+            // value 就是给对应属性设置的值
+            console.log('set',arguments);
+            ary.forEach(item=>item())
+            return 'set'
+        }
+        
+    });
+    function render1 () {
+        qqq.innerHTML = obj.qqq;
+    }
+    ary.push(render1)
+    function render2 () {
+        www.innerHTML = obj.qqq;
+    }
+    ary.push(render2)
+    // for (let k in obj) {console.log(k)};
+    // delete obj.qqq;
+    // obj.qqq = 999;
+    
+
+    let obj2 = {a:12,d:13};
+    let o = new Proxy(obj2,{
+        get(...arg){
+            console.log(arg)
+        },
+        set(...arg){
+            console.log(arg)
+        }   
+    })
+</script>

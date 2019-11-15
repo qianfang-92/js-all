@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .outer{
+            width: 300px;
+            height: 300px;
+            padding:100px;
+            background:darkgoldenrod;
+            box-sizing: border-box;
+        }
+        .inner{
+            width: 100px;
+            height: 100px;
+            background: darkgreen;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <input type="text" v-model="name">
+        <button v-on:click='myalert'>按钮</button>
+        <button @click="myalert()">按钮2</button>
+        <button @click="myalert(888)">按钮3</button>
+        <button @click="myalert(111,2,$event,3,43,3,name)">按钮4</button>
+        <a href="http://www.baidu.com" @click.prevent="myalert">百度</a>
+        <!-- @click.prevent  事件修饰符 -->
+        <div class="outer" @click.self="outerfn">
+            <div class="inner" @click="innerfn"></div>
+        </div>
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    
+    // v-on是专门用来绑定事件的 指令； 简写 @
+    // @click='函数名'   在  methods中的函数 会接收一个事件对象e作为参数   
+    // @click='函数名()'  这里  相当于没有给函数传递任何实参
+    // @click='函数名(888)' 这里 相当于给函数传递了实参  888 ；
+    // @click='函数名(一些实参)'  就是传了一堆实参  可以把vue中data的变量直接当实参传进来
+    //  若既要传实参 又要事件对象 则需要手动写一个$event 实参
+    /*
+        事件修饰符：  prevent（阻止默认事件）  stop（对应的是stopPropergation 阻止冒泡）   once（事件只触发一次）  self（只有点击元素自己时才会触发事件 避免冒泡到自己，触发自己的事件）  capture（写了这个就是在捕获阶段触发事件）    passive（写了这个 就是先执行默认事件再执行触发事件）
+    */
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰"
+        },
+        methods:{ 
+            // methods中存放的 都是当前这个实例需要用到的方法   
+            // 这里的方法中的this 统一是当前的实例；
+            // methods 中的内容和 data中 的内容都会被挂载到当前实例上，所以methods和data中的变量名不能冲突
+            myalert(e){
+                console.log(this.name,e,arguments)
+
+            },
+            /* name(){  // vue处理时，把data和methods的方法统一挂到实例上 所以不能重复使用变量
+                console.log(888)
+            } */
+            outerfn(){
+                console.log('outer');
+            },
+            innerfn(){
+                console.log('inner')
+            }
+        }
+    });
+
+</script>

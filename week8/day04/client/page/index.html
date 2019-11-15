@@ -10,7 +10,8 @@
     <input type="text" placeholder="用户名" id="usn">
     <input type="password" placeholder="密码" id="psd">
     <button id="btn">注册</button>
-    <button id="login" style="display:none">登陆</button>
+    <button id="login">登陆</button>
+    <button id="btn3">请求info</button>
 
 </body>
 </html>
@@ -52,5 +53,13 @@
             }
         })
     })
-
+    $('#btn3').on('click',function () {
+        $.ajax({
+            type:'get',
+            url:'http://localhost:8000/info',
+            xhrFields:{
+                withCredentials:true  //跨域前端携带cookie
+            }
+        })
+    })
 </script>

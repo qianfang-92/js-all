@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        {{ary}}
+        <!-- 调用JSON.stringify方法进行展示 -->
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    /*
+        原生的能改变原有数组的方法 在vue中被称为  数组的变异方法  
+        只有调用这些数组的变异方法 才会触发视图的更新 
+    */
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰",
+            ary:[1,2,3,]
+        }
+    })
+    // 想实现数组的更新，  一个是整个数组的替换  一个是使用splice  一个是使用无关变量
+</script>

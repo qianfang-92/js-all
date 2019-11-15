@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <input type="text" v-model="name">
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    /*
+        vue 是双向数据绑定 单向数据流
+        v-model  
+        v-text
+        v-html 比较危险 永远不要用在用户提交的
+        v-once
+        v-cloak
+        v-pre 
+    */
+   /*
+        vue实现双向数据绑定的原动力  ：Object.definedproperty(对象，属性名，{get(){},set(){}}) 只有  set  get 属性的才会被definedProperty监听到
+        definedProperty 的特点 是按对象中一个个的属性监听的，
+        MVVM 双向数据绑定  问MVVM的原理 就说一下 definedProperty和proxy这个两个方法
+   */
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰",
+            obj:{
+                a:0
+            }
+        }
+    })
+    let obj = {aaa:122};
+    Object.defineProperty(obj,'qqq',{
+        // 监听对象的一个个属性
+        get(){
+            return 777;
+        },
+        set(val){
+
+        }
+    });
+    let o = new Proxy(obj,{ 
+        // 整个对象的监听
+        get(tar,key){
+            console.log(tar,key)
+            return 333
+        },
+        set(tar,key,val){
+            console.log(tar,key,val);
+            tar[key] = val;
+        }
+    });
+    //  给对象新增属性的时候，不会触发视图的更新   解决：
+    //  1、刚开始就写好这个属性名  undefined指望
+    //  2、整个对象的替换 
+    //  3、vm.$set(vm.obj,属性名，属性值)
+    //  4、增加一个无关变量  每次修改完数据 更新这个变量
+</script>

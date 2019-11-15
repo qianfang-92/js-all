@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        {{obj}}
+        <span style="display: none;">{{t}}</span>
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    /*
+        我们改变vue中的数据  能触发视图更新 前提是 该数据有get 和　set 
+            如果没有get和set 更改数据是不会触发视图的更新，但是 数据是改了的 这时 只要改变有set和get的数据时会触发视图更新 这时能看见增加的新数据
+
+            给对象新增属性时，vue不会触发视图的更新，怎么解决？
+                1、可以一开始就在vue的data中写上对应的属性 先给上undefined值 后期再写
+                2、整个对象替换的方式  vm.obj = Object.assign({b:2},vm.obj); 这时需要把新对象写前面，如果把原Obj写在前面，返回的还是原来的地址    这个方法的好处是 替换后的对象中每一个属性 都会被监听 都有get set属性
+                3、通过 $set方法   $set(对象，属性名，属性值)
+                4、初始时  创建一个无关变量 ，再新增对象的属性时 我们可以去更新刚才的无关变量
+    */
+    let vm = new Vue({
+        el:'#app',
+        data:{ // data中的属性最终都是挂载到了当前的这个vue实例身上
+            name:"珠峰",
+            obj:{
+                a:22,
+                c:undefined   // undefined在vue里是出不来的 所以可以先给一个初始值undefined 
+            },
+            t:3
+        }
+    });
+    // vm.obj.c = 123
+
+    //vm.obj = Object.assign(vm.obj,{s:2}); // 返回的是合并后的原有对象
+    // 1、使用深拷贝   返回一个新的地址
+    // 2、更换参数的两个位置  返回的就是一个新的地址了
+    // vm.obj = Object.assign({b:1},vm.obj);
+
+    // vm.$set(vm.obj,'b',2332);  // 通过$set增加的属性 会把 set和get属性补上 这是vue官方推荐的方法
+    vm.obj.b = 32;
+    vm.t = Math.random();
+</script>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 
+            小胡子语法
+            里面只能写表达式 不能写语句 
+        -->
+        <h1>{{qqq?d:ello}}标签</h1>
+    </div>
+    <div id="app2">
+        <h1>{{qqq}}</h1>
+    </div>
+</body>
+</html>
+<script>
+    /*
+        vue 是一个前端框架 
+        框架：架子搭好了，往里放东西  是自己写代码，框架帮你调用
+        库：人家写好的代码，你来调用  
+
+        渐进式  vue  vue-router  vuex   axios  
+            vue的 ui组件库 ：ele   iview  vant 
+    */
+
+    new Vue({
+        // el:'#app',   // 这里不能是body和html
+        // template:`<div>这是个执行模板{{qqq}}</div>`,  // 写的时候如果有这个模板 它会把 整个el替换掉
+        data:{
+            // data属性中放的东西都是Vue的变量
+            qqq:'hello',
+            ello:'dedsdda',
+            d:[2,3,2,3,2]
+        }
+    }).$mount('#app2');// 没有el时，用这个
+</script>
