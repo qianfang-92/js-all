@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        全选：<input type="checkbox" v-model='all'>
+        <ul>
+            <li v-for='v,i in ary' :key = 'v.id'>
+                商品：{{v.id}}
+                <input type="checkbox" v-model='v.is'>
+                <input type="number" v-model='v.count'>
+                <button @click='delFn(i)'>X</button>
+            </li>
+        </ul>
+        <h3>总价：{{price}}</h3>
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰",
+            ary:[
+                {is:true,count:10,id:1},
+                {is:true,count:2,id:2},
+                {is:true,count:3,id:3},
+                {is:true,count:1,id:4},
+                {is:true,count:6,id:5},
+                {is:true,count:4,id:6}
+            ]
+        },
+        computed:{
+            all:{
+                set(val){
+                    this.ary.forEach(item=>{
+                        item.is = val;
+                    })
+                },
+                get(){
+                    return this.ary.every(item=>item.is)
+                }
+            },
+            price(){
+                return this.ary.filter(item=>item.is).reduce((pre,next)=>{return pre + next.count*10},0)
+            }
+        },
+        methods:{
+            delFn(n){
+                this.ary.splice(n,1)
+            }
+        }
+    })
+</script>

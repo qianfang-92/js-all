@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model='firstname'>
+        <input type="text" v-model='middlename'>
+        <input type="text" v-model='lastname'>
+        <h1>{{name}}</h1>
+        <h2>名字是：{{fullname}}</h2>
+        <h2>计算属性：{{fullname2}}</h2>
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰",
+            firstname:'珠峰',
+            middlename:'世纪',
+            lastname:'培训',
+            fullname:'珠峰·世纪·培训'
+        },
+        computed:{
+            fullname2(){
+                if (!this.firstname || !this.middlename || !this.lastname) {return ''}
+                return this.firstname + '·' + this.middlename + '·' +this.lastname
+            }
+        },
+        watch:{
+            firstname(n,o){
+                this.fullname = n + '·' + this.middlename + '·' + this.lastname
+            },
+            middlename(n,o){
+                this.fullname = this.firstname + '·' + n + '·' +this.lastname
+            },
+            lastname(n,o){
+                this.fullname = this.firstname + '·'+this.middlename + '·' + n
+            }
+        }
+    })
+</script>

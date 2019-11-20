@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model='name'>
+        <h1>{{name}}</h1>
+        <h2>{{name.split('').reverse().join('')}}</h2>
+        <h3>{{name|reverse}}</h3>
+        <h3>{{reverse(name)}}</h3>
+        <h3>{{reverseName}}</h3>
+        {{t}}
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        // template:"<div>hello</div>",
+        data:{
+            name:"珠峰",
+            t:0
+        },
+        methods:{
+            // this 是 当前实例
+            reverse(n){
+                console.log(8)
+                return n.split('').reverse().join('')
+            }
+        },
+        filters:{
+            // 管道符  |
+            reverse(val){
+             // 这里的this 不是当前实例
+             console.log(8)
+             return val.split('').reverse().join('')
+
+            }
+        },
+        created(){
+            // 一进来就执行
+        },
+        computed: {
+            // 计算属性 计算过的属性
+            // 计算属性对应的值  会被挂载到当前实例上，挂载的内容是函数的返回值
+            reverseName () {   //简写方式
+                // reverseName  代表的局势name的反转
+                // 计算属性会有一个对应的缓存 当计算属性依赖的值不发生改变时，那么在视图更新时，它会使用上一次计算出来的结果进行展示，不会再执行函数
+                // 依赖   这个函数用到哪个值，就依赖哪个值 不管是不是return了
+                console.log('computed')
+                // console.log(this.name)
+                return this.name.split('').reverse().join('')
+            },
+            reverseName2:{  // 这是计算属性的 全写 
+                get () {
+                    return this.name.split('').reverse().join('+')
+                },
+                set (val) {
+                    console.log(val);
+                    this.t = val;
+                }
+            }
+        }
+    })
+</script>

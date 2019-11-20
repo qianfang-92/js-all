@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <button @click='fn'>1</button>
+        <button @click='fn()'>2</button>
+        <button @click='fn(111,222,$event,name)'>3</button>
+        {{obj}}
+        <ul>
+            <li v-for='(v,i) in 5' :key='v'>
+                {{v}}---{{i}}
+            </li>
+        </ul>
+        <input type="text" v-model.lazy='name'>
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    /*
+        v-model v-text v-html v-cloak v-once v-pre v-if v-show v-for v-bind :    v-on @ 
+
+        .stop .prevent .once  .self  .capture  .passive
+         
+        v-model的三个修饰符  
+        .trim 去除首尾空格
+        .number  转数字  类似于 parseFloat 但是如果首位不是数字，就不能转了
+        .lazy  在输入框失焦时更新视图
+    */
+    let vm = new Vue({
+        el:'#app',
+        // template
+        data:{
+            name:"珠峰",
+            obj:{
+                a:12
+            }
+        },
+        methods:{
+            fn(e){
+                this.myalert();   // this 都是当前实例
+            },
+            myalert(){
+                // alert(666)
+                this.$set(this.obj,'b',100);
+                console.log(this.obj)
+            }
+        }
+    })
+</script>

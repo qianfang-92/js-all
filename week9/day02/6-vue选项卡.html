@@ -39,13 +39,16 @@
             line-height: 300px;
             text-align: center;
         }
+        .head>.current{
+            background: seagreen;
+        }
     </style>
 </head>
 <body>
     <div id="app" v-cloak>
         <h1>{{name}}</h1>
         <ul class="head">
-            <li v-for="v,i in ary" @click="change(i)" >
+            <li v-for="v,i in ary" @click="change(i)" :class='{current:qqq==i}'>
                 {{v}}
             </li>
         </ul>
@@ -65,7 +68,7 @@
             name:"珠峰",
             ary:['js','css','html','vue'],
             body:['JS学习','CSS学习','HTML学习','VUE学习'],
-            qqq:0
+            qqq:0,
         },
         methods:{
             change(n){

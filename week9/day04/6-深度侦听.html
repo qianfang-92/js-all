@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model='obj.a'>
+        <h1>{{name}}</h1>
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰",
+            obj:{
+                a:12
+            }
+        },
+        methods:{
+            www(nV,oV){
+                console.log(nV,oV)
+            }
+        },
+        computed:{
+
+        },
+        watch:{
+            /* obj(nV,oV){ // 只能监听Obj,不能监听里面的属性
+                console.log(nV,oV);
+                console.log(this)
+            } */
+            obj:'www'
+          /*   obj:{   // 深度侦听 vue没有给我们保存旧值
+                deep: true,
+                immediate:true, //该回调将会在侦听开始之后被立即调用
+                handler (nV,oV) {
+                    console.log(nV,oV) // 这两个都是新值，vue没有保存旧值
+                }
+            } */
+        }
+    })
+</script>

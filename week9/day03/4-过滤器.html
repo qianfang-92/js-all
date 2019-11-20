@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <input type="text" v-model='money'>分
+        <h3>价格是{{money|fn(312313,13,32,3,3,3,3)}}元</h3>
+        <!--  把money传给 fn  然后展示fn的返回值  | 一般称为管道符-->
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+
+    // 这种过滤器称为全局过滤器   vue.filter('过滤器的名字'， 回调函数)  回调函数的第一个参数 是 | 前边的值
+    Vue.filter('fn', function (n) {
+        console.log(this)   // this是window 
+        return (n/100).toFixed(2)
+        // return 222
+    })
+    let old = '';
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰",
+            money:0,
+        },
+        filters:{   // 这种称为私有过滤器   只有当前这个实例能用   全局和私有都存在时，会先用私有的
+            // 这里的this 也指向window 不是当前实例
+            fn(n) {
+                if (old == n) {
+                    return;
+                }
+                old = n;
+                console.log(666)
+                return '￥'+(n/100).toFixed(2)
+            }
+
+        }
+    })
+</script>

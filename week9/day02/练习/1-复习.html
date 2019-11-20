@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰"
+        }
+    })
+    /*
+        vue 是双向数据绑定  单向数据流
+        v-model
+        v-text
+        v-html
+        v-once
+        v-cloak
+        v-pre
+
+        vue实现双向数据绑定的原动力 ：Object.definedproperty(对象，属性名，{get(){},set(){}}) 只有 有 set get属性的元素才会被definedproperty监听到
+        definedProperty 的特点 是按对象中的一个个属性监听的，
+        MVVM 双向数据绑定  proxy
+    */
+</script>

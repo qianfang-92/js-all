@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        select{
+            width:150px;
+            height:30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <h2>{{username}}</h2>
+        <input type="text" v-model='username' placeholder="姓名">
+        <div>
+            <input type="radio" v-model='sex' value='man' id='man'><label for="man">男</label>
+            <input type="radio" v-model='sex' value='woman' id='woman'><label for="woman">女</label>
+        </div>
+        <h2>选择课程</h2>
+        <div>
+            <input type="checkbox" value='html' id="html" v-model='course'><label for="html">html</label>
+            <input type="checkbox" value='vue' id="vue" v-model='course'><label for="vue">vue</label>
+            <input type="checkbox" value='css' id="css" v-model='course'><label for="css">css</label>
+            <input type="checkbox" value='js' id="js" v-model='course'><label for="js">js</label>
+            <input type="checkbox" value='react' id="react" v-model='course'><label for="react">react</label>
+            <input type="checkbox" value='wx' id="wx" v-model='course'><label for="wx">wx</label>
+        </div>
+        <h2>爱好</h2>
+        <div>
+            <select v-model='hobby'>
+                <option :value="v.val" v-for='(v,i) in ary'>
+                    {{v.text}}
+                </option>
+            </select>
+        </div>
+        <div>
+            <input type="text" v-model='phone' placeholder="手机号">
+        </div>
+       <button @click='submit'>提交</button>
+
+    </div>
+</body>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            name: "珠峰",
+            username:'',
+            sex:'woman',
+            course:[],
+            hobby:'eat',
+            phone:'',
+            ary:[{val:'eat',text:'吃'},{val:'play',text:'玩'},{val:'run',text:'跑'},{val:'sleep',text:'睡'},{val:'learn',text:'学'}]
+        },
+        methods:{
+            submit(){
+                let obj = {};
+                if (!this.username || !this.phone) {
+                    alert('姓名和手机号不能为空');
+                    return
+                }
+                obj.username = this.username;
+                obj.sex = this.sex;
+                obj.course = this.course;
+                obj.hobby = this.hobby;
+                obj.phone = this.phone;
+                fetch('http://127.0.0.1:8080/add/userinfo',{
+                    method:'post',
+                    body:JSON.stringify(obj)
+                }).then(response=>response.json()).then(data=>{
+                    console.log(data);
+                    if(data.code == 0) {
+                        alert('提交成功')
+                    }
+                })
+            }
+        }
+    })
+</script>
