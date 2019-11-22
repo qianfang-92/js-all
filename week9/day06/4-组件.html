@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    /*
+        模块化开发  是为了好维护
+        一个组件 就是一个模块 组件就是为了模块化 而且可以提高复用率
+        spa ：  single  page  application  单页面应用
+        按页面分 分为 页面级组件 和 功能级组件
+        按全局分 分为 全局组件 和 私有组件
+    */ 
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰"
+        }
+    })
+</script>

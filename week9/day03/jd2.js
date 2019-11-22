@@ -39,7 +39,7 @@ let vm = new Vue({
                 console.log(data);
                 this.datalist = data.data;
                 // 重置checkAll属性
-                this.checkAll = this.datalist.every(item=>item.isSelect);
+                // this.checkAll = this.datalist.every(item=>item.isSelect);
             }).catch(err=>{
                 console.log(err)
             })
@@ -71,7 +71,7 @@ let vm = new Vue({
         sure(){
             this.show = false;
             this.datalist.splice(this.delIndex,1);
-            this.checkOneFn();
+            // this.checkOneFn();
         }
     }
 })

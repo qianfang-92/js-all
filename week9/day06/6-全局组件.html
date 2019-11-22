@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <count></count>
+        <h1>{{name}}</h1>
+        <count></count>
+        <div></div>
+    </div>
+    
+</body>
+
+</html>
+<template id="mycount">
+        <div>
+            hello world {{name}} 
+            <button @click='changename'>点击</button>
+            <h3>{{name2}}</h3>
+        </div>
+        <!-- <h1>hahaha</h1> -->
+</template>
+
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    /*
+        在vue中 组件就是实例  实例就是组件    这里 vm (new Vue)出来的 我们称为根实例或根组件  
+        Vue.component(组件名，options)
+        组件名可以是烤串命名 也可以是驼峰式 但是使用的时候，需要是烤串式命名 组件名还不能是已经存在的html标签
+
+        template组件模板里面只能有一个根元素，这点跟transition标签类似
+
+        options中的属性 和根实例基本一致，但是组件的data属性必须是一个函数 这是为了保证组件的独立性
+    */
+    let obj = {name:234}
+    Vue.component('count',{
+        template:'#mycount',
+        data(){
+            // 这里 为什么data是个函数  就是为了保证组件的独立性 每次返回的对象都是个新的对象 不同的地址
+            return {
+                name:666
+            }
+        },
+        computed:{
+            name2(){
+                return this.name + 'computed'
+            }
+        },
+        methods:{
+            changename(){
+                // this 都是当前的实例
+                    this.name = Math.random();
+                    console.log(this)
+                }
+            
+        },
+
+    })  
+/*     // 不能使用 已经存在的html标签作为组件名
+    Vue.component('div',{
+        template:'#mycount'
+    }) */   
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰"
+        }
+    })
+</script>

@@ -33,7 +33,7 @@
         let fragment = document.createDocumentFragment();// 创造一个文档碎片，用来存储页面中的节点
         let child;
         while(child = $el.firstChild){
-            // console.log(child)
+            console.log(child)
             compile(child,vm)
             fragment.appendChild(child);//把child从#app中转移到了 文档碎片中；
         }

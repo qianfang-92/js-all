@@ -59,7 +59,7 @@
                 </thead>
                 <tbody>
                     <tr v-for='(v,i) in datalist' :key='v.id'>
-                        <td><input type="checkbox" v-model='v.isSelect'></td>
+                        <td><input type="checkbox" v-model='v.isSelect' @change='checkOneFn({id:v.id,isSelect:v.isSelect})'></td>
                         <td>{{v.title}}</td>
                         <td><img :src="v.pic" alt=""></td>
                         <td>{{v.desc}}</td>

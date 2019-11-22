@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <mycount>
+        </mycount>
+        <!-- <mybutton></mybutton> -->
+    </div>
+    <template id="mybutton">
+        <div>
+                <button @click='min'>减少</button>
+                <button @click='add'>增加</button>
+        </div>
+    </template>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    /*
+        A组件中 使用了B组件 ；那么 我们就把 A组件叫做父组件  B组件叫做子组件
+        是父还是子组件 跟他们是否是全局或私有组件没有关系  但是根组件一定是父组件
+    */
+    let mybutton = {
+        // 在哪个模板中写的变量或者方法 就是属于哪个组件的；别的组件他找不到
+        template:'#mybutton',
+        methods:{
+            min(){
+                // this.$parent.count.min = 0;
+                this.$parent.count--
+            },
+            add(){
+                this.$parent.count++
+            }
+        }
+   }
+   let mycount = {
+       template:'<h1>数字是{{count}} <mybutton/> </h1>',
+       data () {
+           return {
+               count:0
+           }
+       },
+       components:{
+           mybutton
+       }
+
+   }
+   
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰"
+        },
+        components:{
+            mycount,
+            // mybutton
+        }
+    })
+</script>

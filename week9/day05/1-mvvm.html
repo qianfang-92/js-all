@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        {{name}} {{age}}
+        <h2>{{age}}</h2>
+        <input type="text" v-model='name'>
+        <input type="text" v-model='age'>
+
+        <h2>{{name}} {{name}}</h2>
+    </div>
+</body>
+
+</html>
+<script>
+
+    // 第一步  把页面中的vue语法转成正常的数据
+    // 先把模板获取到
+    function nodeToFragment($el, vm) { //vm是当前实例
+        let fragment = document.createDocumentFragment();//创造一个文档碎片 用来存储页面中的节点
+        let child;
+        while (child = $el.firstChild) {
+            // 元苏1 文本3 
+            // console.log(child)
+            compile(child, vm)
+            fragment.appendChild(child); // appendChild是挪动位置，而不是新增；把child从#app中转移到 文档碎片中
+        }
+        // 通过上面的while循环 我们把要编译的模板转移到了 文档碎片上 页面上成为空
+        // 下一步要编译模板 然后把编译好的模板再放到页面上；
+        //compile(fragment,vm) // 编译模板的一个函数
+        $el.appendChild(fragment)
+    }
+
+    function compile(node, vm) {
+        // 这里需要我们 判断 Node 节点是文本节点 还是元素节点
+        if (node.nodeType == 1) {
+            // 说明是元素节点
+            let attrs = node.attributes; // 获取node的所有行内属性
+            //console.log(attrs);//类数组
+            [...attrs].forEach(item => {
+                // console.log(item.nodeName);
+                if (/v\-/.test(item.nodeName)) {
+                    let valN = item.nodeValue; // 指令对应的vue变量名，name age
+                    // console.log(val);
+                    let val = vm.$data[valN]; //vue变量对应的值 珠峰 10 
+                    // 要把val 设置成对应的元素值
+                    // node 就是我们对应的元素
+                    node.value = val; // 把元素的value设置成对应的 val
+                }
+            });
+            // 若 没有 v-指令，则对该节点继续执行编译  编译该节点的子节点
+            [...node.childNodes].forEach(item => {
+                compile(item, vm)
+            })
+
+        } else {
+            // 文本节点
+            // 我们要去查找 小胡子语法 把小胡子语法对应的变量换成对应的值
+            // console.log(node.textContent) // 获取对应的文本字符串
+            let str = node.textContent;
+            if (/\{\{(.+)\}\}/.test(str)) {
+                str = str.replace(/\{\{(.+?)\}\}/g, ($0, $1) => {
+                    return vm.$data[$1]
+                })
+                //  console.log(str);
+                node.textContent = str;
+            }
+        }
+    }
+
+    function observe (obj) {
+        // 执行数据劫持
+        let keys = Object.keys(obj); //获取obj中所有的属性名 数组
+        keys.forEach(key=>{
+            // 执行真正的数据劫持
+            defineReactive(obj,key,obj[key]);
+        })
+    }
+
+    function defineReactive (obj,key,value) {
+        let dep = new Dep(); 
+        // 针对每一个属性各自创造了一个事件池；name对应一个事件池，
+        //name事件池中存放的都是用到name的那些节点的更新操作
+        Object.defineProperty(obj,key,{
+            get(){
+                console.log(`${key}被使用了`);
+                if (Dep.target) {
+                    // 存储的是 更新对应DOM的操作
+                    dep.addSub(Dep.target)
+                }
+                return value
+            },
+            set(newValue){
+                if (newValue == value) return; //若两次数据没改变，就不需要更新DOM
+                console.log(`${key}被设置了`);
+                value = newValue;
+                dep.notify();
+            }
+        })
+    }
+
+    class Dep { //订阅器  发布订阅的架子
+        constructor () {
+            this.subs = [];
+        }
+        addSub (sub) {
+            this.subs.push(sub)
+        }
+        notify () {
+            // 通知 发布的意思
+            this.subs.forEach(item=>{
+                item.update();
+            })
+        }
+    }
+
+    class Watcher {
+        
+    }
+
+    function Vue(options) {
+        // $el就是我们要操作的元素
+        this.$el = document.querySelector(options.el);
+
+        // $data中存储的值是 对应的 vue变量
+        this.$data = options.data || {};
+        observe(this.$data); //对数据进行劫持
+        nodeToFragment(this.$el, this); // 为了把页面中的节点转移到文档碎片上
+    };
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            name: '珠峰',
+            age: 10
+        }
+    });
+</script>

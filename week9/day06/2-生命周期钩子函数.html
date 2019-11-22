@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model='name'>
+        <h1 class='qqq'>{{name}}</h1>
+        <button @click='fn'>232</button>
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    /*
+        生命周期钩子函数  是vue 提供的 几个在对应的时间执行的函数
+        我们可以在 对应的函数 中执行自己对应的事情
+
+
+    */
+   // create  mount  update destroy
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰",
+            age:10
+        },
+        methods:{
+            fn:function(){
+                console.log(this.name)
+            }
+        },
+        beforeCreate(){
+            console.log('beforeCreate')
+            
+        },
+        created(){
+            // 初始化的操作 一般都会放置到created钩子中
+            // 这个钩子 是第一个能够获取当前实例数据的 钩子
+            console.log('created');
+            
+        },
+        mounted(){
+            // 获取DOM的操作 一般都在mounted中执行
+            console.log('mounted');
+            console.log(this)
+            // debugger;
+            // console.log(document.querySelector('.qqq'))
+
+        },
+        beforeMount(){
+            console.log('beforeMount');
+            // console.log(document.querySelector('.qqq'))
+            
+        },
+        beforeUpdate(){
+            // 在数据更新 并且触发了视图更新之后 会触发更新的这两个钩子函数 （包括updated）
+            console.log(document.querySelector('.qqq'))   // 说明更新的是结构里的内容 不是替换DOM标签
+            console.log('beforeUpdate');
+        },
+        updated(){
+            // 在 updated 这个钩子函数中 我们不能编写 无限触发视图更新的操作 否则会无限触发boforeUpdate updated
+            console.log(document.querySelector('.qqq'))  //
+            console.log('updated');
+            // this.name = 666; //触发1次 没关系 不能写Math.random() 这样的
+            
+        },
+        destroyed(){
+            console.log('destroyed')
+        },
+        beforeDestroy(){
+            console.log('beforeDestroy')
+        }   
+    });
+    // vm.$destroy(); // 切断了数据更新视图的操作  视图更新数据没有切断
+</script>

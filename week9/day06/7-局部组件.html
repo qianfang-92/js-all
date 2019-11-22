@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <my-count></my-count>
+        <my-num></my-num>3
+    </div>
+    <template id="mycount">
+        <div>
+            <h2>{{name}}</h2>
+            <!-- 组件的递归使用 ：组件自己调用自己-->
+            <qqq></qqq>1
+            <qqq></qqq>2
+            <!-- <my-count></my-count> -->
+        </div>
+    </template>
+    <template id="myNum">
+        <div>
+                <h2>这是一个局部私有组件</h2>
+                <!-- <my-count></my-count> -->
+        </div>
+        
+    </template>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    /*
+        全局组件 是通过 vue.component创造，之后 所有组件都能用 
+        私有组件 是先声明一个对象 再去要使用该局部组件的那个组件去注册 然后才能使用
+    */
+    let myNum = {
+        template:'#myNum',
+        data(){
+            return {
+                name:'number组件'
+            }
+        }
+    }
+    Vue.component('my-count',{
+        template:'#mycount',
+        // name:'my-count',  //当前组件的名字
+        data(){
+            return {
+                name:'珠峰培训'
+            }
+        },
+        components:{
+            // 属性名 就是在当前组件中要使用的那个组件名
+            qqq:myNum
+        }
+    })
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰"
+        },
+        filters:{},
+        components:{ // 局部组件注册  也叫私有组件注册 
+            'my-num':myNum
+        }
+    })
+</script>

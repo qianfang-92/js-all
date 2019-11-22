@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1 ref='qqq'>{{name}}</h1>
+        <h2 ref='qqq'>{{name}}</h2>
+        <h2 ref='qqq'>{{name}}</h2>
+        <h2 ref='qqq'>{{name}}</h2>
+        <h2 ref='qqq'>{{name}}</h2>
+        <h2 v-for='i in ary' ref='www'>{{name}}</h2>
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰",
+            ary:[1,2,3,4]
+        },
+        created(){
+            console.log(this);
+            // debugger
+        },
+        mounted(){
+            // ref 获取元素 在多个元素时  只能获取一个
+            // 但是 若是通过v-for循环出来的 就都可以获取到 而且获得的是一个数组
+            // DOM的更新是一个异步操作 $nextTick 的回调函数也是异步的
+            this.ary.pop(); //
+            console.log(this.$refs.www.length);  // 还是4
+            this.$nextTick((...arg)=>{
+                // nextTick 这个回调函数 会在DOM更新完成之后触发
+                console.log(this.$refs.www.length,arg);
+            });
+            this.ary.pop();
+            this.$nextTick((...arg)=>{
+                // nextTick 的这个回调函数也是异步的
+                // nextTick 的这个回调函数 会在DOM更新完成之后触发
+                console.log(this.$refs.www.length,arg);
+            });
+        }
+    })
+</script>
