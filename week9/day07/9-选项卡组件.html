@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            list-style:none;
+            margin:0;
+            padding:0;
+        }
+        .tabBox{
+            display: flex;
+            height:50px;
+            line-height: 50px;
+        }
+        .tabBox>li{
+            flex:1;
+            text-align: center;
+            border:1px solid #eee;
+            max-width: 80px;
+        }
+        .tabBox>.current{
+            background:brown;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <my-tab :data='ary' @change='fn' @tab-remove='tabrm'></my-tab>
+    </div>
+</body>
+<template id="mytab">
+
+        <ul class='tabBox'>
+            <li v-for='(v,i) in data' :class='{current:i == qqq}' @click='tabFn(v,i)'>
+                <pre>{{v}}   <span @click.stop='delFn(i)'>X</span></pre>
+            </li>
+        </ul>
+
+
+</template>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+
+    Vue.component('my-tab', {
+        template: '#mytab',
+        props: ['data'],
+        data(){
+            return {
+                qqq:0
+            }
+            
+        },
+        methods:{
+            tabFn (str,n) {
+                this.qqq = n;
+                this.$emit('change',n,str)
+            },
+            delFn(n){
+                //this.data.splice(n,1);    // 这里 因为data是个数组 是个地址 所以这样不报错 但这种也无迹可寻 是在子组件直接修改父组件
+                // this.data=[];
+                this.$emit('tab-remove',n);
+            }
+        }
+
+    })
+
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            name: "珠峰",
+            ary: ['css', 'html', 'js', 'vue', 'node']
+        },
+        methods: {
+            fn(n, item) {
+                console.log(n, item)
+            },
+            tabrm(n){
+                this.ary.splice(n,1)
+            }
+        }
+    })
+</script>

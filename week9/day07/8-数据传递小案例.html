@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../node_modules/element-ui/lib/theme-chalk/index.css">
+    <title>Document</title>
+    <style>
+        .common{
+            display: flex;
+            width:600px;
+        }
+        *{
+            list-style:none
+        }
+    </style>
+</head>
+
+<body>
+    <h2></h2>
+    <div id="app">
+        <el-input v-model="name" placeholder="姓名" style='width:200px;'></el-input>
+        <el-input v-model="age" placeholder="年龄" style='width:200px;'></el-input>
+        <el-button type="primary" round @click='submit'>提交</el-button>
+        <h2></h2>
+        <div class='common'>
+            <man :list='manlist' @change='fn'></man>
+            <boy :list='boylist' @change='fn'></boy>
+        </div>
+
+    </div>
+</body>
+
+<template id='man'>
+    <div style='flex:1'>
+        <span>成年人列表</span>
+        <ul>
+            <li v-for='v in list' :key='v.id'>姓名：{{v.name}}；年龄：{{v.age}}  <button @click='del(v.id)'>X</button> </li>
+        </ul>
+    </div>
+</template>
+
+<template id='boy'>
+    <div style='flex:1'>
+        <span></span>未成人列表</span>
+        <ul>
+            <li v-for='v in list' :key='v.id'>姓名：{{v.name}}；年龄：{{v.age}}  <button @click='del(v.id)'>X</button> </li>
+        </ul>
+    </div>
+</template>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script src='../node_modules/element-ui/lib/index.js'></script>
+<script>
+    let adults = {
+        template: '#man',
+        props:['list'],
+        methods:{
+            del(n){
+                this.$emit('change',n)
+            }
+        }
+
+    }
+    Vue.component('boy', {
+        template: '#boy',
+        props:['list'],
+        methods:{
+            del(n){
+                this.$emit('change',n)
+            }
+        }
+
+    })
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            name: "珠峰",
+            age:10,
+            ary:[]
+        },
+        components: {
+            man: adults
+        },
+        computed:{
+            manlist(){
+                return this.ary.filter(item=>item.age>=18)
+            },
+            boylist(){
+                return this.ary.filter(item=>item.age<18)
+            }
+        },
+        methods:{
+            submit(){
+                if (this.name == '' || this.age == '') return
+                let obj = {name:this.name,age:this.age,id:Math.random()};
+                this.ary.unshift(obj);
+                this.name='';
+                this.age=''
+            },
+            fn(n){
+                this.ary = this.ary.filter(item=>item.id !== n)
+            }
+        }
+    })
+</script>

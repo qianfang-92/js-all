@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../node_modules/element-ui/lib/theme-chalk/index.css">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <mycount :num='count' @add='fn' @minus='fn'></mycount>
+        <el-button type="primary" icon="el-icon-search" @click='fn2'>搜索</el-button>
+        <mybutton @click='fn2' btn='btn'></mybutton>
+    </div>
+</body>
+
+<template id='mycount'>
+    <div>
+        <h3>数字是{{num}}</h3>
+        <button @click='add'>增加</button>
+        <button @click='minus'>减少</button>
+    </div>
+</template>
+
+<template id='mybutton'>
+    <div>
+        <button @click='an' :class='btn'>按钮</button>
+    </div>
+</template>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script src='../node_modules/element-ui/lib/index.js'></script>
+<script>
+    // 子传父  让父组件使用子组件的数据；也就是让子组件可以修改父组件的数据
+    /*
+        1、$parent
+        2、自定义事件 + $emit   官方推荐
+        3、$listeners 可以接收所有的自定义事件
+        4、provide/inject
+
+        2、3、4方法，都是父组件传给子组件一个函数，然后子组件中执行对应的函数，并通过参数的方式，把子组件的数据给父组件
+
+    */
+
+    let mybutton = {
+        template:'#mybutton',
+        props:['btn'],
+        methods:{
+            an(){
+                this.$emit('click',1,2,3)
+            }
+        }
+    }
+
+    let mycount = {
+        template:'#mycount',
+        props:['num'], //它优先于data
+        created(){
+            console.log(this)
+        },
+        methods:{
+            add(){
+                // this.$emit('add',1)
+                this.$listeners.add(1,2,3)
+            },
+            minus(){
+                // this.$emit('minus',-1)
+                this.qqq(100,200)
+            },
+            
+        },
+        inject:['qqq']
+    }
+ 
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰",
+            count:0
+        },
+        components:{
+            mycount,mybutton
+        },
+        methods:{
+            fn (n) {
+                this.count+=n
+                console.log(arguments)
+            },
+            fn2(){
+                console.log(arguments)
+            }
+        },
+        provide () {
+            return {
+                qqq:this.fn
+            }
+        }
+    })
+</script>

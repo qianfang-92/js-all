@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <son :data='"20"' :a='1' :b='2'></son>
+        <!-- 需要传数字的时候，加冒号 那么后面的就是个变量或者表达式了-->
+    </div>
+</body>
+
+<template id='son'>
+    <div>
+        <h2>父组件传进来的数据是：{{data}}</h2>
+    </div>
+</template>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let son = {
+        template:'#son',
+        //props:['data'], //从父组件接收一个data  数组是个简写方式
+        /* props:{   // props还可以写成一个对象
+            data:{
+                type:Number,  // 传进来的数据的类型限制
+                // default:3,  // 不传数据时的默认值
+                required:true, // true 是说 参数是否必须 必须传进来数据 不传不行
+                validator:function (val) {
+                    // 自定义参数的规则
+                    console.log(val) // val就是用户传进来的数据
+                    return val > 18 
+                }
+            }
+        } */
+        props:{  // 简写 只要求 限制data的数据类型
+            data:Number ,
+            a:Number
+        },
+        created(){
+            //console.log(this.$attrs) //  $attrs中放置的是没有被props接收的参数
+            console.log(this.name123)
+        },
+        inject:['name123']
+    }
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰"
+        },
+        provide(){ // 它提供的东西 不仅子能用，孙子也能用
+            // console.log(this)
+            return {
+                name123:this.name
+            }
+           
+        },
+        components:{
+            son
+        }
+    })
+
+    // 父传子  子组件使用父组件的数据
+    /*
+        1、$parent
+        2、props  官方推荐
+        3、$attrs  可以获取没有被props接收的数据
+        4、provide/inject   父组件提供provide 子，孙，后代组件提供inject； 不是响应式的，不会自动更新
+    */
+</script>
