@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <my></my>
+        <my></my>
+        <my></my>
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    // 混入  合并页面所有的vue实例上 相同属性名时，以组件里的属性名为主
+    // 混入 把混入对象中的data合并到每一个组件的data中   如果相同属性名时，以组件里的属性名为主
+    // 把混入对象中的所有钩子函数添加到每一个组件， 并且都是先执行的 混入对象的钩子 再去执行组件的钩子函数
+
+    //这是全局混入
+    Vue.mixin({
+        data(){
+            return {
+                qqq:123,
+                name:1234
+            }
+        },
+        beforeCreate(){
+            console.log('mixin beforeCreate');
+            // console.log(this)
+        },
+        mounted () {
+            console.log('mixin')
+        }
+    })
+
+    Vue.component('my', {
+        render (h) {
+            return h('h2',{class:'qqq'},'hello')
+        },
+        beforeCreate () {
+            console.log('my boforeCreate')
+        },
+        mounted () {
+            console.log('my')
+        }
+    })
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰"
+        },
+        beforeCreate () {
+            console.log('vm boforeCreate')
+        },
+        
+    })
+</script>

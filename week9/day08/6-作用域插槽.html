@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            list-style:none;
+        }
+        ul{
+            font-family: 'Microsoft YaHei', Arial, Helvetica, sans-serif;
+            border:1px solid #eee;
+            border-radius: 10px;
+            width: 500px;
+            margin:100px auto;
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, .4);
+        }
+        ul li:nth-child(2n){
+            background:lightgray;
+            color: #222;    
+        }
+        ul li:nth-child(2n+1){
+            background:lightyellow;
+            color: #333;    
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <list :data='ary'>
+            <!-- 老版的写法 -->
+            <template slot-scope='qqq'>
+                <h2>姓名：<i>{{qqq.www.name}}</i>；年龄：<i>{{qqq.www.age}}</i></h2>
+                索引是{{qqq.$index}}
+                <span>{{qqq}}</span>
+            </template>
+        </list>
+    </div>
+</body>
+
+<template id='list'>
+    <ul>
+        <li v-for='v,i in data' :key='v.age'>
+            <slot :www='v' :$index='i'></slot>
+        </li>
+    </ul>
+</template>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+
+    let list = {
+        template:'#list',
+        props:['data']
+    }
+
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰",
+            ary:[{name:'小明',age:18},{name:'小明2',age:14},{name:'小明3',age:15},{name:'小明4',age:16}]
+        },
+        components:{
+            list
+        }
+    })
+</script>

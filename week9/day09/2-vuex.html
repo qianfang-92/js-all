@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <h2>{{$store.state.count}}</h2>
+    </div>
+</body>
+</html>
+<script src='../node_modules/vuex/dist/vuex.js'></script>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    // vuex 就是为了解决组件之间的数据交互；
+    let mystore = new Vuex.Store({
+        state:{
+            count:1
+        },
+        mutations:{
+            add(qqq) {
+                // qqq 就是上边的仓库state
+                qqq.count++
+            }
+        }
+    })
+    
+    // vue.use
+    let obj = {
+        // 如果use  传进去的是一个对象  则会执行里边的install 方法
+        install(_vue) {
+            console.log(_vue);  //这里_vue就是个Vue
+        }
+    };
+    let fn = function (_vue) {
+        // 若use  传进来的是一个函数 则会直接当作install方法执行
+        console.log('fn',_vue)
+    }
+    Vue.use(obj);
+    Vue.use(fn)
+
+
+
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰"
+        },
+        store:mystore
+    })
+</script>

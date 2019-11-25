@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    /*
+        父子：自定义属性+props     自定义事件+$emit
+                $parent  $children  $refs  通过获取对应的组件来操作
+                $attrs  获取没有被props捕获的行内自定义属性       
+                $listeners 获取自定义事件
+                provide /inject  父组件设置，所有后代组件都能够使用
+                eventBus  单独建一个vue实例 ，使用$on 和 $emit实现数据交互
+                Vuex 
+
+        插槽：自定义组件标签 包含的部分 我们可以使用插槽的方式转化    凡是在本组件看到的统一属于当前组件
+            匿名插槽  具名插槽
+
+
+        JSX  $createElement(标签名，{行内属性}，标签内容) 返回值是一个虚拟DOM
+        Vue.component('my-btn', {
+            render(h){
+                return h('h2',null,)
+            }
+        })
+
+        v-model   :value  @input
+    */
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰"
+        }
+    })
+</script>

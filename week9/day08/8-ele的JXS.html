@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../node_modules/element-ui/lib/theme-chalk/index.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <el-button :plain="true" @click="open">打开消息提示</el-button>
+        <el-button :plain="true" @click="openVn">VNode</el-button>
+    </div>
+</body>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script src='../node_modules/element-ui/lib/index.js'></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            name: "珠峰"
+        },
+        methods: {
+            open() {
+                this.$message('这是一条消息提示');
+            },
+
+            openVn() {
+                const h = this.$createElement;
+                // $createElement  三个参数 (标签名，{标签的行内属性}，标签的内容)
+                this.$message({
+                    message: h('p', null, [
+                        h('span', null, '内容可以是 '),
+                        h('i',{
+                            style: 'color: teal',
+                            class:'qqq'
+                            }, 'VNode'),
+                        '   hello'
+                    ])
+                });
+            }
+        }
+    })
+</script>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <my></my>
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+
+    let obj1 = {
+        data () {
+            return {
+                a:12,
+                b:13
+            }
+        },
+        created () {
+            // this是 混入的那个 当前vue组件 
+            console.log('obj1',this)
+        }
+    }
+
+    Vue.component('my', {
+        render (h) {
+            return h('h2',{class:'qqq'},'hello')
+        },
+        mixins :[obj1]
+    })
+
+    let obj2 = {
+        data(){
+            return {
+                c:4,
+                d:56
+            }
+        },
+        created () {
+            console.log('obj2', this)
+        }
+    }
+
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰"
+        },
+        mixins:[obj1,obj2]
+    })
+</script>

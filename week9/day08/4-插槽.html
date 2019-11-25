@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .mybtn {
+            /* width: 80px; */
+            min-width: 50px;
+            height: 30px;
+            line-height: 30px;
+            font-size: 15px;
+            outline: none;
+            background: #fff;
+            border: 1px solid #eee;
+            margin: 0 8px;
+            border-radius: 4px;
+        }
+
+        .mybtn:hover {
+            background: darkgreen;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <my-button>这是自己定义的文本</my-button>
+        <my-button>123</my-button>
+        <my-button></my-button>
+    </div>
+</body>
+
+<template id='myButton'>
+    <button class='mybtn' @click='fn'>
+        <!-- slot里的是默认展示的 -->
+        <!-- slot 匿名插槽 其实名字是default -->
+        <slot name='default'>ewr</slot>
+        <slot></slot>
+    </button>
+</template>
+
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    // 插槽 就是把自定义标签(组件)内包含的部分，我们可以在自定义组件的内部通过 使用slot标签 展示到对应的标签里
+    // slot里边包含的内容就是默认内容
+    Vue.component('my-button', {
+        template: '#myButton',
+        props: ['text'],
+        created(){  
+            console.log(this)
+        },
+        methods: {
+            fn(e) {
+                this.$emit('click', e)
+            }
+        }
+    })
+
+
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            name: "珠峰"
+        }
+    })
+</script>

@@ -7,17 +7,49 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-        .v-enter{
-            opacity:0;
+        h1 {
+            width: 200px;
         }
-        .v-enter-active{
-            transition: opacity 0.5s;
+        h2{
+            background:#ccc;
         }
-        .v-enter-to{
-            opacity:1;
+        .a-enter {
+            opacity: 0;
+            transform: translateX(200px);
         }
-        .v-leave{
-            opacity:1;
+
+        .a-enter-active {
+            transition: all 0.5s;
+        }
+
+        .a-enter-to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .a-leave {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .a-leave-to {
+            opacity: 0;
+            transform: translateX(200px);
+        }
+
+        .a-leave-active {
+            transition: all 0.5s;
+        }
+        .qqq-enter{
+            opacity: 0;
+            transform: scale(0.2);
+        }
+        .qqq-enter-active{
+            transition: all 0.5s;
+        }
+        .qqq-enter-to{
+            opacity: 1;
+            transform: scale(1);
         }
     </style>
 </head>
@@ -25,9 +57,16 @@
 <body>
     <div id="app">
         <button @click='fn'>按钮</button>
-        <transition>
+        <transition name='a'>
             <!-- 这里边只能写一个根元素 -->
             <h1 v-show='flag'>{{name}}</h1>
+
+        </transition>
+        <div></div>
+        <!-- qqq 管的就是v 默认是v -->
+        <transition name='qqq'>
+            <!-- 这里边只能写一个根元素 -->
+            <h2 v-show='flag'>{{name}}</h2>
 
         </transition>
 
